@@ -4,6 +4,7 @@ RUN apt-get update
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
+RUN npm build
 RUN npm ci --only=production
-COPY ./dist ./dist
+COPY . .
 CMD [ "npm", "start" ]

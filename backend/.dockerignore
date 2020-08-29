@@ -1,0 +1,7 @@
+node_modules
+build.js
+src
+spec
+logs
+env
+package-lock.json

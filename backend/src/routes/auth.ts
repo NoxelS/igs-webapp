@@ -60,7 +60,7 @@ router.post('/recovery', isLoggedIn, async (req: Request, res: Response, next: N
     const recoveryKey =  randomBytes(20).toString('hex');
     connection.query('INSERT INTO recovery (`user_id`, `key`, `expires`) VALUES (?,?,?);', [(req as any).session.passport.user.user_id, recoveryKey, (new Date().getTime() + 1000 * 60 * 60 * 24)], async (err, result) => {
         if(err) {
-            console.log(err);
+            res.json({success: false})
         } else {
             await sendEmail('Recovery <test@noel-s.ch>', 'noel@schwabenland.ch', 'Recovery!', `<b>Recovery key = ${recoveryKey}</b></br><a href="localhost:3000/recover_password">`)
             res.json({user: (req as any).session.passport.user.user_id})

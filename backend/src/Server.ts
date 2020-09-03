@@ -1,8 +1,8 @@
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
+import { config } from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
-import MySQLStore from 'express-mysql-session';
 import session, { Store } from 'express-session';
 import helmet from 'helmet';
 import { BAD_REQUEST } from 'http-status-codes';
@@ -12,7 +12,7 @@ import BaseRouter from './routes';
 
 
 // Load env
-require('dotenv').config();
+config();
 
 // Init express
 const app = express();
@@ -37,6 +37,7 @@ const sessionStore: Store = new (require('express-mysql-session')(session))({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE
 });
+
 
 // Use sessions
 app.use(session({

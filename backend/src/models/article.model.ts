@@ -1,6 +1,3 @@
-
-class Article {
-    
-}
+class Article {}
 
 export default Article;

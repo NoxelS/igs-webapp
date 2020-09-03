@@ -5,14 +5,12 @@ import 'express-async-errors';
 import helmet from 'helmet';
 import { BAD_REQUEST } from 'http-status-codes';
 import morgan from 'morgan';
-import path from 'path';
 
 import BaseRouter from './routes';
 
 
 // Init express
 const app = express();
-
 
 
 /************************************************************************************

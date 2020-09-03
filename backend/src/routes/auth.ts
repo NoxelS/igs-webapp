@@ -38,14 +38,18 @@ router.post('/logout',  async (req: Request, res: Response, next: NextFunction) 
 router.post('/create_user', isLoggedIn, async (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username;
     const password = req.body.password;
-    hash(password, Number(process.env.AUTH_SALT_ROUNDS), function (err, hash) {
-        connection.query('INSERT INTO users (`username`, `password`) VALUES (?, ?)', [username, hash], function (err, result, fields) {
-            if (err) {
-                return next(new Error(err.message));
-            } else {
-                res.json({ success: true });
-            }
-        });
+    hash(password, Number(process.env.AUTH_SALT_ROUNDS), (error, passwordHash) => {
+        if(error) {
+            res.json({ success: true });
+        } else {
+            connection.query('INSERT INTO users (`username`, `password`) VALUES (?, ?)', [username, passwordHash], (err, result, fields) => {
+                if (err) {
+                    return next(new Error(err.message));
+                } else {
+                    res.json({ success: true });
+                }
+            });
+        }
     });
 });
 

@@ -1,14 +1,18 @@
-import logger from '@shared/Logger';
+import logger from '@shared/logger';
+import { deserializeUser, serializeUser, verifyCallback } from '@shared/passport.utils';
+import { setLocals } from '@shared/utils';
 import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
-import express, { NextFunction, Request, Response } from 'express';
+import express, { json, NextFunction, Request, Response, urlencoded } from 'express';
 import 'express-async-errors';
 import session, { Store } from 'express-session';
 import helmet from 'helmet';
 import { BAD_REQUEST } from 'http-status-codes';
 import morgan from 'morgan';
+import passport, { initialize } from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 
-import BaseRouter from './routes';
+import ApiRouter from './routes';
 
 
 // Load env
@@ -29,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'));
 }
 
-// MySQL session storage
+// Create MySQL session storage
 const sessionStore: Store = new (require('express-mysql-session')(session))({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -38,21 +42,30 @@ const sessionStore: Store = new (require('express-mysql-session')(session))({
     database: process.env.DB_DATABASE
 });
 
-
 // Use sessions
-app.use(session({
-    secret: process.env.SESSION_SECRET || '',
-    resave: false,
-    name: 'igs-keks',
-    cookie: {
-        maxAge: Number(process.env.SESSION_MAXAGE)
-    },
-    saveUninitialized: true,
-    store: sessionStore
-}));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || '',
+        resave: false,
+        name: 'igs-keks',
+        cookie: {
+            maxAge: Number(process.env.SESSION_MAXAGE)
+        },
+        saveUninitialized: true,
+        store: sessionStore
+    })
+);
+
+// Authentication
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
+passport.use(new LocalStrategy(verifyCallback));
+app.use(setLocals);
 
 // Add APIs
-app.use('/api', BaseRouter);
+app.use('/api', ApiRouter);
 
 // Print API errors
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

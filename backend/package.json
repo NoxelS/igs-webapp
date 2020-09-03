@@ -24,12 +24,18 @@
     "@server": "dist/Server"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^8.2.0",
     "@types/express-mysql-session": "^2.1.1",
     "@types/express-session": "^1.17.0",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/mysql": "^2.15.15",
+    "@types/passport": "^1.0.4",
+    "@types/passport-local": "^1.0.33",
+    "bcrypt": "^5.0.0",
     "command-line-args": "^5.1.1",
     "cookie-parser": "^1.4.5",
+    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -40,6 +46,9 @@
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

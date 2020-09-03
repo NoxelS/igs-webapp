@@ -1,4 +1,4 @@
-import logger from '@shared/Logger';
+import logger from '@shared/logger';
 import app from 'src/server';
 
 

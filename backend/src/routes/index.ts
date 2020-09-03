@@ -8,8 +8,9 @@ import AuthRouter from './auth';
 const router = Router();
 
 // Add sub-routes
-router.use('/articles', ArticleRouter);
 router.use('/auth', AuthRouter);
+router.use('/articles', ArticleRouter);
+// router.use('/articles', isLoggedIn, ArticleRouter);
 
 // Export the base-router
 export default router;

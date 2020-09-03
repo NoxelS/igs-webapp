@@ -1,10 +1,10 @@
+import { connection } from '@configs/database';
 import { isLoggedIn } from '@shared/passport.utils';
 import { sendEmail } from '@shared/utils';
 import { hash } from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { NextFunction, Request, Response, Router } from 'express';
 import passport from 'passport';
-import { connection } from 'src/config/database';
 
 
 // Init shared

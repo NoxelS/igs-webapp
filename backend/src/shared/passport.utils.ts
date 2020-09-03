@@ -1,6 +1,6 @@
+import { connection } from '@configs/database';
 import { compare } from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
-import { connection } from 'src/config/database';
 
 
 // Checkt if user is logged in

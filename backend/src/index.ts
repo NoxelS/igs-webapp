@@ -1,5 +1,6 @@
 import logger from '@shared/logger';
-import app from 'src/server';
+
+import app from './server';
 
 
 // Start the server

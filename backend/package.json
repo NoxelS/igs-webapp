@@ -5,8 +5,7 @@
     "build": "node build.js",
     "lint": "tslint --project \"tsconfig.json\"",
     "start": "node -r module-alias/register ./dist --env=production",
-    "dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json"
+    "dev": "nodemon"
   },
   "nodemonConfig": {
     "watch": [
@@ -25,12 +24,16 @@
     "@server": "dist/Server"
   },
   "dependencies": {
+    "@types/express-mysql-session": "^2.1.1",
+    "@types/express-session": "^1.17.0",
     "@types/jsonwebtoken": "^8.5.0",
     "command-line-args": "^5.1.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "express-mysql-session": "^2.1.4",
+    "express-session": "^1.17.1",
     "helmet": "^4.1.0",
     "http-status-codes": "^2.1.2",
     "jsonwebtoken": "^8.5.1",

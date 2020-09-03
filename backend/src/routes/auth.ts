@@ -5,7 +5,8 @@ import { Request, Response, Router } from 'express';
 const router = Router();
 
 router.get('/login', async (req: Request, res: Response) => {
-    return res.json({test: "Test"});
+    res.cookie('test', 'test');
+    return res.json({ test: 'Test' });
 });
 
 export default router;

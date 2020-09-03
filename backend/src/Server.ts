@@ -38,14 +38,13 @@ const sessionStore: Store = new (require('express-mysql-session')(session))({
     database: process.env.DB_DATABASE
 });
 
-
 // Use sessions
 app.use(session({
-    secret: 'woahwaigjapowg',
+    secret: process.env.SESSION_SECRET || '',
     resave: false,
     name: 'igs-keks',
     cookie: {
-        maxAge: 1000
+        maxAge: Number(process.env.SESSION_MAXAGE)
     },
     saveUninitialized: true,
     store: sessionStore

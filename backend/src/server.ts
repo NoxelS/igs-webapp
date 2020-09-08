@@ -1,5 +1,5 @@
+import { connection } from '@configs/database';
 import logger from '@shared/logger';
-import { deserializeUser, serializeUser, verifyCallback } from '@shared/passport.utils';
 import { setLocals } from '@shared/utils';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -7,12 +7,14 @@ import { config } from 'dotenv';
 import express, { json, NextFunction, Request, Response, urlencoded } from 'express';
 import 'express-async-errors';
 import session, { Store } from 'express-session';
+import { readFileSync } from 'fs';
 import helmet from 'helmet';
-import { BAD_REQUEST } from 'http-status-codes';
 import morgan from 'morgan';
 import passport, { initialize } from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
+import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 
+import { ErrorResponse } from './models/response.model';
+import { User } from './models/user.model';
 import ApiRouter from './routes';
 
 
@@ -62,11 +64,23 @@ app.use(
 
 // Authentication
 app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser(serializeUser);
-passport.deserializeUser(deserializeUser);
-passport.use(new LocalStrategy(verifyCallback));
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: readFileSync(__dirname + '/keys/id_rsa_pub.pem'),
+    algorithmes: ['RS256']
+};
+passport.use(
+    new JWTStrategy(jwtOptions, (payload, done) => {
+        connection.query("SELECT * FROM igs.users WHERE (id=?);", payload.sub, (err, results) => {
+            if(err) {
+                done(err, false);
+            } else {
+                logger.info('Successful jwt login')
+                done(null, new User(results[0].username, results[0].email, results[0].id));
+            }
+        })
+    })
+);
 
 app.use(setLocals);
 
@@ -75,10 +89,7 @@ app.use('/api', ApiRouter);
 
 // Print API errors
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    logger.error(err.message, err);
-    return res.status(BAD_REQUEST).json({
-        error: err.message
-    });
+    return res.json(new ErrorResponse(err.message));
 });
 
 // Export express instance

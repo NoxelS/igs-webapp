@@ -1,3 +1,6 @@
+import { User } from './user.model';
+
+
 export class IgsResponse<T> {
     successful: boolean = true;
     data: T;
@@ -21,5 +24,19 @@ export class SuccessResponse extends IgsResponse<null> {
 export class ErrorResponse extends IgsResponse<null> {
     constructor(err: string) {
         super(null, err);
+    }
+}
+
+export class LoginResponse extends IgsResponse<null> {
+
+    token: string;
+    expiresIn: string;
+    user: User;
+    
+    constructor(signedToken: string, expiresIn: string, user: User) {
+        super(null);
+        this.token = 'Bearer ' + signedToken;
+        this.expiresIn = expiresIn;
+        this.user = user;
     }
 }

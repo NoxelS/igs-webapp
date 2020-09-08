@@ -3,7 +3,7 @@ import { createTransport } from 'nodemailer';
 
 
 export function setLocals(req: Request, res: Response, next: NextFunction) {
-    res.locals.loggedIn = req.isAuthenticated();
+    // TODO:
     next();
 }
 

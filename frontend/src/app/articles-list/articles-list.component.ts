@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Article } from '../models/article.model';
 import { ArticleService } from '../services/article-service.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -19,9 +20,18 @@ export class ArticlesListComponent implements OnInit {
     ];
 
     articles$: Observable<Article[]>;
-    
-    constructor(private readonly articleSerivce: ArticleService) {
+
+    constructor(private readonly articleSerivce: ArticleService,
+      private readonly auth: AuthenticationService) {
       this.articles$ = articleSerivce.articles;
+    }
+
+    login() {
+      this.auth.login()
+    }
+
+    info() {
+      this.auth.info()
     }
 
     ngOnInit(): void {}

@@ -20,7 +20,7 @@ import ApiRouter from './routes';
 config();
 
 // Set CORS options
-const corsOptions = (process.env.NODE_ENV === 'production') ? { origin: process.env.CORS_ORIGIN } : {}
+const corsOptions: cors.CorsOptions = process.env.NODE_ENV === 'production' ? { origin: process.env.CORS_ORIGIN } : { origin: '*' };
 
 // Init express
 const app = express();
@@ -28,7 +28,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 if (process.env.NODE_ENV === 'production') {
     // Security
     app.use(helmet());
@@ -63,9 +63,11 @@ app.use(
 // Authentication
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 passport.use(new LocalStrategy(verifyCallback));
+
 app.use(setLocals);
 
 // Add APIs

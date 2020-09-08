@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -14,12 +15,13 @@ import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ArticleService } from './services/article-service.service';
+import { AuthenticationService } from './services/authentication.service';
 
 
 @NgModule({
     declarations: [AppComponent, ArticlesListComponent, ArticleComponent, HeaderComponent, FooterComponent],
-    imports: [BrowserModule, AppRoutingModule, NoopAnimationsModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, MatGridListModule],
-    providers: [ArticleService],
+    imports: [BrowserModule, AppRoutingModule, NoopAnimationsModule, MatMenuModule, HttpClientModule, MatToolbarModule, MatIconModule, MatButtonModule, MatGridListModule],
+    providers: [ArticleService, AuthenticationService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

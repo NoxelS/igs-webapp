@@ -28,11 +28,10 @@ export class ErrorResponse extends IgsResponse<null> {
 }
 
 export class LoginResponse extends IgsResponse<null> {
-
     token: string;
     expiresIn: string;
     user: User;
-    
+
     constructor(signedToken: string, expiresIn: string, user: User) {
         super(null);
         this.token = 'Bearer ' + signedToken;

@@ -21,17 +21,16 @@ export class ArticlesListComponent implements OnInit {
 
     articles$: Observable<Article[]>;
 
-    constructor(private readonly articleSerivce: ArticleService,
-      private readonly auth: AuthenticationService) {
-      this.articles$ = articleSerivce.articles;
+    constructor(private readonly articleSerivce: ArticleService, private readonly auth: AuthenticationService) {
+        this.articles$ = articleSerivce.articles;
     }
 
     login() {
-      this.auth.login()
+        this.auth.login();
     }
 
     info() {
-      this.auth.info()
+        this.auth.info();
     }
 
     ngOnInit(): void {}

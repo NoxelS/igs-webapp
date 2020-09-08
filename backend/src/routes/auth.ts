@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
                 sub: userId,
                 iat: Date.now()
             };
-            const signedToken = sign(payload, PRIV_KEY, { expiresIn: expiresIn, algorithm: 'RS256' });
+            const signedToken = sign(payload, PRIV_KEY, { expiresIn, algorithm: 'RS256' });
             res.json(new LoginResponse(signedToken, expiresIn, user));
         } else {
             res.json(new ErrorResponse('Could not login.'));
@@ -39,7 +39,7 @@ router.post('/protected', isLoggedIn(), async (req, res) => {
     res.json({ test: true });
 });
 
-router.post('/create_user', isLoggedIn() , async (req: Request, res: Response, next: NextFunction) => {
+router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;

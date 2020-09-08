@@ -71,14 +71,14 @@ const jwtOptions = {
 };
 passport.use(
     new JWTStrategy(jwtOptions, (payload, done) => {
-        connection.query("SELECT * FROM igs.users WHERE (id=?);", payload.sub, (err, results) => {
-            if(err) {
+        connection.query('SELECT * FROM igs.users WHERE (id=?);', payload.sub, (err, results) => {
+            if (err) {
                 done(err, false);
             } else {
-                logger.info('Successful jwt login')
+                logger.info('Successful jwt login');
                 done(null, new User(results[0].username, results[0].email, results[0].id));
             }
-        })
+        });
     })
 );
 

@@ -26,7 +26,8 @@
       true,
       "element",
       "app",
-      "kebab-case"
+      "kebab-case",
+      "igs"
     ],
     "eofline": true,
     "import-blacklist": [
@@ -95,7 +96,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -16,12 +16,31 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ArticleService } from './services/article-service.service';
 import { AuthenticationService } from './services/authentication.service';
+import { AddHeaderInterceptor } from './shared/header.interceptor';
 
 
 @NgModule({
     declarations: [AppComponent, ArticlesListComponent, ArticleComponent, HeaderComponent, FooterComponent],
-    imports: [BrowserModule, AppRoutingModule, NoopAnimationsModule, MatMenuModule, HttpClientModule, MatToolbarModule, MatIconModule, MatButtonModule, MatGridListModule],
-    providers: [ArticleService, AuthenticationService],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NoopAnimationsModule,
+        MatMenuModule,
+        HttpClientModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatGridListModule
+    ],
+    providers: [
+        ArticleService,
+        AuthenticationService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AddHeaderInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

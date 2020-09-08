@@ -8,7 +8,7 @@ export class Article {
     imageUrl: string;
     content: string;
 
-    constructor(title: string, views: number, creationDate: number, imageUrl: string, content: string) {
+    constructor(title, views, creationDate, imageUrl, content) {
         this.title = title;
         this.views = views;
         this.creationDate = creationDate;

@@ -1,0 +1,24 @@
+:host {
+    mat-toolbar {
+        padding: 0 20vw;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            > .igs {
+                font-size: 2.5em;
+            }
+
+            > .text {
+                margin-left: 0.5em;
+                line-height: 1em;
+            }
+        }
+    }
+}

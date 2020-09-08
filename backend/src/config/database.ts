@@ -1,10 +1,10 @@
 import { config } from 'dotenv';
-import { createConnection } from 'mysql';
+import { createPool } from 'mysql';
 
 
 config();
 
-export const connection = createConnection({
+export const connection = createPool({
     supportBigNumbers: true,
     bigNumberStrings: true,
     host: process.env.DB_HOST,

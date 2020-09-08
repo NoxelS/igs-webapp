@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "strictPropertyInitialization": false,
     "module": "commonjs",
     "outDir": "dist",
     "removeComments": true,

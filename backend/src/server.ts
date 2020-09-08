@@ -2,6 +2,7 @@ import logger from '@shared/logger';
 import { deserializeUser, serializeUser, verifyCallback } from '@shared/passport.utils';
 import { setLocals } from '@shared/utils';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import { config } from 'dotenv';
 import express, { json, NextFunction, Request, Response, urlencoded } from 'express';
 import 'express-async-errors';
@@ -18,13 +19,16 @@ import ApiRouter from './routes';
 // Load env
 config();
 
+// Set CORS options
+const corsOptions = (process.env.NODE_ENV === 'production') ? { origin: process.env.CORS_ORIGIN } : {}
+
 // Init express
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(cors(corsOptions))
 if (process.env.NODE_ENV === 'production') {
     // Security
     app.use(helmet());

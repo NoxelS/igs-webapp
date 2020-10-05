@@ -6,6 +6,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import express, { json, NextFunction, Request, Response, urlencoded } from 'express';
 import 'express-async-errors';
+import fileUpload from 'express-fileupload';
 import session, { Store } from 'express-session';
 import { readFileSync } from 'fs';
 import helmet from 'helmet';
@@ -26,6 +27,11 @@ const corsOptions: cors.CorsOptions = process.env.NODE_ENV === 'production' ? { 
 
 // Init express
 const app = express();
+
+// enable files upload
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

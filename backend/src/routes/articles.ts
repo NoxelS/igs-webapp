@@ -18,7 +18,7 @@ router.get('/list', async (req: Request, res: Response) => {
 });
 
 router.post('/create', async (req: Request, res: Response) => {
-    const article: Article = req.body.article;
+    const article: Article = req.body as Article;
     connection.query(
         'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`) VALUES (?,?,?,?,?)',
         [article.title, article.views, article.creationDate, article.imageUrl, article.content],
@@ -29,12 +29,37 @@ router.post('/create', async (req: Request, res: Response) => {
 });
 
 router.post('/edit', async (req: Request, res: Response) => {
-    return res.json(new ErrorResponse('Not implemented yes'));
+    const article: Article = req.body as Article;
+    connection.query('SELECT * FROM igs.articles WHERE (id = ?);', [article.id], (err, result) => {
+        if (err) {
+            res.json(new ErrorResponse(err.message));
+        } else if(!result.length) {
+            res.json(new ErrorResponse('The article was not found.'));
+        } else {
+            connection.query(
+                'UPDATE `igs`.`articles` SET `title` = ?, `views` = ?, `creationDate` = ?, `imageUrl` = ?, `content` = ? WHERE (`id` = ?);',
+                [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.id],
+                err => {
+                    res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
+                }
+            );
+        }
+    });
 });
 
 router.post('/remove', async (req: Request, res: Response) => {
-    const { id } = req.body.article as Article;
-    return res.json(new ErrorResponse('Not implemented yes'));
+    const { id } = req.body as Article;
+    connection.query('SELECT * FROM igs.articles WHERE (id = ?);', [id], (err, result) => {
+        if (err) {
+            res.json(new ErrorResponse(err.message));
+        } else if(!result.length) {
+            res.json(new ErrorResponse('The article was not found.'));
+        } else {
+            connection.query('DELETE FROM `igs`.`articles` WHERE (`id` = ?);', [id], err => {
+                res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
+            });
+        }
+    });
 });
 
 export default router;

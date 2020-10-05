@@ -105,3 +105,6 @@ dist
 
 # Keys
 backend/src/keys/*.pem
+
+# Files (dev)
+backend/src/uploads

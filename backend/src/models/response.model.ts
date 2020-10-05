@@ -1,3 +1,4 @@
+import { ShortFile } from './short-file.model';
 import { User } from './user.model';
 
 
@@ -18,6 +19,12 @@ export class IgsResponse<T> {
 export class SuccessResponse extends IgsResponse<null> {
     constructor() {
         super(null);
+    }
+}
+
+export class ShortFileListResponse extends IgsResponse<ShortFile[]> {
+    constructor(id: ShortFile[]) {
+        super(id);
     }
 }
 

@@ -35,10 +35,6 @@ router.post('/login', async (req, res) => {
     });
 });
 
-router.post('/protected', isLoggedIn(), async (req, res) => {
-    res.json({ test: true });
-});
-
 router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username;
     const password = req.body.password;

@@ -55,7 +55,7 @@ router.post('/create', async (req: Request, res: Response) => {
                         if (err) {
                             res.json(new ErrorResponse(err.message));
                         } else {
-                            const path = join(__dirname, '../uploads/' + result.insertId + '.' + file.name.split('.')[file.name.split('.').length - 1]);
+                            const path = '/usr/src/app/files/' + result.insertId + '.' + file.name.split('.')[file.name.split('.').length - 1];
                             file.mv(path);
                             connection.query('UPDATE `igs`.`files` SET `path` = ? WHERE (`id` = ?);', [path, result.insertId], err => {
                                 res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());

@@ -1,0 +1,10 @@
+title: IgsResponse
+type: object
+description: Base model for every response.
+properties:
+  successful:
+    type: boolean
+  data:
+    type: any
+  errorMessage:
+    type: string

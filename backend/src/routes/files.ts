@@ -23,7 +23,7 @@ router.post('/list', async (req: Request, res: Response) => {
                             <ShortFile>{
                                 name: dbEntry.name,
                                 id: dbEntry.id,
-                                author_id: dbEntry.author_id,
+                                authorId: dbEntry.authorId,
                                 mimetype: dbEntry.mimetype,
                                 creationDate: dbEntry.creationDate,
                                 description: dbEntry.description
@@ -82,7 +82,7 @@ router.post('/remove', async (req: Request, res: Response) => {
                     if (err) {
                         res.json(new ErrorResponse(err.message));
                     } else {
-                        connection.query('DELETE FROM `igs`.`files` WHERE (`id` = ?);', [id], (err, result) => {
+                        connection.query('DELETE FROM `igs`.`files` WHERE (`id` = ?);', [id], (err) => {
                             res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
                         });
                     }

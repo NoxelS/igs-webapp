@@ -7,7 +7,10 @@
     "ordered-imports": false,
     "quotemark": [true, "single"],
     "max-classes-per-file": false,
-    "no-var-requires": [true, "warn"]
+    "no-var-requires": [true, "warn"],
+    "no-shadowed-variable": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-string-literal": false
   },
   "linterOptions": {
     "exclude": [

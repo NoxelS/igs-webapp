@@ -25,10 +25,10 @@ function genKeyPair() {
 
     if(process.env.NODE_ENV === 'production') {
         // Create the public key file
-        fs.writeFileSync('./dist/keys/id_rsa_pub.pem', keyPair.publicKey); 
+        fs.writeFileSync(__dirname + '/dist/keys/id_rsa_pub.pem', keyPair.publicKey); 
 
         // Create the private key file
-        fs.writeFileSync('./dist/keys/id_rsa_priv.pem', keyPair.privateKey);
+        fs.writeFileSync(__dirname + '/dist/keys/id_rsa_priv.pem', keyPair.privateKey);
     } else {
         // Create the public key file
         fs.writeFileSync(__dirname + '/src/keys/id_rsa_pub.pem', keyPair.publicKey); 

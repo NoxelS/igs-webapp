@@ -28,6 +28,9 @@
       ],
       "@server": [
         "src/server"
+      ],
+      "@models": [
+        "src/models/*"
       ]
     },
     "types": [

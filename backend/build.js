@@ -3,6 +3,7 @@ const childProcess = require('child_process');
 try {
     // Remove current build
     fs.removeSync('./dist/');
+    fs.copySync('./dist/keys', './dist/keys', {overwrite: true, recursive: true})
 } catch (error) {
     // Running in docker
 }

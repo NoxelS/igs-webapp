@@ -22,7 +22,8 @@
     "@entities": "dist/entities",
     "@shared": "dist/shared",
     "@server": "dist/server.js",
-    "@configs": "dist/config"
+    "@configs": "dist/config",
+    "@models": "dist/models"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",

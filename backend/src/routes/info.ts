@@ -4,8 +4,9 @@ import { Request, Response, Router } from 'express';
 import { readFileSync } from 'fs';
 import { verify } from 'jsonwebtoken';
 import { join } from 'path';
-import { ErrorResponse, IgsResponse } from 'src/models/response.model';
-import { User } from 'src/models/user.model';
+
+import { ErrorResponse, IgsResponse } from '../models/response.model';
+import { User } from '../models/user.model';
 
 
 // Init shared

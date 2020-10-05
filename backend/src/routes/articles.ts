@@ -1,7 +1,8 @@
 import { connection } from '@configs/database';
 import { Request, Response, Router } from 'express';
-import { Article } from 'src/models/article.model';
-import { ErrorResponse, IgsResponse, SuccessResponse } from 'src/models/response.model';
+
+import { Article } from '../models/article.model';
+import { ErrorResponse, IgsResponse, SuccessResponse } from '../models/response.model';
 
 
 // Init shared

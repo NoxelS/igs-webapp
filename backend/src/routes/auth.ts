@@ -6,7 +6,8 @@ import { readFileSync } from 'fs';
 import { sign } from 'jsonwebtoken';
 import passport from 'passport';
 import { join } from 'path';
-import { ErrorResponse, LoginResponse, SuccessResponse } from 'src/models/response.model';
+
+import { ErrorResponse, LoginResponse, SuccessResponse } from '../models/response.model';
 
 
 // Init shared

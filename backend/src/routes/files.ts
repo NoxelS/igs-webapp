@@ -4,8 +4,9 @@ import { readFileSync, unlink } from 'fs';
 import { verify } from 'jsonwebtoken';
 import passport from 'passport';
 import { join } from 'path';
-import { ErrorResponse, ShortFileListResponse, SuccessResponse } from 'src/models/response.model';
-import { ShortFile } from 'src/models/short-file.model';
+
+import { ErrorResponse, ShortFileListResponse, SuccessResponse } from '../models/response.model';
+import { ShortFile } from '../models/short-file.model';
 
 
 // Init shared

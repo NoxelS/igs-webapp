@@ -1,8 +1,8 @@
 import { connection } from '@configs/database';
 import { compare } from 'bcrypt';
 import passport from 'passport';
-import { User } from 'src/models/user.model';
 
+import { User } from '../models/user.model';
 import logger from './logger';
 
 

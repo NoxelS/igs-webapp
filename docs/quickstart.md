@@ -51,11 +51,13 @@ NODE_ENV=production node generateKeyPairs.js
 ```
 
 2. Create the container
+
 ```sh
 docker build . -t <image-name>
 docker run -v <volume-for-files>:/usr/src/app/files <image-name>
 ```
-Make sure to add all environment variables based on the .env-template.
+
+!> **Important** Make sure to add all environment variables based on the [env template](https://github.com/NoxelS/igs-webapp/blob/master/backend/.env-template).
 _If no reverse proxy is used you have to add port mapping to the containers._
 
 #### Frontend
@@ -71,13 +73,13 @@ npm run build
 ```
 
 2. Create the container
+
 ```sh
 docker build . -t <image-name>
 docker run <image-name>
 ```
-Make sure to add all environment variables based on the .env-template.
-_If no reverse proxy is used you have to add port mapping to the containers._
 
+!> **Important** If no reverse proxy is used you have to add port mapping to the containers.
 
 # Endpoints
 
@@ -148,7 +150,7 @@ _[IgsResponse<Article[]>](#IgsResponse)_
 ### Creating an article
 __Endpoint:__
 
-> POST ```/articles/create```
+> POST ```/articles/create``` 🔐
 
 __Expected payload:__
 [``` Article ```](#Article)
@@ -169,9 +171,9 @@ _[SuccessResponse](#SuccessResponse)_
 ### Removing an article
 __Endpoint:__
 
-> **Tip** Note that only the field **id** is used, but you can still send a whole article.
+?> **Tip** Note that only the field **id** is used, but you can still send a whole article.
 
-> POST ```/articles/remove```
+> POST ```/articles/remove``` 🔐
 
 __Expected payload:__
 [``` Article ```](#Article)
@@ -192,7 +194,7 @@ _[SuccessResponse](#SuccessResponse)_
 ### Editing an article
 __Endpoint:__
 
-> POST ```/articles/edit```
+> POST ```/articles/edit``` 🔐
 
 __Expected payload:__
 [``` Article ```](#Article)

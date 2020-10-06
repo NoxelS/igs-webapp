@@ -5,10 +5,15 @@ import { User } from './user.model';
 export class IgsResponse<T> {
     successful: boolean = true;
     data: T;
-    errorMessage: string = '';
+    errorMessage: string;
+    responseType: string;
+    dataType: string;
 
     constructor(data: T, errorMessage?: string) {
         this.data = data;
+        const dataType = ((data as any)?.constructor?.name) || null;
+        this.responseType = `${this.constructor.name}${dataType ? `<${dataType}>` : ''}`;
+
         if (errorMessage) {
             this.successful = false;
             this.errorMessage = errorMessage;
@@ -34,15 +39,13 @@ export class ErrorResponse extends IgsResponse<null> {
     }
 }
 
-export class LoginResponse extends IgsResponse<null> {
+export class LoginResponse extends IgsResponse<User> {
     token: string;
     expiresIn: string;
-    user: User;
 
     constructor(signedToken: string, expiresIn: string, user: User) {
-        super(null);
+        super(user);
         this.token = 'Bearer ' + signedToken;
         this.expiresIn = expiresIn;
-        this.user = user;
     }
 }

@@ -8,11 +8,11 @@ import { User } from '../models/user.model';
 // Init shared
 const router = Router();
 
-router.post('/user', isLoggedIn(), async (req: Request, res: Response) => {
+router.get('/user', isLoggedIn(), async (req: Request, res: Response) => {
     res.json(new IgsResponse<User>(res.locals.user as User));
 });
 
-router.post('/userid', isLoggedIn(), async (req: Request, res: Response) => {
+router.get('/userid', isLoggedIn(), async (req: Request, res: Response) => {
     res.json(new IgsResponse<string>((res.locals.user as User).id));
 });
 

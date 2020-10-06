@@ -12,7 +12,7 @@ import { ShortFile } from '../models/short-file.model';
 // Init shared
 const router = Router();
 
-router.post('/list', async (req: Request, res: Response) => {
+router.get('/list', async (req: Request, res: Response) => {
     connection.query('SELECT * FROM files', (err, result) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
@@ -37,6 +37,7 @@ router.post('/list', async (req: Request, res: Response) => {
 });
 
 router.post('/create', async (req: Request, res: Response) => {
+    // TODO: use locals here
     const PRIV_KEY = readFileSync(join(__dirname, '../keys/id_rsa_priv.pem'));
     const authHeader = req.headers['authorization'];
     const token = authHeader && (authHeader.split(' ')[1] as any);
@@ -95,7 +96,7 @@ router.post('/remove', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/get/:id', async (req: Request, res: Response) => {
+router.get('/get/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     if (id) {
         connection.query('SELECT path FROM files WHERE (id = ?);', [id], (err, result) => {

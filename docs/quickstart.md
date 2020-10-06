@@ -97,61 +97,207 @@ __Expected payload:__
 ```
 __Response:__
 _[LoginResponse](#LoginResponse)_
-```json
-{
-  "success": "<boolean>",
-  "data": {
-    "username": "<string>",
-    "email": "<string>",
-    "id": "<string>",
-  },
-  "responseType": "IgsResponse<User>",
-  "dataType": "User",
-  "token": "<string>",
-  "expiresIn": "<number>"
-}
-```
+
 ### Create new user
 __Endpoint:__
 
-> POST ```/auth/create_user```
+> POST ```/auth/create_user``` 🔐
 
 __Expected payload:__
+[``` User ```](#User)
+
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
+
+## Articles 📔
+### Listing all articles
+__Endpoint:__
+
+This endpoint is used to fetch all articles.
+
+> GET ```/articles/list```
+
+__Response:__
+_[IgsResponse<Article[]>](#IgsResponse)_
 ```json
 {
-  "username": "<string>",
-  "password": "<string>",
-  "email": "<string>"
+  "success": true,
+  "data": [
+    {
+      "id": "<string>",
+      "title": "<string>",
+      "views": "<number>",
+      "creationDate": "<number>",
+      "imageUrl": "<string>",
+      "content": "<string>"
+    },
+    {
+      "id": "<string>",
+      "title": "<string>",
+      "views": "<number>",
+      "creationDate": "<number>",
+      "imageUrl": "<string>",
+      "content": "<string>"
+    }
+  ],
+  "responseType": "IgsResponse<Article[]>",
+  "dataType": "Article"
+}
+```
+
+### Creating an article
+__Endpoint:__
+
+> POST ```/articles/create```
+
+__Expected payload:__
+[``` Article ```](#Article)
+
+```json
+{
+  "id": "<string>",
+  "title": "<string>",
+  "views": "<number>",
+  "creationDate": "<number>",
+  "imageUrl": "<string>",
+  "content": "<string>"
 }
 ```
 __Response:__
 _[SuccessResponse](#SuccessResponse)_
+
+### Removing an article
+__Endpoint:__
+
+> **Tip** Note that only the field **id** is used, but you can still send a whole article.
+
+> POST ```/articles/remove```
+
+__Expected payload:__
+[``` Article ```](#Article)
+
+```json
+{
+  "id": "<string>",
+  "title": "<string>",
+  "views": "<number>",
+  "creationDate": "<number>",
+  "imageUrl": "<string>",
+  "content": "<string>"
+}
+```
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
+
+### Editing an article
+__Endpoint:__
+
+> POST ```/articles/edit```
+
+__Expected payload:__
+[``` Article ```](#Article)
+
+```json
+{
+  "id": "<string>",
+  "title": "<string>",
+  "views": "<number>",
+  "creationDate": "<number>",
+  "imageUrl": "<string>",
+  "content": "<string>"
+}
+```
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
+
+## Files 📁
+### Listing all files
+__Endpoint:__
+
+This endpoint is used to fetch all files as [ShortFiles](#ShortFile).
+
+> GET ```/files/list``` 🔐
+
+__Response:__
+_[ShortFileListResponse](#ShortFileListResponse)_
 ```json
 {
   "success": true,
-  "data": null,
-  "responseType": "IgsResponse<null>",
-  "dataType": null
+  "data": [
+    {
+      "name": "<string>",
+      "id": "<number>",
+      "authorId": "<number>",
+      "mimetype": "<string>",
+      "creationDate": "<number>",
+      "description": "<string>"
+    }
+  ],
+  "responseType": "ShortFileListResponse",
+  "dataType": "ShortFile"
+}
+```
+### Creating a file
+__Endpoint:__
+
+> POST ```/files/create``` 🔐
+
+__Expected payload:__
+
+```json
+{
+  "file": "<File>",
+  "description": "<string>"
 }
 ```
 
-## Articles 📔
-### Creating an article
-### Deleting an article
-### Editing an article
-### Listing all articles
-
-## Files 📁
-### Creating a file
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
 ### Deleting a file
-### Editing a file
-### Listing all files
+
+__Endpoint:__
+
+?> **Tip** Note that only the field **id** is used, but you can still send a whole ShortFile.
+
+
+> POST ```/files/remove``` 🔐
+
+__Expected payload:__
+[``` ShortFile ```](#ShortFile)
+
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
+
+### Downloading a specific file
+__Endpoint:__
+
+> GET ```/files/get/:id``` 🔐
+
+__Response:__
+_[Blob](https://developer.mozilla.org/de/docs/Web/API/Blob)_
 
 ## Utils ⚒
 ### User information
-### Server information
+
+__Endpoint:__
+
+> GET ```/info/user``` 🔐
+
+__Response:__
+_[IgsResponse\<User>](#IgsResponse)_
+
+### User id
+__Endpoint:__
+
+> GET ```/info/userid``` 🔐
+
+__Response:__
+_[IgsResponse\<string>](#IgsResponse)_
+
+<!-- ### Server information -->
 
 # Models
+A short description of models used to send the GUI information.
 
 ## Article
 Base class for every article.
@@ -189,7 +335,8 @@ export class ShortFile {
 ### IgsResponse
 The generic response the API will use as a respond. 
 If the field _successful_ is not true, then there will be an errorMessage.
-> Note that other responses are always inheriting the [IgsResponse](#IgsResponse).
+
+?> **Tip** Note that other responses are always inheriting the [IgsResponse](#IgsResponse).
 
 ```typescript
 export class IgsResponse<T> {
@@ -208,6 +355,9 @@ new IgsResponse<User>().responseType === "IgsResponse<User> // is true"
 
 ### SuccessResponse
 Is equal to a [IgsResponse](#IgsResponse) where ```T = null```
+
+?> **Tip** Note that this will be the default response for all post actions. If an error occures, an [ErrorResponse](#ErrorResponse) will be sent instead.
+
 ```typescript
 export class SuccessResponse extends IgsResponse<null> {
     constructor() {

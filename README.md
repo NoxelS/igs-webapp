@@ -148,16 +148,16 @@ Project Link: [https://github.com/NoxelS/igs-webapp](https://github.com/NoxelS/i
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/NoxelS/repo.svg?style=flat-square
-[contributors-url]: https://github.com/NoxelS/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/NoxelS/repo.svg?style=flat-square
-[forks-url]: https://github.com/NoxelS/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/NoxelS/repo.svg?style=flat-square
-[stars-url]: https://github.com/NoxelS/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/NoxelS/repo.svg?style=flat-square
-[issues-url]: https://github.com/NoxelS/repo/issues
-[license-shield]: https://img.shields.io/github/license/NoxelS/repo.svg?style=flat-square
-[license-url]: https://github.com/NoxelS/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/NoxelS/igs-webapp.svg?style=flat-square
+[contributors-url]: https://github.com/NoxelS/igs-webapp/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/NoxelS/igs-webapp.svg?style=flat-square
+[forks-url]: https://github.com/NoxelS/igs-webapp/network/members
+[stars-shield]: https://img.shields.io/github/stars/NoxelS/igs-webapp.svg?style=flat-square
+[stars-url]: https://github.com/NoxelS/igs-webapp/stargazers
+[issues-shield]: https://img.shields.io/github/issues/NoxelS/igs-webapp.svg?style=flat-square
+[issues-url]: https://github.com/NoxelS/igs-webapp/issues
+[license-shield]: https://img.shields.io/github/license/NoxelS/igs-webapp.svg?style=flat-square
+[license-url]: https://github.com/NoxelS/igs-webapp/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/NoxelS
 [product-screenshot]: images/screenshot.png

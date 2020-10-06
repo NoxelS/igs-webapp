@@ -1,10 +1,34 @@
+import { connection } from '@configs/database';
 import { NextFunction, Request, Response } from 'express';
+import { readFileSync } from 'fs';
+import { verify } from 'jsonwebtoken';
 import { createTransport } from 'nodemailer';
+import { join } from 'path';
+
+import { User } from '../models/user.model';
 
 
 export function setLocals(req: Request, res: Response, next: NextFunction) {
-    // TODO:
-    next();
+    const PRIV_KEY = readFileSync(join(__dirname, '../keys/id_rsa_priv.pem'));
+    const authHeader = req.headers['authorization'];
+    if(authHeader) {
+        const token = authHeader && (authHeader.split(' ')[1] as any);
+        verify(token, PRIV_KEY, { algorithms: ['RS256'] }, (err, subPrperties) => {
+            if(err) {
+                next();
+            } else {
+                connection.query('SELECT username, email FROM users WHERE (id = ?)', [(subPrperties as any).sub], (err, result) => {
+                    if(!err && result.length === 1) {
+                        res.locals.user = new User(result[0].username, result[0].email, (subPrperties as any).sub);
+                    }
+                    next();
+                });
+            }
+        });
+    } else {
+        // Skip unauthorized user
+        next();
+    }
 }
 
 export async function sendEmail(from: string, to: string, subject: string, html: string, callback?: (info: any) => void) {

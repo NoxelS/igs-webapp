@@ -1,3 +1,30 @@
-<igs-header></igs-header>
-<router-outlet></router-outlet>
-<igs-footer></igs-footer>
+<div style="padding: 2rem">
+    <h1>Logic test</h1>
+    <br />
+    <h3>Observables:</h3>
+    <div>
+        <b>User: </b><span>{{ currentUser | async | json }}</span
+        ><br />
+        <b>Login: </b><span>{{ loggedIn | async }}</span
+        ><br />
+    </div>
+    <br />
+    <h3>Actions</h3>
+    <button (click)="login()">login</button>
+    <button (click)="logout()">logout</button>
+    <button (click)="info()">info</button>
+
+    <h3>Articles</h3>
+    <b>Articles: </b><span>{{ articles$ | async | json }}</span><br />
+    <button (click)="getArticles()">Get articles</button>
+    <button (click)="createArticle()">Create article</button>
+    <button (click)="editArticle()">edit article</button>
+    <button (click)="removeArticle()">remove article</button>
+
+    <h3>Files</h3>
+    <b>Files: </b><span>{{ files$ | async | json }}</span><br />
+    <button (click)="getFiles()">Get files</button>
+    <button (click)="createFile()">Create file</button>
+    <button (click)="editFile()">edit file</button>
+    <button (click)="removeFile()">remove file</button>
+</div>

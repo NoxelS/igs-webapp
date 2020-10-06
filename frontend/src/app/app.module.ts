@@ -10,17 +10,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ArticleComponent } from './articles-list/article/article.component';
-import { ArticlesListComponent } from './articles-list/articles-list.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
 import { ArticleService } from './services/article-service.service';
 import { AuthenticationService } from './services/authentication.service';
+import { FileService } from './services/file-service.service';
 import { AddHeaderInterceptor } from './shared/header.interceptor';
 
 
 @NgModule({
-    declarations: [AppComponent, ArticlesListComponent, ArticleComponent, HeaderComponent, FooterComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -35,6 +32,7 @@ import { AddHeaderInterceptor } from './shared/header.interceptor';
     providers: [
         ArticleService,
         AuthenticationService,
+        FileService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AddHeaderInterceptor,

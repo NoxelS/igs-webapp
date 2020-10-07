@@ -64,9 +64,8 @@ export class FileService {
 
         this.http.post(environment.backendUrl + '/files/get/' + id, {}, httpOptions).subscribe((data: any) => {
             const blob = new Blob([data], { type: 'application/pdf' });
-    
-            var downloadURL = window.URL.createObjectURL(data);
-            var link = document.createElement('a');
+            const downloadURL = window.URL.createObjectURL(data);
+            const link = document.createElement('a');
             link.href = downloadURL;
             link.download = 'help.pdf';
             link.click();

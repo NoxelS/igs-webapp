@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { FileService } from './services/file-service.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     tiles = [
         { text: 'One', cols: 4, rows: 1, color: 'lightblue' },
         { text: 'Two', cols: 2, rows: 1, color: 'lightgreen' },

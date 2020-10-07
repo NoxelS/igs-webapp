@@ -108,3 +108,6 @@ backend/src/keys/*.pem
 
 # Files (dev)
 backend/src/uploads
+
+# Shared datatypes
+frontend/src/app/backend-datatypes

@@ -7,21 +7,25 @@
         </div>
     </div>
     <div class="buttons">
+        <!-- Artikel -->
+        <button mat-button [matMenuTriggerFor]="articles" [class.routerLinkActiveClass]="rlaArtikel1.isActive">Artikel</button>
+        <mat-menu #articles="matMenu" yPosition="above">
+            <button mat-menu-item routerLink="artikel" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">Alle Artikel</button>
+            <button mat-menu-item isLoggedIn>Artikel erstellen</button>
+        </mat-menu>
+        <!-- Dateiablage -->
+        <button mat-button [matMenuTriggerFor]="files" isLoggedIn [class.routerLinkActiveClass]="rlaFiles1.isActive">Dateiablage</button>
+        <mat-menu #files="matMenu" yPosition="above">
+            <button mat-menu-item routerLink="files" routerLinkActive="routerLinkActiveClass" #rlaFiles1="routerLinkActive">Alle Datein</button>
+            <button mat-menu-item>Datei erstellen</button>
+        </mat-menu>
+        <!-- Über uns -->
         <button mat-button [matMenuTriggerFor]="aboveMenu">Über uns</button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
             <button mat-menu-item>Kontakt</button>
             <button mat-menu-item>Impressum</button>
         </mat-menu>
-        <button mat-button [matMenuTriggerFor]="articles">Artikel</button>
-        <mat-menu #articles="matMenu" yPosition="above">
-            <button mat-menu-item>Alle Artikel</button>
-            <button mat-menu-item isLoggedIn>Artikel erstellen</button>
-        </mat-menu>
-        <button mat-button [matMenuTriggerFor]="files" isLoggedIn>Dateiablage</button>
-        <mat-menu #files="matMenu" yPosition="above">
-            <button mat-menu-item>Alle Datein</button>
-            <button mat-menu-item>Datei erstellen</button>
-        </mat-menu>
+        <!-- Login -->
         <button mat-button [matMenuTriggerFor]="afterMenu">
             <mat-icon [color]="!!user ? 'primary' : 'default'">account_circle</mat-icon> {{ !!user ? user.username : '' }}
         </button>

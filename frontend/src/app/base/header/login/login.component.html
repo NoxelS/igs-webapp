@@ -10,13 +10,13 @@
 </div>
 
 <button mat-menu-item *ngIf="!!user">
-    <mat-icon>settings</mat-icon><span><i>Einstellungen</i></span>
+    <mat-icon>settings</mat-icon><span>Einstellungen</span>
 </button>
 
 <button mat-menu-item *ngIf="!!user" (click)="logout()">
-    <mat-icon>login</mat-icon><span><i>Ausloggen</i></span>
+    <mat-icon>login</mat-icon><span>Ausloggen</span>
 </button>
 
 <button mat-menu-item *ngIf="!user" (click)="login()">
-    <mat-icon>login</mat-icon><span><i>Einloggen</i></span>
+    <mat-icon>login</mat-icon><span>Einloggen</span>
 </button>

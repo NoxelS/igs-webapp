@@ -1,62 +1,62 @@
 <div class="container">
-  <igs-header></igs-header>
-  
-  <div>
-      <h1>Logic test</h1>
-      <br />
-      <h3>Observables:</h3>
-      <div>
-          <b>User: </b><span>{{ currentUser | async | json }}</span
-          ><br />
-          <b>Login: </b><span>{{ loggedIn | async }}</span
-          ><br />
-      </div>
-      <br />
-      <h3>Actions</h3>
-      <button mat-flat-button color="primary" (click)="login()" matTooltip="Info about the action">login</button>
-      <button mat-flat-button color="primary" (click)="logout()">logout</button>
-      <button mat-flat-button color="primary" (click)="info()">info</button>
-  
-      <h3>Articles</h3>
-      <b>Articles: </b><span>{{ articles$ | async | json }}</span
-      ><br />
-      <button mat-flat-button color="primary" (click)="getArticles()">Get articles</button>
-      <button mat-flat-button color="primary" (click)="createArticle()">Create article</button>
-      <button mat-flat-button color="primary" (click)="editArticle()">edit article</button>
-      <button mat-flat-button color="primary" (click)="removeArticle()">remove article</button>
-  
-      <h3>Files</h3>
-      <b>Files: </b><span>{{ files$ | async | json }}</span
-      ><br />
-      <button mat-flat-button color="primary" (click)="getFiles()">Get files</button>
-      <div class="form-group">
-          <label for="file">Create file</label>
-          <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
-      </div>
-      <button mat-flat-button color="primary" (click)="editFile()">edit file</button>
-      <button mat-flat-button color="primary" (click)="removeFile()">remove file</button>
-      <button mat-flat-button color="primary" (click)="download()">download file</button>
-  
-      <button mat-flat-button color="primary">Artikel Lesen</button>
-  
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>account_circle</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+    <igs-header></igs-header>
+    <router-outlet></router-outlet>
+    <!--   
+    <div>
+        <h1>Logic test</h1>
+        <br />
+        <h3>Observables:</h3>
+        <div>
+            <b>User: </b><span>{{ currentUser | async | json }}</span
+            ><br />
+            <b>Login: </b><span>{{ loggedIn | async }}</span
+            ><br />
+        </div>
+        <br />
+        <h3>Actions</h3>
+        <button mat-flat-button color="primary" (click)="login()" matTooltip="Info about the action">login</button>
+        <button mat-flat-button color="primary" (click)="logout()">logout</button>
+        <button mat-flat-button color="primary" (click)="info()">info</button>
+    
+        <h3>Articles</h3>
+        <b>Articles: </b><span>{{ articles$ | async | json }}</span
+        ><br />
+        <button mat-flat-button color="primary" (click)="getArticles()">Get articles</button>
+        <button mat-flat-button color="primary" (click)="createArticle()">Create article</button>
+        <button mat-flat-button color="primary" (click)="editArticle()">edit article</button>
+        <button mat-flat-button color="primary" (click)="removeArticle()">remove article</button>
+    
+        <h3>Files</h3>
+        <b>Files: </b><span>{{ files$ | async | json }}</span
+        ><br />
+        <button mat-flat-button color="primary" (click)="getFiles()">Get files</button>
+        <div class="form-group">
+            <label for="file">Create file</label>
+            <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
+        </div>
+        <button mat-flat-button color="primary" (click)="editFile()">edit file</button>
+        <button mat-flat-button color="primary" (click)="removeFile()">remove file</button>
+        <button mat-flat-button color="primary" (click)="download()">download file</button>
+    
+        <button mat-flat-button color="primary">Artikel Lesen</button>
+    
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>account_circle</mat-icon>
           </button>
-          <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
-          </button>
-        </mat-menu>
-        
-  </div>
-
-</div> 
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Redial</span>
+            </button>
+            <button mat-menu-item disabled>
+              <mat-icon>voicemail</mat-icon>
+              <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable alerts</span>
+            </button>
+          </mat-menu>
+          
+  </div> -->
+</div>

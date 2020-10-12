@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -21,6 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './base/header/header.component';
 import { LoginComponent } from './base/header/login/login.component';
+import { ArticlesListComponent } from './items/articles/articles-list/articles-list.component';
+import { FilesListComponent } from './items/files/files-list/files-list.component';
 import { AuthenticationService } from './services/authentication.service';
 import { DialogService } from './services/dialog.service';
 import { ArticleService } from './services/items/article.service';
@@ -32,7 +35,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective],
+    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -42,6 +45,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         MatInputModule,
         MatAutocompleteModule,
         MatMenuModule,
+        MatChipsModule,
         HttpClientModule,
         MatToolbarModule,
         MatIconModule,

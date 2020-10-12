@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
     }
 
     logout() {
-        this.authService.logout();
-        this.dialogService.flashSuccess('Sie wurden erfolgreich ausgeloggt.');
+        this.dialogService.confirm('Möchten Sie sich wirklich ausloggen?', 'Ausloggen bestätigen').afterClosed().subscribe(confirmed => {
+            if(confirmed) {
+                this.authService.logout();
+                this.dialogService.flashSuccess('Sie wurden erfolgreich ausgeloggt.');
+            }
+        });
     }
 }

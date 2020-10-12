@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { ConfirmTemplateComponent } from '../template/confirm-template/confirm-template.component';
+
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +25,15 @@ export class DialogService {
 
     flashSuccess(msg: string) {
         return this.snackBar.open(msg, 'Verwerfen', { duration: 3000, panelClass: ['mat-toolbar', 'mat-success'] });
+    }
+
+    confirm(msg: string, title: string) {
+        return this.matDialog.open(ConfirmTemplateComponent, {
+            minWidth: '20vw',
+            data: {
+                msg,
+                title
+            }
+        });
     }
 }

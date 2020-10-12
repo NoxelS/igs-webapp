@@ -30,12 +30,13 @@ import { ArticleService } from './services/items/article.service';
 import { FileService } from './services/items/file.service';
 import { AddHeaderInterceptor } from './shared/header.interceptor';
 import { IsLoggedInDirective } from './shared/is-logged-in.directive';
+import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent],
+    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -69,7 +70,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
             multi: true
         }
     ],
-    entryComponents: [LoginTemplateComponent, ResetPasswordComponent],
+    entryComponents: [LoginTemplateComponent, ResetPasswordComponent, ConfirmTemplateComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -31,11 +31,11 @@ export class AppComponent implements OnInit {
         private readonly articleSerivce: ArticleService,
         private readonly auth: AuthenticationService,
         private readonly fileService: FileService,
-        private readonly dialogService: DialogService,
+        private readonly dialogService: DialogService
     ) {
         this.articles$ = articleSerivce.articles;
         this.files$ = fileService.files;
-        this.dialogService.flashError("Error")
+        this.dialogService.flashError('Error');
     }
 
     login() {

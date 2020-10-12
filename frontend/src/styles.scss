@@ -99,3 +99,8 @@ $frontend-theme: mat-light-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($frontend-theme);
+
+html, body {
+  padding: 0;
+  margin: 0;
+}

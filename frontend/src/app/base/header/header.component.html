@@ -1,13 +1,20 @@
 <button mat-button [matMenuTriggerFor]="aboveMenu">Über uns</button>
 <mat-menu #aboveMenu="matMenu" yPosition="above">
-    <!-- <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button> -->
+    <button mat-menu-item>Kontakt</button>
+    <button mat-menu-item>Impressum</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="belowMenu">Kontakt</button>
-<mat-menu #belowMenu="matMenu" yPosition="below">
-    <!-- <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button> -->
+<button mat-button [matMenuTriggerFor]="articles">Artikel</button>
+<mat-menu #articles="matMenu" yPosition="above">
+    <button mat-menu-item>Alle Artikel</button>
+    <button mat-menu-item isLoggedIn>Artikel erstellen</button>
+</mat-menu>
+
+
+<button mat-button [matMenuTriggerFor]="files" isLoggedIn>Dateiablage</button>
+<mat-menu #files="matMenu" yPosition="above">
+    <button mat-menu-item>Alle Datein</button>
+    <button mat-menu-item>Datei erstellen</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="afterMenu"><mat-icon>account_circle</mat-icon></button>

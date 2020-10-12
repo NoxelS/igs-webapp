@@ -26,12 +26,13 @@ import { DialogService } from './services/dialog.service';
 import { ArticleService } from './services/items/article.service';
 import { FileService } from './services/items/file.service';
 import { AddHeaderInterceptor } from './shared/header.interceptor';
+import { IsLoggedInDirective } from './shared/is-logged-in.directive';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent],
+    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective],
     imports: [
         BrowserModule,
         AppRoutingModule,

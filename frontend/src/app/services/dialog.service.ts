@@ -9,8 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DialogService {
     constructor(private readonly snackBar: MatSnackBar, private readonly matDialog: MatDialog) {}
 
-    openDialog(component, data?) {
-        return this.matDialog.open(component, { data });
+    openDialog(component, data?, config?) {
+        return this.matDialog.open(component, { ...(config || {}), data });
     }
 
     displayNotification(text: string) {

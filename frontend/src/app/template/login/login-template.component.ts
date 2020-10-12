@@ -47,6 +47,6 @@ export class LoginTemplateComponent {
 
     forgotPassword() {
         this.dialogRef.close(false);
-        this.dialogService.openDialog(ResetPasswordComponent);
+        this.dialogService.openDialog(ResetPasswordComponent, {}, { maxWidth: '20vw' });
     }
 }

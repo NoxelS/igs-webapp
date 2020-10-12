@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/backend-datatypes/user.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -6,8 +10,17 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-    constructor() {}
+export class HeaderComponent implements OnInit, OnDestroy {
+    user: User;
+    subscription: Subscription;
 
-    ngOnInit(): void {}
+    constructor(private readonly authService: AuthenticationService) {}
+
+    ngOnInit() {
+        this.subscription = this.authService.user.subscribe(user => (this.user = user));
+    }
+    
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }

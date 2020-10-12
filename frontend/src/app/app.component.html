@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!isMobile;else noMobile">
     <igs-header></igs-header>
     <router-outlet></router-outlet>
     <!--   
@@ -60,3 +60,11 @@
           
   </div> -->
 </div>
+<ng-template #noMobile>
+    <div class="mobile">
+        <div class="text">
+            <h1><mat-icon color="warn">error_outline</mat-icon> Sorry.</h1>
+            <p><i>Leider unterstützen wir noch keine mobilen Geräte.</i></p>
+        </div>
+    </div>
+</ng-template>

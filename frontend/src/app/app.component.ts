@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Observable } from 'rxjs';
 
 import { Article } from './backend-datatypes/article.model';
@@ -27,14 +28,18 @@ export class AppComponent implements OnInit {
     currentUser;
     loggedIn;
 
+    isMobile: boolean;
+
     constructor(
         private readonly articleSerivce: ArticleService,
         private readonly auth: AuthenticationService,
         private readonly fileService: FileService,
-        private readonly dialogService: DialogService
+        private readonly dialogService: DialogService,
+        private readonly ds: DeviceDetectorService
     ) {
         this.articles$ = articleSerivce.articles;
         this.files$ = fileService.files;
+        this.isMobile = this.ds.isMobile() || this.ds.isTablet()
     }
 
     login() {

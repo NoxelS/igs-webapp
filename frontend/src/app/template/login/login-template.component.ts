@@ -13,9 +13,11 @@ import { ResetPasswordComponent } from '../reset-password/reset-password.compone
     styleUrls: ['./login-template.component.scss']
 })
 export class LoginTemplateComponent {
-    constructor(public dialogRef: MatDialogRef<LoginTemplateComponent>,
+    constructor(
+        public dialogRef: MatDialogRef<LoginTemplateComponent>,
         private readonly dialogService: DialogService,
-        private readonly authService: AuthenticationService) {}
+        private readonly authService: AuthenticationService
+    ) {}
 
     usernameFormControl = new FormControl('', [Validators.required]);
     passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
@@ -28,15 +30,15 @@ export class LoginTemplateComponent {
 
     login() {
         this.authService.login(this.usernameFormControl.value, this.passwordFormControl.value).subscribe(response => {
-            if(response.successful) {
+            if (response.successful) {
                 this.dialogRef.close();
-                this.dialogService.flashSuccess('Sie haben sich erfolgreich angemeldet.')
+                this.dialogService.flashSuccess('Sie haben sich erfolgreich angemeldet.');
             } else {
                 this.error = true;
                 this.passwordFormControl.setValue('');
                 this.passwordFormControl.reset();
             }
-        })
+        });
     }
 
     dismiss() {
@@ -45,6 +47,6 @@ export class LoginTemplateComponent {
 
     forgotPassword() {
         this.dialogRef.close(false);
-        this.dialogService.openDialog(ResetPasswordComponent)
+        this.dialogService.openDialog(ResetPasswordComponent);
     }
 }

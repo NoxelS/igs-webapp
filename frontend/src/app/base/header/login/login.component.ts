@@ -13,7 +13,8 @@ import { LoginTemplateComponent } from 'src/app/template/login/login-template.co
 })
 export class LoginComponent implements OnInit {
     user: User;
-    constructor(private readonly authService: AuthenticationService,private readonly dialogService: DialogService) {}
+
+    constructor(private readonly authService: AuthenticationService, private readonly dialogService: DialogService) {}
 
     ngOnInit(): void {
         this.authService.user.subscribe(user => (this.user = user));
@@ -25,6 +26,6 @@ export class LoginComponent implements OnInit {
 
     logout() {
         this.authService.logout();
-        this.dialogService.flashSuccess('Sie wurden erfolgreich ausgeloggt.')
+        this.dialogService.flashSuccess('Sie wurden erfolgreich ausgeloggt.');
     }
 }

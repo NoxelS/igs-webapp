@@ -51,12 +51,14 @@ export class AuthenticationService {
 
     /** Make an api request to get a jwt token. The token will be stored in local storage and will be used in all request targeting the backend url. */
     login(username: string, password: string): Observable<LoginResponse> {
-        return this.http.post(ApiEndpointAuth.login, { username, password }).pipe(tap((res: LoginResponse) => {
-            if(res.successful) {
-                this.currentUser = res.data;
-                localStorage.setItem('jwtToken', JSON.stringify(res.token));
-            }
-        }));
+        return this.http.post(ApiEndpointAuth.login, { username, password }).pipe(
+            tap((res: LoginResponse) => {
+                if (res.successful) {
+                    this.currentUser = res.data;
+                    localStorage.setItem('jwtToken', JSON.stringify(res.token));
+                }
+            })
+        );
     }
 
     /** Used to get user informationn. User needs to be authenticated. */

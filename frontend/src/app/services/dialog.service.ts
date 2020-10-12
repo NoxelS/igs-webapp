@@ -20,4 +20,8 @@ export class DialogService {
     flashError(errorMessage: string) {
         return this.snackBar.open(errorMessage, 'Verwerfen', { duration: 3000, panelClass: ['mat-toolbar', 'mat-warn'] });
     }
+    
+    flashSuccess(msg: string) {
+        return this.snackBar.open(msg, 'Verwerfen', { duration: 3000, panelClass: ['mat-toolbar', 'mat-success'] });
+    }
 }

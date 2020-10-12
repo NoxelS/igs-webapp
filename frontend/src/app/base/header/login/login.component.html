@@ -1,0 +1,22 @@
+<div mat-menu-item color="primary" [disabled]="true" [disableRipple]="true">
+    <span *ngIf="!!user;else noLoginText" class="login-text">
+        <i>Angemeldet als <b>{{ user.username }}</b></i>
+    </span>
+    <ng-template #noLoginText>
+        <span class="login-text">
+            <i>Sie sind nicht angemeldet</i>
+        </span>
+    </ng-template>
+</div>
+
+<button mat-menu-item *ngIf="!!user">
+    <mat-icon>settings</mat-icon><span><i>Einstellungen</i></span>
+</button>
+
+<button mat-menu-item *ngIf="!!user" (click)="logout()">
+    <mat-icon>login</mat-icon><span><i>Ausloggen</i></span>
+</button>
+
+<button mat-menu-item *ngIf="!user" (click)="login()">
+    <mat-icon>login</mat-icon><span><i>Einloggen</i></span>
+</button>

@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     }
 
     login() {
-        this.auth.login('noel', 'noel');
+        this.auth.login('noel', 'noel').subscribe();
     }
 
     logout() {

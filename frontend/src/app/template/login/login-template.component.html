@@ -1,0 +1,31 @@
+<div calss="login">
+    <h1>Login</h1>
+    <p>Bitte loggen Sie sich mit Ihren bekannten Anmeldedaten ein.</p>
+    <form class="example-form" [formGroup]="loginFormGroup">
+        <mat-form-field class="example-full-width">
+            <mat-label>Benutzername</mat-label>
+            <input matInput [formControl]="usernameFormControl" />
+            <mat-error *ngIf="usernameFormControl.hasError('required')">
+                Benutzername wird <strong>benötigt</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Passwort</mat-label>
+            <input matInput [formControl]="passwordFormControl" type="password" />
+            <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+                Ein Passwort hat <b>mindestens 8</b> Stellen
+            </mat-error>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+                Passwort wird <strong>benötigt</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+    <mat-error *ngIf="error" class="error">
+        Benutzername oder Passwort ist falsch!
+    </mat-error>
+    <div class="button-group">
+        <button mat-flat-button color="primary" (click)="login()" [disabled]="!loginFormGroup.valid">Einloggen</button>
+        <button mat-button color="warn" class="warn" (click)="forgotPassword()">Passwort vergessen?</button><br>
+        <button mat-stroked-button color="primary" (click)="dismiss()">Abbrechen</button>
+    </div>
+</div>

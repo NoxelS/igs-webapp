@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Article } from './backend-datatypes/article.model';
-import { ArticleService } from './services/article-service.service';
 import { AuthenticationService } from './services/authentication.service';
-import { FileService } from './services/file-service.service';
+import { ArticleService } from './services/items/article.service';
+import { FileService } from './services/items/file.service';
 
 
 @Component({
@@ -28,12 +28,11 @@ export class AppComponent implements OnInit {
 
     constructor(private readonly articleSerivce: ArticleService, private readonly auth: AuthenticationService, private readonly fileService: FileService) {
         this.articles$ = articleSerivce.articles;
-        this.files$ = fileService.fileChange$;
-        // this.fileService.downloadFile(2);
+        this.files$ = fileService.files;
     }
 
     login() {
-        this.auth.login();
+        this.auth.login('noel', 'noel');
     }
 
     logout() {
@@ -45,31 +44,40 @@ export class AppComponent implements OnInit {
     }
 
     getArticles() {
-        this.articleSerivce.getArticles();
+        this.articleSerivce.get();
     }
 
     createArticle() {
-        this.articleSerivce.createArticle(new Article(Math.random() * 1000 + '', 1, new Date().getTime(), 'empty', 'description', 'will be changed'));
+        this.articleSerivce.create(new Article(Math.random() * 1000 + '', 1, new Date().getTime(), 'empty', 'description', 'will be changed'));
     }
 
     editArticle() {
-        this.articleSerivce.editArticle(new Article(Math.random() * 1000 + '', 1, new Date().getTime(), 'empty', 'description', '6'));
+        this.articleSerivce.edit(new Article(Math.random() * 1000 + '', 1, new Date().getTime(), 'empty', 'description', '6'));
     }
 
     removeArticle() {
-        this.articleSerivce.removeArticle(new Article(Math.random() * 1000 + '', 1, new Date().getTime(), 'empty', 'description', '5'));
+        this.articleSerivce.remove(new Article(Math.random() * 1000 + '', 1, new Date().getTime(), 'empty', 'description', '5'));
     }
 
     getFiles() {
-        this.fileService.getFiles();
+        this.fileService.get();
     }
 
     createFile() {}
     editFile() {}
     removeFile() {}
+    handleFileInput(file: FileList) {
+        console.log(file.item(0));
+        this.fileService.create(file.item(0), 'Test Desc.');
+    }
 
+    download() {
+        // this.fileService.files.subscribe(shortFiles => {
+        //     shortFiles.forEach(file => this.fileService.download(file));
+        // });
+    }
     ngOnInit(): void {
-        this.currentUser = this.auth.$currentUser;
-        this.loggedIn = this.auth.$loggedIn;
+        this.currentUser = this.auth.user;
+        this.loggedIn = this.auth.loggedIn;
     }
 }

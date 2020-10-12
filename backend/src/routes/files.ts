@@ -13,6 +13,7 @@ import { ShortFile } from '../models/short-file.model';
 const router = Router();
 
 router.get('/list', async (req: Request, res: Response) => {
+    // TODO: Get all files that exist on the machine.
     connection.query('SELECT * FROM files', (err, result) => {
         if (err) {
             res.json(new ErrorResponse(err.message));

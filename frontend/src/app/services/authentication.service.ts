@@ -1,39 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { IgsResponse, LoginResponse } from '../backend-datatypes/response.model';
 import { User } from '../backend-datatypes/user.model';
+import { ApiEndpointAuth } from './endpoints.const';
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    public $loggedIn = new BehaviorSubject<boolean>(false);
-
-    public $currentUser = new BehaviorSubject<User>(null);
+    private $loggedIn = new BehaviorSubject<boolean>(false);
+    private $currentUser = new BehaviorSubject<User>(null);
     private _currentUser: User;
 
-    private token;
-
-    public get currentUser(): User {
+    private get currentUser(): User {
         return this._currentUser;
     }
 
-    public set currentUser(value: User) {
+    private set currentUser(value: User) {
         this._currentUser = value;
         this.$currentUser.next(value);
+    }
+
+    get loggedIn(): Observable<boolean> {
+        return this.$loggedIn.asObservable();
+    }
+
+    get user(): Observable<User> {
+        return this.$currentUser.asObservable();
     }
 
     constructor(private http: HttpClient) {
         this.$currentUser.subscribe(user => this.$loggedIn.next(!!user));
 
         /**
-         * Make an initial request to see if there is a jwtToken in local storage.
+         * Make an initial info request to see if there is a jwtToken in local storage.
          * Don't mind if there is an erorr, this means the user has not logged in before.
          */
-        this.http.post(environment.backendUrl + '/info/user', {}).subscribe(
+        this.http.get(ApiEndpointAuth.info).subscribe(
             (res: IgsResponse<User>) => {
                 if (res.successful) {
                     this.currentUser = res.data;
@@ -43,23 +48,17 @@ export class AuthenticationService {
         );
     }
 
-    /**
-     * @description Makes an api request to get a token
-     */
-    login() {
-        // TODO: use real credentials
-        this.http.post(environment.backendUrl + '/auth/login', { username: 'noel', password: 'noel' }).subscribe((res: LoginResponse) => {
+    /** Make an api request to get a jwt token. The token will be stored in local storage and will be used in all request targeting the backend url. */
+    login(username: string, password: string) {
+        this.http.post(ApiEndpointAuth.login, { username, password }).subscribe((res: LoginResponse) => {
             this.currentUser = res.data;
-            this.token = res.token;
             localStorage.setItem('jwtToken', JSON.stringify(res.token));
         });
     }
 
-    /**
-     * Used to get user information
-     */
+    /** Used to get user informationn. User needs to be authenticated. */
     updateUserInformation() {
-        this.http.post(environment.backendUrl + '/info/user', {}).subscribe(
+        this.http.get(ApiEndpointAuth.info).subscribe(
             (res: IgsResponse<User>) => {
                 if (res.successful) {
                     this.currentUser = res.data;
@@ -69,12 +68,9 @@ export class AuthenticationService {
         );
     }
 
-    /**
-     * Removes the jwtToken from local storage and deleted all user references.
-     */
+    /** Removes the jwtToken from local storage and deletes all user references. */
     logout() {
         localStorage.removeItem('jwtToken');
-        this.token = null;
         this.currentUser = null;
     }
 }

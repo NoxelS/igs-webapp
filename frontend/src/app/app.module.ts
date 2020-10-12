@@ -10,9 +10,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ArticleService } from './services/article-service.service';
 import { AuthenticationService } from './services/authentication.service';
-import { FileService } from './services/file-service.service';
+import { ArticleService } from './services/items/article.service';
+import { FileService } from './services/items/file.service';
 import { AddHeaderInterceptor } from './shared/header.interceptor';
 
 

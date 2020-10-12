@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Article } from './backend-datatypes/article.model';
 import { AuthenticationService } from './services/authentication.service';
+import { DialogService } from './services/dialog.service';
 import { ArticleService } from './services/items/article.service';
 import { FileService } from './services/items/file.service';
 
@@ -26,9 +27,15 @@ export class AppComponent implements OnInit {
     currentUser;
     loggedIn;
 
-    constructor(private readonly articleSerivce: ArticleService, private readonly auth: AuthenticationService, private readonly fileService: FileService) {
+    constructor(
+        private readonly articleSerivce: ArticleService,
+        private readonly auth: AuthenticationService,
+        private readonly fileService: FileService,
+        private readonly dialogService: DialogService,
+    ) {
         this.articles$ = articleSerivce.articles;
         this.files$ = fileService.files;
+        this.dialogService.flashError("Error")
     }
 
     login() {

@@ -10,27 +10,29 @@
     </div>
     <br />
     <h3>Actions</h3>
-    <button (click)="login()">login</button>
-    <button (click)="logout()">logout</button>
-    <button (click)="info()">info</button>
+    <button mat-flat-button color="primary" (click)="login()" matTooltip="Info about the action">login</button>
+    <button mat-flat-button color="primary" (click)="logout()">logout</button>
+    <button mat-flat-button color="primary" (click)="info()">info</button>
 
     <h3>Articles</h3>
-    <b>Articles: </b><span>{{ articles$ | async | json }}</span><br />
-    <button (click)="getArticles()">Get articles</button>
-    <button (click)="createArticle()">Create article</button>
-    <button (click)="editArticle()">edit article</button>
-    <button (click)="removeArticle()">remove article</button>
+    <b>Articles: </b><span>{{ articles$ | async | json }}</span
+    ><br />
+    <button mat-flat-button color="primary" (click)="getArticles()">Get articles</button>
+    <button mat-flat-button color="primary" (click)="createArticle()">Create article</button>
+    <button mat-flat-button color="primary" (click)="editArticle()">edit article</button>
+    <button mat-flat-button color="primary" (click)="removeArticle()">remove article</button>
 
     <h3>Files</h3>
-    <b>Files: </b><span>{{ files$ | async | json }}</span><br />
-    <button (click)="getFiles()">Get files</button>
+    <b>Files: </b><span>{{ files$ | async | json }}</span
+    ><br />
+    <button mat-flat-button color="primary" (click)="getFiles()">Get files</button>
     <div class="form-group">
         <label for="file">Create file</label>
-        <input type="file"
-               id="file"
-               (change)="handleFileInput($event.target.files)">
+        <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
     </div>
-    <button (click)="editFile()">edit file</button>
-    <button (click)="removeFile()">remove file</button>
-    <button (click)="download()">download file</button>
+    <button mat-flat-button color="primary" (click)="editFile()">edit file</button>
+    <button mat-flat-button color="primary" (click)="removeFile()">remove file</button>
+    <button mat-flat-button color="primary" (click)="download()">download file</button>
+
+    <button mat-flat-button color="primary">Artikel Lesen</button>
 </div>

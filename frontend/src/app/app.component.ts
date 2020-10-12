@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     ) {
         this.articles$ = articleSerivce.articles;
         this.files$ = fileService.files;
-        this.isMobile = this.ds.isMobile() || this.ds.isTablet()
+        this.isMobile = this.ds.isMobile() || this.ds.isTablet();
     }
 
     login() {

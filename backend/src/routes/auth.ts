@@ -83,7 +83,7 @@ router.post('/recovery', async (req: Request, res: Response) => {
                             'Recovery <test@noel-s.ch>',
                             email,
                             'Recovery!',
-                            `<b>Recovery key = ${recoveryKey}</b></br><a href="localhost:3000/recover_password">`
+                            `<b>Recovery key = ${recoveryKey}</b>`
                         );
                         res.json(new SuccessResponse());
                     }

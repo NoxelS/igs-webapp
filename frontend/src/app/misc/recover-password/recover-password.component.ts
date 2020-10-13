@@ -12,8 +12,7 @@ import { DialogService } from 'src/app/services/dialog.service';
     styleUrls: ['./recover-password.component.scss']
 })
 export class RecoverPasswordComponent {
-    constructor(private readonly authService: AuthenticationService, private readonly router: Router,
-        private readonly dialogService: DialogService) {}
+    constructor(private readonly authService: AuthenticationService, private readonly router: Router, private readonly dialogService: DialogService) {}
 
     recoveryKeyFormControl = new FormControl('', [Validators.required, Validators.minLength(20)]);
     passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);

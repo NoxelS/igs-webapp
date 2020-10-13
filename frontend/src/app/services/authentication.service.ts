@@ -79,7 +79,7 @@ export class AuthenticationService {
         this.currentUser = null;
     }
 
-    /** Sends an email with a new recovery key.*/
+    /** Sends an email with a new recovery key. */
     sendRecoveryEmail(email: string): Observable<SuccessResponse> {
         return this.http.post(ApiEndpointAuth.sendRecoveryEmail, { email }).pipe(
             tap((res: SuccessResponse) => {

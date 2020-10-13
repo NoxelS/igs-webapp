@@ -27,15 +27,18 @@ export class ResetPasswordComponent {
     reset() {
         this.error = '';
         this.authService.sendRecoveryEmail(this.emailFormControl.value).subscribe(result => {
-            if(result.successful) {
-                this.dialogRef.afterClosed().pipe(first()).subscribe(() => {
-                    this.router.navigate([routePaths.RESET_PASSWORD])
-                })
+            if (result.successful) {
+                this.dialogRef
+                    .afterClosed()
+                    .pipe(first())
+                    .subscribe(() => {
+                        this.router.navigate([routePaths.RESET_PASSWORD]);
+                    });
                 this.dialogRef.close();
             } else {
                 this.error = result.errorMessage;
             }
-        })
+        });
     }
 
     dismiss() {

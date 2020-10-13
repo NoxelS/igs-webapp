@@ -1,7 +1,7 @@
 import { connection } from '@configs/database';
 import { isLoggedIn } from '@shared/passport.utils';
 import { Request, Response, Router } from 'express';
-import { readFileSync, unlink } from 'fs';
+import { existsSync, readFileSync, unlink } from 'fs';
 import { verify } from 'jsonwebtoken';
 import passport from 'passport';
 import { join } from 'path';
@@ -14,24 +14,25 @@ import { ShortFile } from '../models/short-file.model';
 const router = Router();
 
 router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
-    // TODO: Get all files that exist on the machine.
-    connection.query('SELECT * FROM files', (err, result) => {
+    connection.query('SELECT * FROM files;', (err, result) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
         } else {
             res.json(
                 new ShortFileListResponse(
-                    result.map(
-                        (dbEntry: any) =>
-                            <ShortFile>{
-                                name: dbEntry.name,
-                                id: dbEntry.id,
-                                authorId: dbEntry.authorId,
-                                mimetype: dbEntry.mimetype,
-                                creationDate: dbEntry.creationDate,
-                                description: dbEntry.description
-                            }
-                    )
+                    result
+                        .filter((item: any) => existsSync(item.path))
+                        .map(
+                            (dbEntry: any) =>
+                                <ShortFile>{
+                                    name: dbEntry.name,
+                                    id: dbEntry.id,
+                                    authorId: dbEntry.authorId,
+                                    mimetype: dbEntry.mimetype,
+                                    creationDate: dbEntry.creationDate,
+                                    description: dbEntry.description
+                                }
+                        )
                 )
             );
         }
@@ -79,14 +80,14 @@ router.post('/remove', isLoggedIn(), async (req: Request, res: Response) => {
         connection.query('SELECT path FROM files WHERE (id = ?);', [id], (err, result) => {
             if (err) {
                 res.json(new ErrorResponse(err.message));
-            } else if(!result.length || !result[0].path) {
+            } else if (!result.length || !result[0].path) {
                 res.json(new ErrorResponse('No file found.'));
             } else {
                 unlink(result[0].path, err => {
                     if (err) {
                         res.json(new ErrorResponse(err.message));
                     } else {
-                        connection.query('DELETE FROM `igs`.`files` WHERE (`id` = ?);', [id], (err) => {
+                        connection.query('DELETE FROM `igs`.`files` WHERE (`id` = ?);', [id], err => {
                             res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
                         });
                     }
@@ -104,7 +105,7 @@ router.get('/get/:id', isLoggedIn(), async (req: Request, res: Response) => {
         connection.query('SELECT path FROM files WHERE (id = ?);', [id], (err, result) => {
             if (err) {
                 res.json(new ErrorResponse(err.message));
-            } else if(!result.length || !result[0].path) {
+            } else if (!result.length || !result[0].path) {
                 res.json(new ErrorResponse('No file found.'));
             } else {
                 res.download(result[0].path, err => {

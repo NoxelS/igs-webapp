@@ -33,10 +33,11 @@ import { IsLoggedInDirective } from './shared/is-logged-in.directive';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
+import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent],
+    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent, RecoverPasswordComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

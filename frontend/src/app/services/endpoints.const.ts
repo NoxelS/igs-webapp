@@ -15,7 +15,9 @@ export const ApiEndpointFile: { get; create; download: (id) => string; remove } 
     download: id => environment.backendUrl + '/files/get/' + id
 };
 
-export const ApiEndpointAuth: { login; info } = {
+export const ApiEndpointAuth: { login; info; sendRecoveryEmail; recoverPassword } = {
     login: environment.backendUrl + '/auth/login',
-    info: environment.backendUrl + '/info/user'
+    info: environment.backendUrl + '/info/user',
+    sendRecoveryEmail: environment.backendUrl + '/auth/recovery',
+    recoverPassword: environment.backendUrl + '/auth/recover_password'
 };

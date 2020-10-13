@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { IgsResponse, LoginResponse } from '../backend-datatypes/response.model';
+import { IgsResponse, LoginResponse, SuccessResponse } from '../backend-datatypes/response.model';
 import { User } from '../backend-datatypes/user.model';
 import { ApiEndpointAuth } from './endpoints.const';
 
@@ -77,5 +77,21 @@ export class AuthenticationService {
     logout() {
         localStorage.removeItem('jwtToken');
         this.currentUser = null;
+    }
+
+    /** Sends an email with a new recovery key.*/
+    sendRecoveryEmail(email: string): Observable<SuccessResponse> {
+        return this.http.post(ApiEndpointAuth.sendRecoveryEmail, { email }).pipe(
+            tap((res: SuccessResponse) => {
+                if (res.successful) {
+                    this.currentUser = res.data;
+                }
+            })
+        );
+    }
+
+    /** Resets a password with a recovery key */
+    resetPassword(recoveryKey: string, password: string): Observable<SuccessResponse> {
+        return this.http.post(ApiEndpointAuth.recoverPassword, { recoveryKey, password }) as Observable<SuccessResponse>;
     }
 }

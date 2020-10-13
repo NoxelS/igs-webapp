@@ -71,24 +71,31 @@ router.post('/recovery', async (req: Request, res: Response) => {
             res.json(new ErrorResponse('Unknown email'));
         } else {
             const userId = result[0].id;
-            const oneDayInMillis = 86400000;
-            connection.query(
-                'INSERT INTO recovery (`user_id`, `key`, `expires`) VALUES (?,?,?);',
-                [userId, recoveryKey, new Date().getTime() + oneDayInMillis],
-                async (err, result) => {
-                    if (err) {
-                        res.json(new ErrorResponse(err.message));
-                    } else {
-                        await sendEmail(
-                            'Recovery <test@noel-s.ch>',
-                            email,
-                            'Recovery!',
-                            `<b>Recovery key = ${recoveryKey}</b>`
-                        );
-                        res.json(new SuccessResponse());
-                    }
+
+            connection.query('DELETE FROM `igs`.`recovery` WHERE (`user_id` = ?);', [userId], async (err) => {
+                if (err) {
+                    res.json(new ErrorResponse(err.message));
+                } else {
+                    const oneDayInMillis = 86400000;
+                    connection.query(
+                        'INSERT INTO recovery (`user_id`, `key`, `expires`) VALUES (?,?,?);',
+                        [userId, recoveryKey, new Date().getTime() + oneDayInMillis],
+                        async (err, result) => {
+                            if (err) {
+                                res.json(new ErrorResponse(err.message));
+                            } else {
+                                await sendEmail(
+                                    'Recovery <test@noel-s.ch>',
+                                    email,
+                                    'Recovery!',
+                                    `<b>Recovery key = ${recoveryKey}</b>`
+                                );
+                                res.json(new SuccessResponse());
+                            }
+                        }
+                    );
                 }
-            );
+            });
         }
     });
 });

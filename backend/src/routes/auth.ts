@@ -71,9 +71,10 @@ router.post('/recovery', async (req: Request, res: Response) => {
             res.json(new ErrorResponse('Unknown email'));
         } else {
             const userId = result[0].id;
+            const oneDayInMillis = 86400000;
             connection.query(
                 'INSERT INTO recovery (`user_id`, `key`, `expires`) VALUES (?,?,?);',
-                [userId, recoveryKey, new Date().getTime() + 1000 * 60 * 60 * 24],
+                [userId, recoveryKey, new Date().getTime() + oneDayInMillis],
                 async (err, result) => {
                     if (err) {
                         res.json(new ErrorResponse(err.message));

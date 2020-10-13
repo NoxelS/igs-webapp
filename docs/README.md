@@ -111,6 +111,42 @@ __Expected payload:__
 __Response:__
 _[SuccessResponse](#SuccessResponse)_
 
+### Send password recovery email
+If the user forgot his password he can recover it.
+The api will send a recovery key to the given email address.
+
+?> **Tip** Note that a recovery key expires in **1d** and can only be used once.
+
+__Endpoint:__
+
+> POST ```/auth/recovery```
+
+__Expected payload:__
+```json
+{
+  "email": "<string>"
+}
+```
+
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
+
+### Recover password
+__Endpoint:__
+
+> POST ```/auth/recover_password```
+
+__Expected payload:__
+```json
+{
+  "password": "<string>",
+  "recoveryKey": "<string>",
+}
+```
+
+__Response:__
+_[SuccessResponse](#SuccessResponse)_
+
 ## Articles 📔
 ### Listing all articles
 __Endpoint:__

@@ -1,6 +1,8 @@
 import { environment } from 'src/environments/environment';
 
 
+/** Visit https://noxels.github.io/igs-webapp/ for a detailed api documentation */
+
 export const ApiEndpointArticle: { get; create; edit; remove } = {
     get: environment.backendUrl + '/articles/list',
     create: environment.backendUrl + '/articles/create',

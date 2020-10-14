@@ -8,9 +8,9 @@ import { RecoverPasswordComponent } from './misc/recover-password/recover-passwo
 
 export const routePaths = {
     ROOT: '',
-    FILES: 'files',
+    FILES: 'dateien',
     ARTICLES: 'artikel',
-    RESET_PASSWORD: 'reset-password'
+    RESET_PASSWORD: 'passwort-zurücksetzen'
 };
 
 const routes: Routes = [

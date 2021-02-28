@@ -14,13 +14,7 @@
     </div>
 
     <p class="content">
-
-        <md-editor name="Content"
-            [(ngModel)]="content" 
-            [height]="'200px'"
-            [options]="options"
-        >
-        </md-editor>
-        <markdown [data]="content"></markdown>
+        <md-editor name="Content" [(ngModel)]="content" [height]="'1500px'" [options]="options"> </md-editor>
+        <markdown [data]="content" class="content"></markdown>
     </p>
 </div>

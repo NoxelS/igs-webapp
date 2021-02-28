@@ -12,8 +12,18 @@
         flex-wrap: nowrap;
         align-items: center;
         justify-content: flex-start;
-
         font-weight: 500;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:active {
+            border: none;
+            outline: none;
+            outline-style: none;
+            -moz-outline-style: none;
+        }
 
         .left {
             font-size: 3em;

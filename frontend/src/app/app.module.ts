@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -18,12 +18,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MarkdownModule } from 'ngx-markdown';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './base/header/header.component';
 import { LoginComponent } from './base/header/login/login.component';
+import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 import { ArticlesListComponent } from './items/articles/articles-list/articles-list.component';
 import { FilesListComponent } from './items/files/files-list/files-list.component';
+import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
 import { AuthenticationService } from './services/authentication.service';
 import { DialogService } from './services/dialog.service';
 import { ArticleService } from './services/items/article.service';
@@ -33,8 +37,6 @@ import { IsLoggedInDirective } from './shared/is-logged-in.directive';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
-import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { ArticleReadComponent } from './items/articles/article-read/article-read
         MatTooltipModule,
         MatExpansionModule,
         MatRippleModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MarkdownModule.forRoot(),
+        MarkdownModule.forRoot({ loader: HttpClient }),
     ],
     providers: [
         ArticleService,

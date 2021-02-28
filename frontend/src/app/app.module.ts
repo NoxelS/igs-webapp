@@ -34,10 +34,11 @@ import { ConfirmTemplateComponent } from './template/confirm-template/confirm-te
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
+import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent, RecoverPasswordComponent],
+    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent, RecoverPasswordComponent, ArticleReadComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

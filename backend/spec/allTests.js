@@ -20,5 +20,6 @@ fs.readdirSync('./collections').forEach(collection => {
 });
 
 if (globalFailError) {
-    process.exit(1);
+    process.exitCode = 1;
+    throw new Error("Some tests failed.")
 }

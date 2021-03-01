@@ -11,7 +11,7 @@ fs.readdirSync('./collections').forEach(collection => {
         },
         (err, summary) => {
             if (summary.run.failures.length != 0) {
-                fs.createFile('.tests-failed');
+                fs.createFile('.failed');
             }
         }
     );

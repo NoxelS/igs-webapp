@@ -114,4 +114,4 @@ frontend/src/app/backend-datatypes
 
 # Postman test flags
 backend/spec/.success
-backend/spec/.tests-failed
+backend/spec/.failed

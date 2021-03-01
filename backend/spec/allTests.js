@@ -1,7 +1,9 @@
 const newman = require('newman');
 const fs = require('fs-extra');
 
-fs.unlinkSync('.success');
+try {
+    fs.unlinkSync('.success');
+} catch (error) {}
 
 var globalFailError = false;
 

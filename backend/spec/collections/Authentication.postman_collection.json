@@ -148,7 +148,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Successful POST request\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 							"});\r",
 							"\r",
 							""

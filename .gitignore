@@ -111,3 +111,4 @@ backend/src/uploads
 
 # Shared datatypes
 frontend/src/app/backend-datatypes
+backend/spec/.success

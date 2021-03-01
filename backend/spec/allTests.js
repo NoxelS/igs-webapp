@@ -1,6 +1,8 @@
 const newman = require('newman');
 const fs = require('fs-extra');
 
+fs.unlinkSync('.success');
+
 var globalFailError = false;
 
 fs.readdirSync('./collections').forEach(collection => {

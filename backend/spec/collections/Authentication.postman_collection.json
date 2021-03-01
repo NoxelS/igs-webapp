@@ -28,7 +28,7 @@
 							"                \"id\": 8\r",
 							"            },\r",
 							"            \"responseType\": \"LoginResponse<User>\",\r",
-							"            \"token\": \"\",\r",
+							"            \"token\": \"Bearer\",\r",
 							"            \"expiresIn\": \"1d\"\r",
 							"        }\r",
 							"    ],\r",
@@ -119,7 +119,7 @@
 							"            \"description\": \"An explanation about the purpose of this instance.\",\r",
 							"            \"default\": \"\",\r",
 							"            \"examples\": [\r",
-							"                \"\"\r",
+							"                \"Bearer\"\r",
 							"            ]\r",
 							"        },\r",
 							"        \"expiresIn\": {\r",
@@ -141,7 +141,17 @@
 							"    console.log(response);\r",
 							"    var result=tv4.validateResult(response, schema);\r",
 							"    pm.expect(result.valid).to.be.true;\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript"
 					}

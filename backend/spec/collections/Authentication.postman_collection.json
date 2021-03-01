@@ -28,7 +28,7 @@
 							"                \"id\": 8\r",
 							"            },\r",
 							"            \"responseType\": \"LoginResponse<User>\",\r",
-							"            \"token\": \"Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjgsImlhdCI6MTYxNDYwMTA2NzU0NywiZXhwIjoxNjE0NjAxMTUzOTQ3fQ.V2vvl9cgza94Xc5RPiuulRr1vIbPTrajfxZsgXnGM1MLqhULAzD1-HJ2Q65MNmEgOnq59xemhkFpepc2pgfeKW4Y2OOXadWshtiEfNksVsA5V7ByFk4xdQLabsX5_bzL5CeW_L0INIqwQXLmbhdyIEXeoJ3FbdFPtxtklacj5TysyAAbwzA90i_zLn00rxujowx-kbltMGZwjZ66xob4U2pLpSoMBc7Pei-r_Ja9sPCrz2ms8FvlH-7Cq5276PIJZMRHQugKvXSZ7PJL5z3ZAAAVTnFAguyItdhFaILyzB6My2M48I8awxPwm-o3RpSyo-AqnqOH5m-_HmohBI1XU482RWkL0GcHI581o1JbyJQc3UB1g9z4iFT9sZtUSUioIeu_fld3LZ4PXJ86NBUkVX95PXmlekDIte0wTKJZ1kZ0Y0S-l-YWol8XWJp0rDdV-p8abQHJ-ipwqggHkFsdFRo1T0xsfpMLsGpLeIAosVSUxWDSPfy2YiAN3dLqYzndOCs2L_TvLc70HzOKDeu0xA5xD5S8QSY6bMLT4gLK3myy_1BqNahks5Q3e2OTyZarYBgdQhWUweErxsS3iL0b_slqpHAOVvxkUfhdHe1NwOChlj2BUbeRCbuE9kcmMYlSVdrIkZRmVBuXs_9qH_HC5zNqh0otHMTpqsHYlnUS-p0\",\r",
+							"            \"token\": \"\",\r",
 							"            \"expiresIn\": \"1d\"\r",
 							"        }\r",
 							"    ],\r",

@@ -21,5 +21,6 @@ fs.readdirSync('./collections').forEach(collection => {
 
 if (globalFailError) {
     process.exitCode = 1;
-    throw new Error("Some tests failed.")
+} else {
+    fs.createFileSync('.success')
 }

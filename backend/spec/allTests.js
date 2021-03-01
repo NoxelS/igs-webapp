@@ -1,12 +1,6 @@
 const newman = require('newman');
 const fs = require('fs-extra');
 
-try {
-    fs.unlinkSync('.success');
-} catch (error) {}
-
-var globalFailError = false;
-
 fs.readdirSync('./collections').forEach(collection => {
     console.log(`Running: ${collection}...`);
     newman.run(
@@ -15,16 +9,10 @@ fs.readdirSync('./collections').forEach(collection => {
             globals: require('./env/postman_globals.json'),
             reporters: 'cli'
         },
-        err => {
-            if (err) {
-                globalFailError = true;
+        (err, summary) => {
+            if (summary.run.failures.length != 0) {
+                fs.createFile('.tests-failed');
             }
         }
     );
 });
-
-if (globalFailError) {
-    process.exitCode = 1;
-} else {
-    fs.createFileSync('.success')
-}

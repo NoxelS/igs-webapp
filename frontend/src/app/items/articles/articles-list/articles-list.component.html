@@ -7,7 +7,7 @@
             <div class="chip-list">
                 <span><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</span>
                 <span><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</span>
-                <span *ngIf="loggedIn" class="edit admin"><mat-icon>mode</mat-icon>Bearbeiten</span>
+                <span *ngIf="loggedIn" class="edit admin" [routerLink]="getEditArticleLink(landingArticle)"><mat-icon>mode</mat-icon>Bearbeiten</span>
                 <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(landingArticle)"><mat-icon>do_disturb</mat-icon>Löschen</span>
             </div>
 
@@ -31,7 +31,7 @@
                 <div class="chip-list">
                     <span><mat-icon>visibility</mat-icon>{{ article.views }}</span>
                     <span><mat-icon>schedule</mat-icon>{{ article.creationDate }}</span>
-                    <span *ngIf="loggedIn" class="edit admin"><mat-icon>mode</mat-icon>Bearbeiten</span>
+                    <span *ngIf="loggedIn" class="edit admin" [routerLink]="getEditArticleLink(article)"><mat-icon>mode</mat-icon>Bearbeiten</span>
                     <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(article)"><mat-icon>do_disturb</mat-icon>Löschen</span>
                 </div>
 

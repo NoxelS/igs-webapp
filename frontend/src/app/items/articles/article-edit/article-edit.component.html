@@ -1,0 +1,17 @@
+<div class="read-container" *ngIf="article">
+    <div class="title">
+        <!-- <div class="image">
+            <img src="{{article.imageUrl}}" alt="" />
+        </div> -->
+        <h1>{{article.title}}</h1>
+        <span><mat-icon>mode</mat-icon>Titel Bearbeiten</span>
+        <span><mat-icon>satellite</mat-icon>Bild Bearbeiten</span>
+                
+    </div>
+
+    <p class="content">
+        <md-editor name="content" [height]="'70vh'" [(ngModel)]="article.content"> </md-editor>
+    </p>
+
+    <button mat-flat-button color="primary">Änderungen speichern</button>
+</div>

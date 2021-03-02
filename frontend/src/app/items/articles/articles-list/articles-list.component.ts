@@ -62,6 +62,10 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
         return `/${routePaths.ARTICLE_READ.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
     }
 
+    getEditArticleLink(article: Article): string {
+        return `/${routePaths.ARTICLE_EDIT.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
+    }
+
     deleteArticle(article: Article) {
         this.dialogService
             .confirm(`Möchten Sie den Artikel "${article.title}" vom ${article.creationDate} wirklich löschen?`, 'Löschen bestätigen')

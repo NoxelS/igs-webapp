@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://igs.api.noel-s.ch/api'
+  // backendUrl: 'http://igs.api.noel-s.ch/api'
+  backendUrl: 'http://localhost:3000/api'
 };
 
 /*

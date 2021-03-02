@@ -62,7 +62,7 @@ router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, ne
  */
 router.post('/recovery', async (req: Request, res: Response) => {
     const email = req.body.email;
-    const recoveryKey = randomBytes(20).toString('hex');
+    const recoveryKey = randomBytes(20).toString('hex').toUpperCase().slice(0,8);
 
     connection.query('SELECT id FROM users WHERE (email = ?);', [email], async (err, result) => {
         if (err) {

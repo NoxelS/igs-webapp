@@ -1,0 +1,14 @@
+{
+	"id": "5e41dc1c-b17e-4016-8d62-8cbf277840b5",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "https://igs.api.noel-s.ch/api",
+			"enabled": true
+		}
+	],
+	"name": "IGS-Website Automated Test Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-03-01T12:28:15.998Z",
+	"_postman_exported_using": "Postman/8.0.4"
+}

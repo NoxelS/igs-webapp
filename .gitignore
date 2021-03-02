@@ -111,3 +111,7 @@ backend/src/uploads
 
 # Shared datatypes
 frontend/src/app/backend-datatypes
+
+# Postman test flags
+backend/spec/.success
+backend/spec/.failed

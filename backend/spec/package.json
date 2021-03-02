@@ -1,0 +1,15 @@
+{
+  "name": "backend-tests",
+  "version": "1.0.0",
+  "description": "Automated tests for the IGS Website backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "node allTests.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^9.1.0",
+    "newman": "^5.2.2"
+  }
+}

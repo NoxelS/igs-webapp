@@ -14,7 +14,7 @@
             <div class="description">
                 {{ cropArticleDescription(landingArticle.content) }}
             </div>
-            <a routerLink="/article-read">
+            <a [routerLink]="getArticleLink(landingArticle)">
                 <button mat-flat-button color="primary">Artikel lesen</button>
             </a>
         </div>
@@ -38,7 +38,7 @@
                 <div class="description">
                     {{ cropArticleDescription(article.content) }}
                 </div>
-                <a routerLink="/article-read">
+                <a [routerLink]="getArticleLink(article)">
                    Artikel lesen
                 </a>
             </div>

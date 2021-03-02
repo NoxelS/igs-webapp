@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
+import { routePaths } from 'src/app/shared/routes.const';
 
 import { Article } from '../../../../../../backend/src/models/article.model';
 import { ArticleService } from '../../../services/items/article.service';
@@ -24,7 +25,6 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
             this.articles = articles;
             this.landingArticle = articles[0];
             this.gridArticles = articles.slice(1);
-            console.log(articles);
         }));
     }
 
@@ -49,5 +49,9 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
         } else {
             return articleContent;
         }
+    }
+
+    getArticleLink(article: Article): string {
+        return `/${routePaths.ARTICLE_READ.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
     }
 }

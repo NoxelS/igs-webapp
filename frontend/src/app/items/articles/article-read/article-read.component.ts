@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs';
+
+import { Article } from '../../../../../../backend/src/models/article.model';
+import { ArticleService } from '../../../services/items/article.service';
 
 
 interface UploadResult {
@@ -12,48 +18,35 @@ interface UploadResult {
     templateUrl: './article-read.component.html',
     styleUrls: ['./article-read.component.scss']
 })
-export class ArticleReadComponent implements OnInit {
-    options = {
-        showPreviewPanel: false, // Show preview panel, Default is true
-        showBorder: true, // Show editor component's border. Default is true
-        hideIcons: ['Code', 'TogglePreview', 'FullScreen'], // ['Bold', 'Italic', 'Heading', 'Refrence', 'Link', 'Image', 'Ul', 'Ol', 'Code', 'TogglePreview', 'FullScreen']. Default is empty
-        //   usingFontAwesome5?: boolean   // Using font awesome with version 5, Default is false
-        //   scrollPastEnd?: number        // The option for ace editor. Default is 0
-        //   enablePreviewContentClick?: boolean  // Allow user fire the click event on the preview panel, like href etc. Default is false
-        resizable: true // Allow resize the editor
-        //   markedjsOpt?: MarkedjsOption  // The markedjs option, see https://marked.js.org/#/USING_ADVANCED.md#options
-        //   customRender?: {              // Custom markedjs render
-        //     image?: Function     // Image Render
-        //     table?: Function     // Table Render
-        //     code?: Function      // Code Render
-        //     listitem?: Function  // Listitem Render
-        //   }
-    };
+export class ArticleReadComponent implements OnInit, OnDestroy {
+    article: Article;
+    articleID: string;
 
-    private _content = `
-    # Test Content
-    _Hmmmm_
-    `;
+    private subscriptions: Subscription[] = [];
 
-    public get content(): any {
-        return this._content;
+    constructor(private route: ActivatedRoute, private articleService: ArticleService) {
+        this.subscriptions.push(
+            this.route.paramMap.subscribe(paramMap => {
+                const uniqueTitle = paramMap.get('title');
+                this.articleID = uniqueTitle.split('_')[uniqueTitle.split('_').length - 1];
+            })
+        );
+        this.subscriptions.push(
+            articleService.articles.subscribe(articles => {
+                this.article = articles.find(article => article.id == this.articleID);
+            })
+        );
     }
 
-    public set content(c: any) {
-        console.log(c);
-        this._content = c;
+    ngOnInit() {
+        this.articleService.get();
     }
 
-    constructor() {
-        this.doUpload = this.doUpload.bind(this); // This is very important.
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
-    doUpload(files: Array<File>): Promise<Array<UploadResult>> {
-        // do upload file by yourself
-        return Promise.resolve([{ name: 'xxx', url: 'xxx.png', isImg: true }]);
-    }
-
-    ngOnInit(): void {
-        // TODO: fetch article
+    getReadTime(text: string): number {
+        return Math.round(text.split(/[\n\r\s]+/g).length / 120) + 1;
     }
 }

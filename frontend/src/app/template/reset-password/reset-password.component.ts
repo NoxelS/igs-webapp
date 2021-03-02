@@ -4,8 +4,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
-import { routePaths } from 'src/app/app-routing.module';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+
+import { routePaths } from '../../shared/routes.const';
 
 
 @Component({

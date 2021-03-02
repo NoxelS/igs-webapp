@@ -20,7 +20,7 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
     landingArticle: Article;
     gridArticles: Article[];
     articles: Article[] = [];
-    loggedIn: boolean = false;
+    loggedIn = false;
 
     private subscriptions: Subscription[] = [];
     constructor(private articleService: ArticleService, private authenticationService: AuthenticationService, private dialogService: DialogService) {
@@ -45,12 +45,13 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
 
     cropArticleDescription(articleContent: string): string {
         if (articleContent.length > this.MAX_DESCRIPTION_CHARLENGTH) {
-            var lastLength = 0;
-            var description: string;
+            let lastLength = 0;
+            let description: string;
             articleContent.split(' ').forEach((chunk, index, array) => {
-                if (lastLength < this.MAX_DESCRIPTION_CHARLENGTH && (lastLength += chunk.length) > this.MAX_DESCRIPTION_CHARLENGTH) {
+                if (lastLength < this.MAX_DESCRIPTION_CHARLENGTH && (lastLength + chunk.length) > this.MAX_DESCRIPTION_CHARLENGTH) {
                     description = array.slice(0, index + 1).join(' ') + '...';
                 }
+                lastLength += chunk.length;
             });
             return description;
         } else {

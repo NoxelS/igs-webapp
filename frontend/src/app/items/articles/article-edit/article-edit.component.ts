@@ -27,7 +27,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
       );
       this.subscriptions.push(
           articleService.articles.subscribe(articles => {
-              this.article = articles.find(article => article.id == this.articleID);
+              this.article = articles.find(article => article.id === this.articleID);
           })
       );
   }

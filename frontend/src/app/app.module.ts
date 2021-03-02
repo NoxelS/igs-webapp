@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './base/header/header.component';
 import { LoginComponent } from './base/header/login/login.component';
+import { ArticleEditComponent } from './items/articles/article-edit/article-edit.component';
 import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 import { ArticlesListComponent } from './items/articles/articles-list/articles-list.component';
 import { FilesListComponent } from './items/files/files-list/files-list.component';
@@ -38,7 +39,6 @@ import { IsLoggedInDirective } from './shared/is-logged-in.directive';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { ArticleEditComponent } from './items/articles/article-edit/article-edit.component';
 
 
 @NgModule({

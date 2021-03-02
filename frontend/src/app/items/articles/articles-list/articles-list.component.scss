@@ -28,12 +28,6 @@
                 line-height: normal;
             }
 
-            mat-chip-list {
-                mat-chip > * {
-                    margin-right: 6px;
-                }
-            }
-
             .description {
                 margin-top: 0.7rem;
                 max-width: 30vw;
@@ -109,5 +103,39 @@
         left: 50%;
         width: 100%;
         transform: translate(-50%, -50%);
+    }
+}
+
+.chip-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+        width: min-content;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        color: #444;
+        margin-right: 10px;
+
+        mat-icon {
+            margin-right: 3px;
+        }
+    }
+
+    .admin {
+        cursor: pointer;
+    }
+
+    .edit {
+        color: $primary-blue;
+    }
+
+    .remove {
+        color: red;
     }
 }

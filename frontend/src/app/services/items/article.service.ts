@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { Article } from '../../backend-datatypes/article.model';
 import { IgsResponse, SuccessResponse } from '../../backend-datatypes/response.model';
@@ -58,14 +58,18 @@ export class ArticleService implements ItemService<Article> {
     }
 
     /** Remove an article. */
-    remove(article: Article) {
+    remove(article: Article): Observable<boolean> {
+        const successSubject = new Subject<boolean>();
         this.http.post(ApiEndpointArticle.remove, article).subscribe(
             (res: SuccessResponse) => {
                 if (res.successful) {
                     this.get();
                 }
+                successSubject.next(res.successful);
+                successSubject.complete();
             },
             _ => _
         );
+        return successSubject.asObservable();
     }
 }

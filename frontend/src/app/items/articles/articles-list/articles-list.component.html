@@ -1,15 +1,15 @@
 <div class="list" *ngIf="!!landingArticle">
     <div class="landing">
-        <img src="{{landingArticle.imageUrl}}" />
+        <img src="{{ landingArticle.imageUrl }}" />
         <div class="description">
             <div class="title">{{ landingArticle.title }}</div>
 
-            <mat-chip-list>
-                <mat-chip><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</mat-chip>
-                <mat-chip matTooltip="Der Artikel wurden am {{ landingArticle.creationDate }} erstellt."
-                    ><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</mat-chip
-                >
-            </mat-chip-list>
+            <div class="chip-list">
+                <span><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</span>
+                <span><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</span>
+                <span *ngIf="loggedIn" class="edit admin"><mat-icon>mode</mat-icon>Bearbeiten</span>
+                <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(landingArticle)"><mat-icon>do_disturb</mat-icon>Löschen</span>
+            </div>
 
             <div class="description">
                 {{ cropArticleDescription(landingArticle.content) }}
@@ -22,25 +22,23 @@
     <div class="grid-list">
         <div *ngFor="let article of gridArticles" class="grid-article-item">
             <div class="sixteen-nine-img">
-                <img src="{{article.imageUrl}}" />
+                <img src="{{ article.imageUrl }}" />
             </div>
-            
+
             <div class="description">
                 <div class="title">{{ article.title }}</div>
 
-                <mat-chip-list>
-                    <mat-chip><mat-icon>visibility</mat-icon>{{ article.views }}</mat-chip>
-                    <mat-chip matTooltip="Der Artikel wurden am {{ article.creationDate }} erstellt."
-                        ><mat-icon>schedule</mat-icon>{{ article.creationDate }}</mat-chip
-                    >
-                </mat-chip-list>
+                <div class="chip-list">
+                    <span><mat-icon>visibility</mat-icon>{{ article.views }}</span>
+                    <span><mat-icon>schedule</mat-icon>{{ article.creationDate }}</span>
+                    <span *ngIf="loggedIn" class="edit admin"><mat-icon>mode</mat-icon>Bearbeiten</span>
+                    <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(article)"><mat-icon>do_disturb</mat-icon>Löschen</span>
+                </div>
 
                 <div class="description">
                     {{ cropArticleDescription(article.content) }}
                 </div>
-                <a [routerLink]="getArticleLink(article)">
-                   Artikel lesen
-                </a>
+                <a [routerLink]="getArticleLink(article)"> Artikel lesen </a>
             </div>
         </div>
     </div>

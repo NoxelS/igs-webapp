@@ -1,20 +1,47 @@
 <div class="list" *ngIf="!!landingArticle">
     <div class="landing">
-        <img src="https://images.pexels.com/photos/1181672/pexels-photo-1181672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+        <img src="{{landingArticle.imageUrl}}" />
         <div class="description">
-            <div class="title">{{landingArticle.title}}</div>
+            <div class="title">{{ landingArticle.title }}</div>
 
             <mat-chip-list>
-                <mat-chip><mat-icon>visibility</mat-icon>{{landingArticle.views}}</mat-chip>
-                <mat-chip matTooltip="Der Artikel wurden am {{landingArticle.creationDate}} erstellt."><mat-icon>schedule</mat-icon>{{landingArticle.creationDate}}</mat-chip>
+                <mat-chip><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</mat-chip>
+                <mat-chip matTooltip="Der Artikel wurden am {{ landingArticle.creationDate }} erstellt."
+                    ><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</mat-chip
+                >
             </mat-chip-list>
 
             <div class="description">
-                {{cropArticleDescription(landingArticle.content)}}
+                {{ cropArticleDescription(landingArticle.content) }}
             </div>
             <a routerLink="/article-read">
                 <button mat-flat-button color="primary">Artikel lesen</button>
             </a>
+        </div>
+    </div>
+    <div class="grid-list">
+        <div *ngFor="let article of gridArticles" class="grid-article-item">
+            <div class="sixteen-nine-img">
+                <img src="{{article.imageUrl}}" />
+            </div>
+            
+            <div class="description">
+                <div class="title">{{ article.title }}</div>
+
+                <mat-chip-list>
+                    <mat-chip><mat-icon>visibility</mat-icon>{{ article.views }}</mat-chip>
+                    <mat-chip matTooltip="Der Artikel wurden am {{ article.creationDate }} erstellt."
+                        ><mat-icon>schedule</mat-icon>{{ article.creationDate }}</mat-chip
+                    >
+                </mat-chip-list>
+
+                <div class="description">
+                    {{ cropArticleDescription(article.content) }}
+                </div>
+                <a routerLink="/article-read">
+                   Artikel lesen
+                </a>
+            </div>
         </div>
     </div>
 </div>

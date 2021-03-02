@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { Subscription } from 'rxjs';
 
 import { Article } from '../../../../../../backend/src/models/article.model';
 import { ArticleService } from '../../../services/items/article.service';
@@ -9,21 +11,29 @@ import { ArticleService } from '../../../services/items/article.service';
     templateUrl: './articles-list.component.html',
     styleUrls: ['./articles-list.component.scss']
 })
-export class ArticlesListComponent implements OnInit {
+export class ArticlesListComponent implements OnInit, OnDestroy {
     private MAX_DESCRIPTION_CHARLENGTH = 300;
 
     landingArticle: Article;
+    gridArticles: Article[];
     articles: Article[] = [];
 
+    private subscriptions: Subscription[] = [];
     constructor(private articleService: ArticleService) {
-        articleService.articles.subscribe(articles => {
+        this.subscriptions.push(articleService.articles.subscribe(articles => {
             this.articles = articles;
             this.landingArticle = articles[0];
-        });
+            this.gridArticles = articles.slice(1);
+            console.log(articles);
+        }));
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.articleService.get();
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe);
     }
 
     cropArticleDescription(articleContent: string): string {

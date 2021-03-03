@@ -46,15 +46,19 @@ export class ArticleService implements ItemService<Article> {
     }
 
     /** Edit an existing article. */
-    edit(article: Article) {
+    edit(article: Article): Observable<boolean>  {
+        const successSubject = new Subject<boolean>();
         this.http.post(ApiEndpointArticle.edit, article).subscribe(
             (res: SuccessResponse) => {
                 if (res.successful) {
                     this.get();
                 }
+                successSubject.next(res.successful);
+                successSubject.complete();
             },
             _ => _
         );
+        return successSubject.asObservable();
     }
 
     /** Remove an article. */

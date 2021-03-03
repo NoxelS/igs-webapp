@@ -32,6 +32,7 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
             this.route.paramMap.subscribe(paramMap => {
                 const uniqueTitle = paramMap.get('title');
                 this.articleID = uniqueTitle.split('_')[uniqueTitle.split('_').length - 1];
+                this.articleService.get();
             })
         );
         this.subscriptions.push(

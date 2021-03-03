@@ -11,6 +11,18 @@
         <button mat-button [matMenuTriggerFor]="articles" [class.routerLinkActiveClass]="rlaArtikel1.isActive">Artikel</button>
         <mat-menu #articles="matMenu" yPosition="above">
             <button mat-menu-item routerLink="artikel" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">Alle Artikel</button>
+            <button mat-menu-item [matMenuTriggerFor]="alle">Durchsuchen</button>
+            <mat-menu #alle="matMenu" yPosition="below">
+                <button
+                    mat-menu-item
+                    *ngFor="let article of articlesArray"
+                    [routerLink]="getArticleLink(article)"
+                    routerLinkActive="routerLinkActiveClass"
+                    #rlaArtikel2="routerLinkActive"
+                >
+                    {{ article.title }}
+                </button>
+            </mat-menu>
             <button mat-menu-item isLoggedIn>Artikel erstellen</button>
         </mat-menu>
         <!-- Dateiablage -->

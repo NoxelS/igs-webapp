@@ -8,39 +8,39 @@ import { ArticleService } from '../../../services/items/article.service';
 
 
 @Component({
-  selector: 'app-article-edit',
-  templateUrl: './article-edit.component.html',
-  styleUrls: ['./article-edit.component.scss']
+    selector: 'app-article-edit',
+    templateUrl: './article-edit.component.html',
+    styleUrls: ['./article-edit.component.scss']
 })
 export class ArticleEditComponent implements OnInit, OnDestroy {
-  article: Article;
-  articleID: string;
+    article: Article;
+    articleID: string;
 
-  private subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
-  constructor(private route: ActivatedRoute, private articleService: ArticleService) {
-      this.subscriptions.push(
-          this.route.paramMap.subscribe(paramMap => {
-              const uniqueTitle = paramMap.get('title');
-              this.articleID = uniqueTitle.split('_')[uniqueTitle.split('_').length - 1];
-          })
-      );
-      this.subscriptions.push(
-          articleService.articles.subscribe(articles => {
-              this.article = articles.find(article => article.id === this.articleID);
-          })
-      );
-  }
+    constructor(private route: ActivatedRoute, private articleService: ArticleService) {
+        this.subscriptions.push(
+            this.route.paramMap.subscribe(paramMap => {
+                const uniqueTitle = paramMap.get('title');
+                this.articleID = uniqueTitle.split('_')[uniqueTitle.split('_').length - 1];
+            })
+        );
+        this.subscriptions.push(
+            articleService.articles.subscribe(articles => {
+                this.article = articles.find(article => Number(article.id) === Number(this.articleID));
+            })
+        );
+    }
 
-  ngOnInit() {
-      this.articleService.get();
-  }
+    ngOnInit() {
+        this.articleService.get();
+    }
 
-  ngOnDestroy() {
-      this.subscriptions.forEach(s => s.unsubscribe());
-  }
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
+    }
 
-  getReadTime(text: string): number {
-      return Math.round(text.split(/[\n\r\s]+/g).length / 120) + 1;
-  }
+    getReadTime(text: string): number {
+        return Math.round(text.split(/[\n\r\s]+/g).length / 120) + 1;
+    }
 }

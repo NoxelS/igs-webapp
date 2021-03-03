@@ -33,7 +33,8 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
         );
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
-                this.article = articles.find(article => article.id === this.articleID);
+                this.article = articles.find(article => Number(article.id) === Number(this.articleID));
+                console.log(this.article);
             })
         );
     }

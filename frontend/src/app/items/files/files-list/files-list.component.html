@@ -1,1 +1,20 @@
-<p>files-list works!</p>
+<div class="file-container">
+    <div class="sidebar">
+        <span><mat-icon>search</mat-icon>Datei finden</span>
+        <span><mat-icon>upload_file</mat-icon>Neue Datei hinzufügen</span>
+        <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
+    </div>
+    <div class="file-grid">
+        <div class="file" *ngFor="let file of allFiles">
+            <div>
+                <div class="name">{{ realName(file.name) }}</div>
+                <div class="description">{{ file.description }}</div>
+            </div>
+           <div>
+                <div class="date"><i>Wurde am {{ getDate(file.creationDate) }} hochgeladen.</i></div>
+                <!-- <div class="type">{{ file.mimetype }}</div> -->
+                <button mat-flat-button color="primary" (click)="downloadFile(file)">Herunterladen</button>
+           </div>
+        </div>
+    </div>
+</div>

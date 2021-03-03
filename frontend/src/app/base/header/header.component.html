@@ -10,7 +10,7 @@
         <!-- Artikel -->
         <button mat-button [matMenuTriggerFor]="articles" [class.routerLinkActiveClass]="rlaArtikel1.isActive">Artikel</button>
         <mat-menu #articles="matMenu" yPosition="above">
-            <button mat-menu-item routerLink="artikel" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">Alle Artikel</button>
+            <button mat-menu-item [routerLink]="routes.ARTICLES" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">Alle Artikel</button>
             <button mat-menu-item [matMenuTriggerFor]="alle">Durchsuchen</button>
             <mat-menu #alle="matMenu" yPosition="below">
                 <button
@@ -26,11 +26,7 @@
             <button mat-menu-item isLoggedIn>Artikel erstellen</button>
         </mat-menu>
         <!-- Dateiablage -->
-        <button mat-button [matMenuTriggerFor]="files" isLoggedIn [class.routerLinkActiveClass]="rlaFiles1.isActive">Dateiablage</button>
-        <mat-menu #files="matMenu" yPosition="above">
-            <button mat-menu-item routerLink="files" routerLinkActive="routerLinkActiveClass" #rlaFiles1="routerLinkActive">Alle Datein</button>
-            <button mat-menu-item>Datei erstellen</button>
-        </mat-menu>
+        <button mat-button isLoggedIn [routerLink]="routes.FILES" routerLinkActive="routerLinkActiveClass">Dateiablage</button>
         <!-- Über uns -->
         <button mat-button [matMenuTriggerFor]="aboveMenu">Über uns</button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">

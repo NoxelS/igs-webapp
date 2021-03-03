@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+
+import { ShortFile } from '../../../../../../backend/src/models/short-file.model';
+import { FileService } from '../../../services/items/file.service';
 
 
 @Component({
@@ -6,8 +11,41 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './files-list.component.html',
     styleUrls: ['./files-list.component.scss']
 })
-export class FilesListComponent implements OnInit {
-    constructor() {}
+export class FilesListComponent implements OnInit, OnDestroy {
 
-    ngOnInit(): void {}
+    allFiles: ShortFile[];
+
+    private subscriptions: Subscription[] = [];
+
+    constructor(private readonly fileService: FileService) {
+       this.subscriptions.push(fileService.files.subscribe(files => {
+            this.allFiles = files;
+        }));
+    }
+
+    handleFileInput(files: FileList) {
+        this.fileService.create(files.item(0), 'Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung. Eine etwas längere Beschreibung.Eine etwas längere Beschreibung. Eine etwas längere Beschreibung. Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.');
+    }
+
+    downloadFile(refrence: ShortFile) {
+        this.fileService.download(refrence);
+    }
+
+    getDate(date: number) {
+        const realDate = new Date();
+        realDate.setTime(date);
+        return `${realDate.getDay()}.${realDate.getMonth() + 1}.${realDate.getFullYear()}`;
+    }
+
+    realName(fileName: string) {
+        return fileName.split('.')[0];
+    }
+
+    ngOnInit() {
+        this.fileService.get();
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe);
+    }
 }

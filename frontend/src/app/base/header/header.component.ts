@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     user: User;
     subscription: Subscription[] = [];
     articlesArray: Article[] = [];
+    
+    readonly routes = routePaths;
 
     constructor(private readonly authService: AuthenticationService, private readonly articleService: ArticleService) {
         this.subscription.push(

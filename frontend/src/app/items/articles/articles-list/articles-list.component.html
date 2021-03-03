@@ -1,22 +1,25 @@
 <div class="list" *ngIf="!!landingArticle">
-    <div class="landing">
-        <img src="{{ landingArticle.imageUrl }}" />
-        <div class="description">
-            <div class="title">{{ landingArticle.title }}</div>
-
-            <div class="chip-list">
-                <span><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</span>
-                <span><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</span>
-                <span *ngIf="loggedIn" class="edit admin" [routerLink]="getEditArticleLink(landingArticle)"><mat-icon>mode</mat-icon>Bearbeiten</span>
-                <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(landingArticle)"><mat-icon>do_disturb</mat-icon>Löschen</span>
-            </div>
-
+    <div class="landing-wrapper">
+        <div class="landing">
+            <img src="{{ landingArticle.imageUrl }}" />
+    
             <div class="description">
-                {{ cropArticleDescription(landingArticle.content) }}
+                <div class="title">{{ landingArticle.title }}</div>
+    
+                <div class="chip-list">
+                    <span><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</span>
+                    <span><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</span>
+                    <span *ngIf="loggedIn" class="edit admin" [routerLink]="getEditArticleLink(landingArticle)"><mat-icon>mode</mat-icon>Bearbeiten</span>
+                    <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(landingArticle)"><mat-icon>do_disturb</mat-icon>Löschen</span>
+                </div>
+    
+                <div class="description">
+                    {{ cropArticleDescription(landingArticle.content) }}
+                </div>
+                <a [routerLink]="getArticleLink(landingArticle)">
+                    <button mat-flat-button color="primary">Artikel lesen</button>
+                </a>
             </div>
-            <a [routerLink]="getArticleLink(landingArticle)">
-                <button mat-flat-button color="primary">Artikel lesen</button>
-            </a>
         </div>
     </div>
     <div class="grid-list">

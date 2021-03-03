@@ -3,41 +3,48 @@
 .list {
     width: 100%;
     // background-color: #333;
-
-    .landing {
-        // background-color: #000;
+    .landing-wrapper {
         height: calc(100vh - 100px);
-
         display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: center;
 
-        img {
-            max-width: 40vh;
-            border-radius: 10px;
-            margin-right: 10vw;
-        }
+        .landing {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            // grid-template-rows: 1fr;
+            gap: 0 8vw;
 
-        .description {
-            max-width: 40vw;
-
-            .title {
-                font-size: 2.5em;
-                margin-bottom: 1.3rem;
-                line-height: normal;
+            img {
+                align-self: center;
+                justify-self: flex-end;
+                max-width: 40vw;
+                max-height: 50vh;
+                border-radius: 10px;
             }
 
             .description {
-                margin-top: 0.7rem;
-                max-width: 30vw;
-                font-size: 1.2em;
-                line-height: 1.8em;
-                margin-bottom: 1.5rem;
-            }
+                align-self: center;
+                justify-self: flex-start;
+                max-width: 40vw;
 
-            button {
-                margin-bottom: 10rem;
+                .title {
+                    font-size: 2.5em;
+                    margin-bottom: 1.3rem;
+                    line-height: normal;
+                }
+
+                .description {
+                    margin-top: 0.7rem;
+                    max-width: 30vw;
+                    font-size: 1.2em;
+                    line-height: 1.8em;
+                    margin-bottom: 1.5rem;
+                }
+
+                button {
+                    margin-bottom: 1rem;
+                }
             }
         }
     }

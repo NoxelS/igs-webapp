@@ -48,7 +48,7 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
             let lastLength = 0;
             let description: string;
             articleContent.split(' ').forEach((chunk, index, array) => {
-                if (lastLength < this.MAX_DESCRIPTION_CHARLENGTH && (lastLength + chunk.length) > this.MAX_DESCRIPTION_CHARLENGTH) {
+                if (lastLength < this.MAX_DESCRIPTION_CHARLENGTH && lastLength + chunk.length > this.MAX_DESCRIPTION_CHARLENGTH) {
                     description = array.slice(0, index + 1).join(' ') + '...';
                 }
                 lastLength += chunk.length;
@@ -72,14 +72,15 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
             .confirm(`Möchten Sie den Artikel "${article.title}" vom ${article.creationDate} wirklich löschen?`, 'Löschen bestätigen')
             .afterClosed()
             .subscribe(confimred => {
-                console.log(confimred);
-                this.articleService.remove(article).subscribe(success => {
-                    if (success) {
-                        this.dialogService.flashSuccess('Der Artikel wurde erfolgreich gelöscht');
-                    } else {
-                        this.dialogService.flashError('Leider konnte der Artikel nicht gelöscht werden. Versuchen Sie es später noch einmal.');
-                    }
-                });
+                if (confimred) {
+                    this.articleService.remove(article).subscribe(success => {
+                        if (success) {
+                            this.dialogService.flashSuccess('Der Artikel wurde erfolgreich gelöscht');
+                        } else {
+                            this.dialogService.flashError('Leider konnte der Artikel nicht gelöscht werden. Versuchen Sie es später noch einmal.');
+                        }
+                    });
+                }
             });
     }
 }

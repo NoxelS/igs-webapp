@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 import { ShortFile } from '../../../../../../backend/src/models/short-file.model';
 import { DialogService } from '../../../services/dialog.service';
@@ -14,13 +14,42 @@ import { FileService } from '../../../services/items/file.service';
 })
 export class FilesListComponent implements OnInit, OnDestroy {
     allFiles: ShortFile[];
+    allFilesFiltered: ShortFile[] = [];
 
+    public get searchTerm(): string {
+        return this._searchTerm;
+    }
+
+    public set searchTerm(searchTerm: string) {
+        this._searchTerm = searchTerm;
+        this.searchTermChange.next(searchTerm);
+    }
+
+    private _searchTerm = '';
     private subscriptions: Subscription[] = [];
+    private searchTermChange = new Subject<string>();
 
     constructor(private readonly fileService: FileService, private readonly dialogService: DialogService) {
+        // TODO: Better observables and better search engine
         this.subscriptions.push(
             fileService.files.subscribe(files => {
                 this.allFiles = files;
+                this.allFilesFiltered = [...this.allFiles];
+                if (this.searchTerm.length > 0) {
+                    this.allFilesFiltered = this.allFiles.filter(file => {
+                        return file.name.indexOf(this.searchTerm) === 0;
+                    });
+                }
+            })
+        );
+        this.subscriptions.push(
+            this.searchTermChange.subscribe(searchTerm => {
+                this.allFilesFiltered = [...this.allFiles];
+                if (searchTerm.length > 0) {
+                    this.allFilesFiltered = this.allFiles.filter(file => {
+                        return file.name.indexOf(this.searchTerm) === 0;
+                    });
+                }
             })
         );
     }

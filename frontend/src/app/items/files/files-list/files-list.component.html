@@ -1,8 +1,9 @@
 <div class="file-container">
     <div class="sidebar">
-        <span><mat-icon>search</mat-icon>Datei finden</span>
-        <span><mat-icon>upload_file</mat-icon>Neue Datei hinzufügen</span>
-        <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
+        <span><mat-icon>search</mat-icon><span>Datei finden</span></span>
+        <span (click)="downloadFile(fileinput.click())"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span>
+        <input hidden type="file" id="file" class="file-input" #fileinput (change)="handleFileInput($event.target.files)" />
+        
     </div>
     <div class="file-grid">
         <div class="file" *ngFor="let file of allFiles">
@@ -15,7 +16,6 @@
                 <!-- <div class="type">{{ file.mimetype }}</div> -->
                 <button mat-flat-button color="primary" (click)="downloadFile(file)">Herunterladen</button>
                 <button mat-flat-button color="primary" (click)="removeFile(file)">Löschen</button>
-
            </div>
         </div>
     </div>

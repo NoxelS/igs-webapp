@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { IgsResponse, SuccessResponse } from '../../backend-datatypes/response.model';
 import { ShortFile } from '../../backend-datatypes/short-file.model';
@@ -49,15 +49,19 @@ export class FileService {
     }
 
     /** Remove a file. */
-    remove(file: ShortFile) {
+    remove(file: ShortFile): Observable<boolean> {
+        const successSubject = new Subject<boolean>();
         this.http.post(ApiEndpointFile.remove, file).subscribe(
             (res: SuccessResponse) => {
+                successSubject.next(res.successful);
+                successSubject.complete();
                 if (res.successful) {
                     this.get();
                 }
             },
             _ => _
         );
+        return successSubject.asObservable();
     }
 
     /** Edit an existing file by removing the old one and uploading a new one. */

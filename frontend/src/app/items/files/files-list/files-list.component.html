@@ -14,6 +14,8 @@
                 <div class="date"><i>Wurde am {{ getDate(file.creationDate) }} hochgeladen.</i></div>
                 <!-- <div class="type">{{ file.mimetype }}</div> -->
                 <button mat-flat-button color="primary" (click)="downloadFile(file)">Herunterladen</button>
+                <button mat-flat-button color="primary" (click)="removeFile(file)">Löschen</button>
+
            </div>
         </div>
     </div>

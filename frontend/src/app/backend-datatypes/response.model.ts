@@ -3,7 +3,7 @@ import { User } from './user.model';
 
 
 export class IgsResponse<T> {
-    successful = true;
+    successful: boolean = true;
     data: T;
     errorMessage: string;
     responseType: string;

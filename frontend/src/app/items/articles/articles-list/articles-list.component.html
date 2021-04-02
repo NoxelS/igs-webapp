@@ -14,7 +14,7 @@
                 </div>
     
                 <div class="description">
-                    {{ cropArticleDescription(landingArticle.content) }}
+                    {{ landingArticle.description }}
                 </div>
                 <a [routerLink]="getArticleLink(landingArticle)">
                     <button mat-flat-button color="primary">Artikel lesen</button>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="description">
-                    {{ cropArticleDescription(article.content) }}
+                    {{ article.description }}
                 </div>
                 <a [routerLink]="getArticleLink(article)"> Artikel lesen </a>
             </div>

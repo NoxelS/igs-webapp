@@ -167,7 +167,8 @@ _[IgsResponse<Article[]>](#IgsResponse)_
       "views": "<number>",
       "creationDate": "<number>",
       "imageUrl": "<string>",
-      "content": "<string>"
+      "content": "<string>",
+      "description": "<string>"
     },
     {
       "id": "<string>",
@@ -175,7 +176,8 @@ _[IgsResponse<Article[]>](#IgsResponse)_
       "views": "<number>",
       "creationDate": "<number>",
       "imageUrl": "<string>",
-      "content": "<string>"
+      "content": "<string>",
+      "description": "<string>"
     }
   ],
   "responseType": "IgsResponse<Article[]>",
@@ -198,7 +200,8 @@ __Expected payload:__
   "views": "<number>",
   "creationDate": "<number>",
   "imageUrl": "<string>",
-  "content": "<string>"
+  "content": "<string>",
+  "description": "<string>"
 }
 ```
 __Response:__
@@ -347,6 +350,7 @@ export class Article {
   public creationDate: number;
   public imageUrl: string;
   public content: string;
+  public description: string;
 }
 ```
 ## User

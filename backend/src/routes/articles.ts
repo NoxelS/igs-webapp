@@ -14,7 +14,7 @@ router.get('/list', async (req: Request, res: Response) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
         } else {
-            res.json(new IgsResponse(results.map((row: any) => new Article(row.title, row.views, row.creationDate, row.imageUrl, row.content, row.id))));
+            res.json(new IgsResponse(results.map((row: any) => new Article(row.title, row.views, row.creationDate, row.imageUrl, row.content, row.description, row.id))));
         }
     });
 });
@@ -22,8 +22,8 @@ router.get('/list', async (req: Request, res: Response) => {
 router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
     const article: Article = req.body as Article;
     connection.query(
-        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`) VALUES (?,?,?,?,?)',
-        [article.title, article.views, article.creationDate, article.imageUrl, article.content],
+        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`) VALUES (?,?,?,?,?,?)',
+        [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description],
         err => {
             res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
         }
@@ -39,8 +39,8 @@ router.post('/edit', isLoggedIn(), async (req: Request, res: Response) => {
             res.json(new ErrorResponse('The article was not found.'));
         } else {
             connection.query(
-                'UPDATE `igs`.`articles` SET `title` = ?, `views` = ?, `creationDate` = ?, `imageUrl` = ?, `content` = ? WHERE (`id` = ?);',
-                [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.id],
+                'UPDATE `igs`.`articles` SET `title` = ?, `views` = ?, `creationDate` = ?, `imageUrl` = ?, `content` = ?, `description` = ?, WHERE (`id` = ?);',
+                [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description, article.id],
                 err => {
                     res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
                 }

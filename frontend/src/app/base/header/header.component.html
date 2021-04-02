@@ -27,6 +27,14 @@
         </mat-menu>
         <!-- Dateiablage -->
         <button mat-button isLoggedIn [routerLink]="routes.FILES" routerLinkActive="routerLinkActiveClass">Dateiablage</button>
+        <!-- Superuser -->
+        <ng-container *ngIf="user && !!user.isSuperUser">
+            <button mat-button [matMenuTriggerFor]="adminMenu">Adminbereich</button>
+            <mat-menu #adminMenu="matMenu" yPosition="above">
+                <button [routerLink]="routes.USERMANAGEMENT" mat-menu-item>Usermanagement</button>
+                <button [routerLink]="routes.SERVERMANAGEMENT" mat-menu-item>Servermanagement</button>
+            </mat-menu>
+        </ng-container>
         <!-- Über uns -->
         <button mat-button [matMenuTriggerFor]="aboveMenu">Über uns</button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
@@ -35,7 +43,7 @@
         </mat-menu>
         <!-- Login -->
         <button mat-button [matMenuTriggerFor]="afterMenu">
-            <mat-icon [color]="!!user ? 'primary' : 'default'">account_circle</mat-icon> {{ !!user ? user.username : '' }}
+            <mat-icon [color]="!!user ? (user.isSuperUser ? 'accent' : 'primary') : 'default'">account_circle</mat-icon> {{ !!user ? user.username : '' }}
         </button>
         <mat-menu #afterMenu="matMenu" xPosition="after">
             <igs-login></igs-login>

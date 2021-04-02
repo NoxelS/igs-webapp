@@ -82,7 +82,7 @@ passport.use(
                 done(err, false);
             } else {
                 logger.info('Successful jwt login');
-                done(null, new User(results[0].username, results[0].email, results[0].id));
+                done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
             }
         });
     })

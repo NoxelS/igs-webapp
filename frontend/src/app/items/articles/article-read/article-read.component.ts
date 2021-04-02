@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
@@ -24,6 +24,7 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
     article: Article;
     articleID: string;
     isLoggedIn: boolean;
+    @ViewChild('top', {}) top: HTMLElement;
 
     private subscriptions: Subscription[] = [];
 
@@ -45,6 +46,7 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.articleService.get();
+        this.top.scrollIntoView();
     }
 
     ngOnDestroy() {

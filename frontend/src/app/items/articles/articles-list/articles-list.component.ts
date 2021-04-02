@@ -17,8 +17,6 @@ import { ArticleService } from '../../../services/items/article.service';
 export class ArticlesListComponent implements OnInit, OnDestroy {
     private MAX_DESCRIPTION_CHARLENGTH = 300;
 
-    landingArticle: Article;
-    gridArticles: Article[];
     articles: Article[] = [];
     loggedIn = false;
 
@@ -27,8 +25,6 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
                 this.articles = articles;
-                this.landingArticle = articles[0];
-                this.gridArticles = articles.slice(1);
             })
         );
 
@@ -41,22 +37,6 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe);
-    }
-
-    cropArticleDescription(articleContent: string): string {
-        if (articleContent.length > this.MAX_DESCRIPTION_CHARLENGTH) {
-            let lastLength = 0;
-            let description: string;
-            articleContent.split(' ').forEach((chunk, index, array) => {
-                if (lastLength < this.MAX_DESCRIPTION_CHARLENGTH && lastLength + chunk.length > this.MAX_DESCRIPTION_CHARLENGTH) {
-                    description = array.slice(0, index + 1).join(' ') + '...';
-                }
-                lastLength += chunk.length;
-            });
-            return description;
-        } else {
-            return articleContent;
-        }
     }
 
     getArticleLink(article: Article): string {
@@ -82,5 +62,9 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
                     });
                 }
             });
+    }
+
+    scroll(el: HTMLElement) {
+        el.scrollIntoView();
     }
 }

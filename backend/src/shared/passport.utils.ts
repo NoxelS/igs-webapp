@@ -15,12 +15,12 @@ export function isLoggedIn() {
 export function verifyUser(username: string, password: string, done: (err: string | null, user?: User | false) => void) {
     connection.query('SELECT * FROM users WHERE username = ?', [username], (error, results, fields) => {
         if (error || results.length === 0) {
-            done('CWrong username or password.');
+            done('Wrong username or password.');
         } else {
             const hash = results[0].password.toString();
             compare(password, hash, (err, response) => {
                 if (response === true) {
-                    return done(null, new User(results[0].username, results[0].email, results[0].id));
+                    return done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
                 } else {
                     return done(null, false);
                 }
@@ -35,7 +35,7 @@ export function jwtVerifyCallback(payload: any, done: any) {
             done(err, false);
         } else {
             logger.info('Successful jwt login');
-            done(null, new User(results[0].username, results[0].email, results[0].id));
+            done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
         }
     });
 }

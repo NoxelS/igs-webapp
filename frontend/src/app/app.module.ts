@@ -40,10 +40,12 @@ import { ConfirmTemplateComponent } from './template/confirm-template/confirm-te
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 import { FooterComponent } from './base/footer/footer.component';
+import { ServermanagementComponent } from './superuser/servermanagement/servermanagement.component';
+import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent, RecoverPasswordComponent, ArticleReadComponent, ArticleEditComponent, FooterComponent],
+    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent, RecoverPasswordComponent, ArticleReadComponent, ArticleEditComponent, FooterComponent, ServermanagementComponent, UsermanagementComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

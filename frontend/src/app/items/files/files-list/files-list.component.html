@@ -13,7 +13,7 @@
     <div class="file-grid">
         <div class="file" *ngFor="let file of allFilesFiltered">
             <div>
-                <div class="name">{{ realName(file.name) }}</div>
+                <div class="name">{{ realName(file.name) }} {{file.mimetype}} - </div>
                 <div class="description">{{ file.description }}</div>
             </div>
             <div>

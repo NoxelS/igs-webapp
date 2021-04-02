@@ -1,3 +1,4 @@
+<div #top></div>
 <div class="read-container" *ngIf="article">
     <div class="title">
         <h1>{{ article.title }} <span *ngIf="isLoggedIn" [routerLink]="getEditArticleLink()">Bearbeiten</span></h1>

@@ -11,15 +11,16 @@
 
         .landing {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 1fr;
             // grid-template-rows: 1fr;
             gap: 0 8vw;
 
             img {
                 align-self: center;
                 justify-self: flex-end;
-                max-width: 40vw;
-                max-height: 50vh;
+                max-width: 50vw;
+                max-height: 60vh;
                 border-radius: 10px;
             }
 
@@ -36,7 +37,7 @@
 
                 .description {
                     margin-top: 0.7rem;
-                    max-width: 30vw;
+                    width: 100%;
                     font-size: 1.2em;
                     line-height: 1.8em;
                     margin-bottom: 1.5rem;
@@ -80,17 +81,17 @@
 
                 .description {
                     margin-top: 0.7rem;
-                    max-width: 30vw;
+                    // max-width: 30vw;
                     font-size: 1.2em;
                     line-height: 1.8em;
                     margin-bottom: 1.5rem;
                     text-align: justify;
                 }
 
-                a {
-                    color: $primary-blue;
-                    font-size: 1.2em;
-                }
+                // a {
+                //     color: $primary-blue;
+                //     font-size: 1.2em;
+                // }
             }
         }
     }

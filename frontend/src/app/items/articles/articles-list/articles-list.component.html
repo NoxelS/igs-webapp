@@ -1,29 +1,32 @@
-<div class="list" *ngIf="!!landingArticle">
+<div class="list">
     <div class="landing-wrapper">
         <div class="landing">
-            <img src="{{ landingArticle.imageUrl }}" />
-    
+            <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
             <div class="description">
-                <div class="title">{{ landingArticle.title }}</div>
-    
-                <div class="chip-list">
+                <div class="title">Direktorenvereinigung der Integrierten Gestamschulen in Rheinland-Pfalz</div>
+
+                <!-- <div class="chip-list">
                     <span><mat-icon>visibility</mat-icon>{{ landingArticle.views }}</span>
                     <span><mat-icon>schedule</mat-icon>{{ landingArticle.creationDate }}</span>
                     <span *ngIf="loggedIn" class="edit admin" [routerLink]="getEditArticleLink(landingArticle)"><mat-icon>mode</mat-icon>Bearbeiten</span>
                     <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(landingArticle)"><mat-icon>do_disturb</mat-icon>Löschen</span>
-                </div>
-    
+                </div> -->
+
                 <div class="description">
-                    {{ landingArticle.description }}
+                    Die Direktorenvereinigung ist eine Interessenvertretung der Schulleiterinnen und Schulleiter der Integrierten Gesamtschulen in
+                    Rheinland-Pfalz. Die 55 rheinland-pfälzischen Gesamtschulen sind in sieben Regionalgruppen vernetzt. Jede Regionalgruppe bestimmt aus ihren
+                    Reihen eine Vertreterin oder einen Vertreter als Mitglied des Vorstandes der Direktorenvereinigung. Alle zwei Jahre wird in einer
+                    Versammlung aller Schulleiterinnen und Schulleiter ein/e Vorsitzende/r sowie ein/e Stellvertreterin als Landesvertreter gewählt. Die
+                    Direktorenvereinigung vertritt die Interessen der Schulen gegenüber dem Bildungsministerium, der ADD, den Personalräten und dem
+                    Landeselternbeirat. Die Regionalgruppen arbeiten selbstständig und bringen Themen in den Vorstand ein. Der Vorstand steht im mündlichen und
+                    schriftlichen Austausch mit den genannten Gremien.
                 </div>
-                <a [routerLink]="getArticleLink(landingArticle)">
-                    <button mat-flat-button color="primary">Artikel lesen</button>
-                </a>
+                <button mat-flat-button color="primary" (click)="scroll(gridlist)">Zu den Artikeln</button>
             </div>
         </div>
     </div>
-    <div class="grid-list">
-        <div *ngFor="let article of gridArticles" class="grid-article-item">
+    <div class="grid-list" #gridlist>
+        <div *ngFor="let article of articles" class="grid-article-item">
             <div class="sixteen-nine-img">
                 <img src="{{ article.imageUrl }}" />
             </div>
@@ -41,7 +44,7 @@
                 <div class="description">
                     {{ article.description }}
                 </div>
-                <a [routerLink]="getArticleLink(article)"> Artikel lesen </a>
+                <a [routerLink]="getArticleLink(article)"><button mat-flat-button color="primary">Artikel lesen</button></a>
             </div>
         </div>
     </div>

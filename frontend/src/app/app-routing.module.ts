@@ -7,6 +7,8 @@ import { ArticlesListComponent } from './items/articles/articles-list/articles-l
 import { FilesListComponent } from './items/files/files-list/files-list.component';
 import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
 import { routePaths } from './shared/routes.const';
+import { ServermanagementComponent } from './superuser/servermanagement/servermanagement.component';
+import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
     { path: routePaths.ARTICLE_EDIT, component: ArticleEditComponent },
     { path: routePaths.FILES, component: FilesListComponent },
     { path: routePaths.RESET_PASSWORD, component: RecoverPasswordComponent },
+    { path: routePaths.USERMANAGEMENT, component: UsermanagementComponent },
+    { path: routePaths.SERVERMANAGEMENT, component: ServermanagementComponent },
 ];
 
 @NgModule({

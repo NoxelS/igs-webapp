@@ -1,10 +1,7 @@
 import { connection } from '@configs/database';
 import { isLoggedIn } from '@shared/passport.utils';
 import { Request, Response, Router } from 'express';
-import { existsSync, readFileSync, unlink } from 'fs';
-import { verify } from 'jsonwebtoken';
-import passport from 'passport';
-import { join } from 'path';
+import { existsSync, unlink } from 'fs';
 
 import { ErrorResponse, ShortFileListResponse, SuccessResponse } from '../models/response.model';
 import { ShortFile } from '../models/short-file.model';
@@ -18,6 +15,7 @@ router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
         } else {
+            console.log(result);
             res.json(
                 new ShortFileListResponse(
                     result
@@ -28,6 +26,7 @@ router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
                                     name: dbEntry.name,
                                     id: dbEntry.id,
                                     authorId: dbEntry.authorId,
+                                    authorName: dbEntry['author_name'],
                                     mimetype: dbEntry.mimetype,
                                     creationDate: dbEntry.creationDate,
                                     description: dbEntry.description
@@ -40,38 +39,27 @@ router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
 });
 
 router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
-    // TODO: use locals here
-    const PRIV_KEY = readFileSync(join(__dirname, '../keys/id_rsa_priv.pem'));
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && (authHeader.split(' ')[1] as any);
-    verify(token, PRIV_KEY, { algorithms: ['RS256'] }, (err, subPrperties) => {
-        if (err) {
-            res.json(new ErrorResponse(err.message));
-        } else {
-            const userId = (subPrperties as any).sub;
-            const file = req.files?.file;
-            const { description } = req.body;
-            if (file) {
-                connection.query(
-                    'INSERT INTO `igs`.`files` (`name`, `author_id`, `mimetype`, `creationDate`, `description`) VALUES (?, ?, ?, ?, ?);',
-                    [file.name, userId, file.mimetype, new Date().getTime(), description],
-                    (err, result) => {
-                        if (err) {
-                            res.json(new ErrorResponse(err.message));
-                        } else {
-                            const path = '/usr/src/app/files/' + result.insertId + '.' + file.name.split('.')[file.name.split('.').length - 1];
-                            file.mv(path);
-                            connection.query('UPDATE `igs`.`files` SET `path` = ? WHERE (`id` = ?);', [path, result.insertId], err => {
-                                res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
-                            });
-                        }
-                    }
-                );
-            } else {
-                res.json(new ErrorResponse('No file attached.'));
+    const file = req.files?.file;
+    const { description } = req.body;
+    if (file) {
+        connection.query(
+            'INSERT INTO `igs`.`files` (`name`, `author_id`, `author_name`, `mimetype`, `creationDate`, `description`) VALUES (?, ?, ?, ?, ?, ?);',
+            [file.name, res.locals.user.id, res.locals.user.username, file.mimetype, new Date().getTime(), description],
+            (err, result) => {
+                if (err) {
+                    res.json(new ErrorResponse(err.message));
+                } else {
+                    const path = '/usr/src/app/files/' + result.insertId + '.' + file.name.split('.')[file.name.split('.').length - 1];
+                    file.mv(path);
+                    connection.query('UPDATE `igs`.`files` SET `path` = ? WHERE (`id` = ?);', [path, result.insertId], err => {
+                        res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
+                    });
+                }
             }
-        }
-    });
+        );
+    } else {
+        res.json(new ErrorResponse('No file attached.'));
+    }
 });
 
 router.post('/remove', isLoggedIn(), async (req: Request, res: Response) => {

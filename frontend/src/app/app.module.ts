@@ -12,7 +12,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,6 +26,7 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './base/footer/footer.component';
 import { HeaderComponent } from './base/header/header.component';
 import { LoginComponent } from './base/header/login/login.component';
 import { ArticleEditComponent } from './items/articles/article-edit/article-edit.component';
@@ -36,28 +40,47 @@ import { ArticleService } from './services/items/article.service';
 import { FileService } from './services/items/file.service';
 import { AddHeaderInterceptor } from './shared/header.interceptor';
 import { IsLoggedInDirective } from './shared/is-logged-in.directive';
+import { MatPaginatorIntlDE } from './shared/paginator-int';
+import { ServermanagementComponent } from './superuser/servermanagement/servermanagement.component';
+import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { FooterComponent } from './base/footer/footer.component';
-import { ServermanagementComponent } from './superuser/servermanagement/servermanagement.component';
-import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
 
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LoginComponent, LoginTemplateComponent, ResetPasswordComponent, IsLoggedInDirective, ArticlesListComponent, FilesListComponent, ConfirmTemplateComponent, RecoverPasswordComponent, ArticleReadComponent, ArticleEditComponent, FooterComponent, ServermanagementComponent, UsermanagementComponent],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        LoginComponent,
+        LoginTemplateComponent,
+        ResetPasswordComponent,
+        IsLoggedInDirective,
+        ArticlesListComponent,
+        FilesListComponent,
+        ConfirmTemplateComponent,
+        RecoverPasswordComponent,
+        ArticleReadComponent,
+        ArticleEditComponent,
+        FooterComponent,
+        ServermanagementComponent,
+        UsermanagementComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        NoopAnimationsModule,
         BrowserAnimationsModule,
+        NoopAnimationsModule,
         MatFormFieldModule,
         MatInputModule,
         MatAutocompleteModule,
         MatMenuModule,
         MatChipsModule,
+        MatSortModule,
+        MatPaginatorModule,
         HttpClientModule,
         MatToolbarModule,
+        MatTableModule,
         MatIconModule,
         MatButtonModule,
         MatGridListModule,
@@ -77,6 +100,7 @@ import { UsermanagementComponent } from './superuser/usermanagement/usermanageme
         AuthenticationService,
         FileService,
         DialogService,
+        { provide: MatPaginatorIntl, useClass: MatPaginatorIntlDE },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AddHeaderInterceptor,

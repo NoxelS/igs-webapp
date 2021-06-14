@@ -22,7 +22,7 @@ router.get('/userid', isLoggedIn(), async (req: Request, res: Response) => {
 router.get('/disk-space', isLoggedIn(), async (req: Request, res: Response) => {
     if (res.locals.isSuperUser) {
         let space;
-        if(process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV === 'production') {
             space = await checkDiskSpace('usr/src/app/files');
         } else {
             space = await checkDiskSpace('C:\\usr\\src\\app\\files');

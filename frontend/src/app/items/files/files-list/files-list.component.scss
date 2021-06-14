@@ -13,7 +13,6 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin-bottom: 2rem;
 
         span {
             display: flex;
@@ -30,53 +29,74 @@
             }
         }
     }
+}
 
-    .file-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 3vw;
-        overflow-y: auto;
+table {
+    background: none;
+    width: 100%;
+}
 
-        .file {
-            width: 320px;
-            height: 220px;
-
-            padding: 1rem;
-
-            display: flex;
-            flex-direction: column;
-            align-items: space-between;
-            justify-content: space-between;
-
-            background-color: #eee;
-            border-radius: 10px;
-            // padding: 1rem;
-            // border: 1px solid black;
-
-            .name {
-                color: #333;
-                font-weight: bolder;
-                font-size: 1.1em;
-            }
-
-            .description {
-                font-size: 1.05em;
-                margin-top: 0.5rem;
-                margin-bottom: 0.2rem;
-                max-height: 100px;
-                max-width: 300px;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            .date {
-                justify-self: flex-end;
-            }
-
-            button {
-                justify-self: flex-end;
-                margin-top: 0.3rem;
-            }
-        }
+.row {
+    &:hover {
+        background-color: $primary-blue;
     }
+}
+
+th.mat-sort-header-sorted {
+    color: $primary-blue;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+.mat-column-name {
+    flex: 0 0 70%;
+}
+
+.mat-column-creationDate {
+    flex: 0 0 10%;
+}
+
+.mat-column-author {
+    flex: 0 0 10%;
+}
+
+.mat-column-action {
+    flex: none;
+    width: min-content;
+    pointer-events: none;
+    mat-icon {
+        pointer-events: all;
+    }
+}
+
+.mat-column-type {
+    flex: none;
+    width: min-content;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: rgba(34, 118, 245, 0.3);
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.example-element-description {
+    padding: 16px;
+}
+
+.example-element-description-attribution {
+    opacity: 0.5;
 }

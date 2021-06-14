@@ -34,6 +34,15 @@
 table {
     background: none;
     width: 100%;
+    cursor: pointer;
+}
+
+.loading {
+    width: 80vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .actions {

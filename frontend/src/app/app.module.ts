@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -43,10 +44,10 @@ import { IsLoggedInDirective } from './shared/is-logged-in.directive';
 import { MatPaginatorIntlDE } from './shared/paginator-int';
 import { ServermanagementComponent } from './superuser/servermanagement/servermanagement.component';
 import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
+import { AddNewFileComponent } from './template/add-new-file/add-new-file.component';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { AddNewFileComponent } from './template/add-new-file/add-new-file.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { AddNewFileComponent } from './template/add-new-file/add-new-file.compon
         AddNewFileComponent
     ],
     imports: [
+        MatProgressSpinnerModule,
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,

@@ -10,6 +10,10 @@
         <span (click)="openNewFileDialogue()"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span>
     </div>
 
+    <div class="loading" *ngIf="allFiles.length === 0">
+        <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+    </div>
+
     <table [hidden]="allFiles.length === 0" matSort mat-table [dataSource]="dataSource" multiTemplateDataRows>
         <!-- Row definitions -->
         <ng-container matColumnDef="type">
@@ -28,7 +32,10 @@
         </ng-container>
         <ng-container matColumnDef="author">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Autor</th>
-            <td mat-cell *matCellDef="let element">{{ element.authorName }}</td>
+            <td mat-cell *matCellDef="let element">
+                {{ element.authorName }}
+                <i *ngIf="!element.authorName">Unbekannt</i>
+            </td>
         </ng-container>
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
@@ -44,6 +51,7 @@
                 <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="example-element-description">
                         {{ element.description }}
+                        <i *ngIf="!element.description">Zu dieser Datei gibt es keine Beschreibung...</i>
                     </div>
                 </div>
             </td>

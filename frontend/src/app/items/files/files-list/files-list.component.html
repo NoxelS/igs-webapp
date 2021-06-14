@@ -8,33 +8,7 @@
                 </mat-form-field> </span
         ></span>
         <span (click)="openNewFileDialogue()"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span>
-        <!-- <span (click)="downloadFile(fileinput.click())"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span> -->
-        <input hidden type="file" id="file" class="file-input" #fileinput (change)="handleFileInput($event.target.files)" />
     </div>
-    <!-- <div class="file-grid">
-        <div class="file" *ngFor="let file of allFilesFiltered">
-            <div>
-                <div class="name">{{ realName(file.name) }} {{file.mimetype}} - </div>
-                <div class="description">{{ file.description }}</div>
-            </div>
-            <div>
-                <div class="date">
-                    <i>Wurde am {{ getDate(file.creationDate) }} hochgeladen.</i>
-                </div>
-                <button mat-flat-button color="primary" (click)="downloadFile(file)">Herunterladen</button>
-                <button mat-flat-button color="primary" (click)="removeFile(file)">Löschen</button>
-            </div>
-        </div>
-    </div> -->
-    <!-- <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table> -->
 
     <table [hidden]="allFiles.length === 0" matSort mat-table [dataSource]="dataSource" multiTemplateDataRows>
         <!-- Row definitions -->

@@ -31,6 +31,13 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
     displayedColumns: string[] = ['type', 'name', 'creationDate', 'author', 'action'];
     dataSource: MatTableDataSource<ShortFile> = new MatTableDataSource([]);
 
+    private _searchTerm = '';
+    private subscriptions: Subscription[] = [];
+    private searchTermChange = new Subject<string>();
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
     public get searchTerm(): string {
         return this._searchTerm;
     }
@@ -45,13 +52,6 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataSource.filter = searchTerm.trim().toLowerCase();
     }
 
-    private _searchTerm = '';
-    private subscriptions: Subscription[] = [];
-    private searchTermChange = new Subject<string>();
-
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -65,15 +65,6 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.dataSource.data = files;
             })
         );
-    }
-
-    handleFileInput(files: FileList) {
-        if (files) {
-            this.fileService.create(
-                files.item(0),
-                'Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung. Eine etwas längere Beschreibung.Eine etwas längere Beschreibung. Eine etwas längere Beschreibung. Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.Eine etwas längere Beschreibung.'
-            );
-        }
     }
 
     downloadFile(refrence: ShortFile) {

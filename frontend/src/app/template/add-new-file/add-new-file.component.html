@@ -1,0 +1,32 @@
+<div class="main">
+    <h2>Neue Datei hinzufügen</h2>
+    <div mat-dialog-content>
+        <h4 class="form-title-top">Datei Auswählen</h4>
+        <div class="add">
+            <button color="primary" (click)="fileinput.click()" mat-raised-button color="primary">Datei auswählen</button>
+
+            <input hidden type="file" id="file" class="file-input" #fileinput (change)="handleFileInput($event.target.files)" />
+        </div>
+
+        <div class="selected">
+            <h4 class="form-title">Ausgewählt</h4>
+            <div class="name" *ngIf="!!currentFile" >
+                {{ currentFile.name }} <i> ({{ fileSize }} mb) </i>
+            </div>
+            <i *ngIf="!currentFile" >
+                Es wurde keine Datei ausgewählt.
+            </i>
+        </div>
+
+        <h4 class="form-title-ta">Beschreibung</h4>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" floatLabel="never">
+                <textarea matInput placeholder="Hier ist Platz für eine Beschreibung der Datei..." [(ngModel)]="description" name="description" rows="3" [(ngModel)]="description"></textarea>
+            </mat-form-field>
+        </form>
+    </div>
+    <div mat-dialog-actions class="apart">
+        <button mat-flat-button color="primary" [disabled]="!currentFile" (click)="uploadFile()">Hochladen</button>
+        <button mat-flat-button color="warn" (click)="confirm(false)">Abbrechen</button>
+    </div>
+</div>

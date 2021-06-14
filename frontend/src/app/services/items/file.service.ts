@@ -33,19 +33,23 @@ export class FileService {
     }
 
     /** Create a new file. */
-    create(file: File, description: string) {
+    create(file: File, description: string): Observable<boolean> {
+        const successSubject = new Subject<boolean>();
         // The service builds form data to send a file and metadata concurrently.
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('description', description);
         this.http.post(ApiEndpointFile.create, formData).subscribe(
             (res: SuccessResponse) => {
+                successSubject.next(res.successful);
+                successSubject.complete();
                 if (res.successful) {
                     this.get();
                 }
             },
             _ => _
         );
+        return successSubject.asObservable();
     }
 
     /** Remove a file. */

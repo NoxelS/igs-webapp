@@ -7,7 +7,8 @@
                     <input matInput placeholder="Suchen" [(ngModel)]="searchTerm" />
                 </mat-form-field> </span
         ></span>
-        <span (click)="downloadFile(fileinput.click())"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span>
+        <span (click)="openNewFileDialogue()"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span>
+        <!-- <span (click)="downloadFile(fileinput.click())"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span> -->
         <input hidden type="file" id="file" class="file-input" #fileinput (change)="handleFileInput($event.target.files)" />
     </div>
     <!-- <div class="file-grid">

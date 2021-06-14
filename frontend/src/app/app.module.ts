@@ -46,6 +46,7 @@ import { UsermanagementComponent } from './superuser/usermanagement/usermanageme
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
+import { AddNewFileComponent } from './template/add-new-file/add-new-file.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         ArticleEditComponent,
         FooterComponent,
         ServermanagementComponent,
-        UsermanagementComponent
+        UsermanagementComponent,
+        AddNewFileComponent
     ],
     imports: [
         BrowserModule,

@@ -10,6 +10,7 @@ import { ShortFile } from '../../../../../../backend/src/models/short-file.model
 import { DialogService } from '../../../services/dialog.service';
 import { FileService } from '../../../services/items/file.service';
 import { getIconFromMimetype } from '../../../shared/icons';
+import { AddNewFileComponent } from '../../../template/add-new-file/add-new-file.component';
 
 
 @Component({
@@ -117,6 +118,10 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     getIconName(mimetype: string) {
         return getIconFromMimetype(mimetype);
+    }
+
+    openNewFileDialogue() {
+        this.dialogService.openDialog(AddNewFileComponent, {});
     }
 
     ngOnInit() {

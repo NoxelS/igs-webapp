@@ -58,9 +58,9 @@
         </ng-container>
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <mat-icon (click)="downloadFile(element)">download</mat-icon>
-                <mat-icon (click)="removeFile(element)">delete</mat-icon>
+            <td mat-cell *matCellDef="let element" class="actions">
+                <mat-icon color="primary" (click)="downloadFile(element)">download</mat-icon>
+                <mat-icon color="warn" (click)="removeFile(element)">delete</mat-icon>
             </td>
         </ng-container>
 

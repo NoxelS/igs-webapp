@@ -36,6 +36,16 @@ table {
     width: 100%;
 }
 
+.actions {
+    cursor: pointer;
+
+    pointer-events: none;
+
+    mat-icon:last-child {
+        margin-left: 1rem;
+    }
+}
+
 .row {
     &:hover {
         background-color: $primary-blue;

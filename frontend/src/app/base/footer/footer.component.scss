@@ -1,6 +1,9 @@
 @import '../../../const.scss';
 
 .footer {
+    clear: both;
+    position: relative;
+
     display: grid;
     background-color: $gray;
     grid-template-columns: 1fr 1fr 1fr 2fr;

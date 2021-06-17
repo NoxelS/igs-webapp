@@ -4,7 +4,7 @@
   "scripts": {
     "build": "tsc --build tsconfig.prod.json",
     "lint": "tslint --project \"tsconfig.json\"",
-    "start": "node -r module-alias/register ./dist --env=production",
+    "start": "node -r module-alias/register ./dist",
     "dev": "nodemon"
   },
   "nodemonConfig": {

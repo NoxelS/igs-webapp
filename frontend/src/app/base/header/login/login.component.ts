@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/backend-datatypes/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DialogService } from 'src/app/services/dialog.service';
+import { routePaths } from 'src/app/shared/routes.const';
 import { LoginTemplateComponent } from 'src/app/template/login/login-template.component';
 
 
@@ -13,6 +14,8 @@ import { LoginTemplateComponent } from 'src/app/template/login/login-template.co
 })
 export class LoginComponent implements OnInit {
     user: User;
+
+    readonly routes = routePaths;
 
     constructor(private readonly authService: AuthenticationService, private readonly dialogService: DialogService) {}
 

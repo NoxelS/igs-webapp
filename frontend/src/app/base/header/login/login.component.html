@@ -9,7 +9,7 @@
     </ng-template>
 </div>
 
-<button mat-menu-item *ngIf="!!user">
+<button [routerLink]="routes.USER_SETTINGS" mat-menu-item *ngIf="!!user">
     <mat-icon>settings</mat-icon><span>Einstellungen</span>
 </button>
 

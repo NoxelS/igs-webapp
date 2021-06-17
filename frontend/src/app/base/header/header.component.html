@@ -23,7 +23,7 @@
                     {{ article.title }}
                 </button>
             </mat-menu>
-            <button mat-menu-item isLoggedIn>Artikel erstellen</button>
+            <button [routerLink]="routes.ARTICLE_CREATE" mat-menu-item isLoggedIn>Artikel erstellen</button>
         </mat-menu>
         <!-- Dateiablage -->
         <button mat-button isLoggedIn [routerLink]="routes.FILES" routerLinkActive="routerLinkActiveClass">Dateiablage</button>
@@ -38,8 +38,8 @@
         <!-- Über uns -->
         <button mat-button [matMenuTriggerFor]="aboveMenu">Über uns</button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
-            <button mat-menu-item>Kontakt</button>
-            <button mat-menu-item>Impressum</button>
+            <button [routerLink]="routes.ABOUT" mat-menu-item>Kontakt</button>
+            <button [routerLink]="routes.IMPRESSUM" mat-menu-item>Impressum</button>
         </mat-menu>
         <!-- Login -->
         <button mat-button [matMenuTriggerFor]="afterMenu">

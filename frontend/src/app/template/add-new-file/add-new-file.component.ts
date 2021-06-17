@@ -39,7 +39,7 @@ export class AddNewFileComponent implements OnInit {
     uploadFile() {
         this.fileService.create(this.currentFile, this.description).subscribe(success => {
             if (success) {
-                this.dialogService.displayNotification('Die Datei wurde erfolgreich hochgeladen.');
+                this.dialogService.flashSuccess('Die Datei wurde erfolgreich hochgeladen.');
             } else {
                 this.dialogService.flashError('Leider konnte die Datei nicht hochgeladen werden. Bitte versuchen Sie es später erneut.');
             }

@@ -16,7 +16,7 @@ export class DialogService {
     }
 
     displayNotification(text: string) {
-        return this.snackBar.open(text);
+        return this.snackBar.open(text, 'Verwerfen', { duration: 3000, panelClass: ['mat-toolbar', 'mat-primary'] });
     }
 
     flashError(errorMessage: string) {

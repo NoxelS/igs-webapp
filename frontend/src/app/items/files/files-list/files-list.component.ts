@@ -112,7 +112,7 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     openNewFileDialogue() {
-        this.dialogService.openDialog(AddNewFileComponent, {});
+        this.dialogService.openDialog(AddNewFileComponent, {})
     }
 
     ngOnInit() {

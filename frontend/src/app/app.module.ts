@@ -48,6 +48,10 @@ import { AddNewFileComponent } from './template/add-new-file/add-new-file.compon
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
+import { ImpressumComponent } from './base/impressum/impressum.component';
+import { AboutComponent } from './base/about/about.component';
+import { UserSettingsComponent } from './misc/user-settings/user-settings.component';
+import { ArticleCreateComponent } from './items/articles/article-create/article-create.component';
 
 
 @NgModule({
@@ -67,7 +71,11 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         FooterComponent,
         ServermanagementComponent,
         UsermanagementComponent,
-        AddNewFileComponent
+        AddNewFileComponent,
+        ImpressumComponent,
+        AboutComponent,
+        UserSettingsComponent,
+        ArticleCreateComponent
     ],
     imports: [
         MatProgressSpinnerModule,

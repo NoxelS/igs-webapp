@@ -1,4 +1,5 @@
 import { connection } from '@configs/database';
+import logger from '@shared/logger';
 import { isLoggedIn, verifyUser } from '@shared/passport.utils';
 import { sendEmail } from '@shared/utils';
 import { hash } from 'bcrypt';
@@ -31,7 +32,7 @@ router.post('/login', async (req, res) => {
                 iat: Date.now()
             };
             const signedToken = sign(payload, PRIV_KEY, { expiresIn, algorithm: 'RS256' });
-            console.log(user);
+            logger.info(JSON.stringify(user));
             res.json(new LoginResponse(signedToken, expiresIn, user));
         } else {
             res.json(new ErrorResponse('Could not login.'));

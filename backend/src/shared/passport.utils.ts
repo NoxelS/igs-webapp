@@ -17,6 +17,7 @@ export function verifyUser(username: string, password: string, done: (err: strin
         if (error || results.length === 0) {
             done('Wrong username or password.');
         } else {
+            logger.info(JSON.stringify(results[0]));
             const hash = results[0].password.toString();
             compare(password, hash, (err, response) => {
                 if (response === true) {

@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "0.0.0",
+  "name": "backend",
+  "version": "0.0.1",
   "scripts": {
     "build": "tsc --build tsconfig.prod.json",
     "lint": "tslint --project \"tsconfig.json\"",

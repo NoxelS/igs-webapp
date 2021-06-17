@@ -81,6 +81,7 @@ passport.use(
             if (err) {
                 done(err, false);
             } else {
+                logger.info('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
                 logger.info('Successful jwt login');
                 done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
             }

@@ -35,7 +35,7 @@ export function jwtVerifyCallback(payload: any, done: any) {
         if (err) {
             done(err, false);
         } else {
-            logger.info('Successful jwt login');
+            logger.info('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
             done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
         }
     });

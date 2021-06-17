@@ -31,6 +31,7 @@ router.post('/login', async (req, res) => {
                 iat: Date.now()
             };
             const signedToken = sign(payload, PRIV_KEY, { expiresIn, algorithm: 'RS256' });
+            console.log(user);
             res.json(new LoginResponse(signedToken, expiresIn, user));
         } else {
             res.json(new ErrorResponse('Could not login.'));

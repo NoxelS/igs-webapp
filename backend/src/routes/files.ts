@@ -15,7 +15,6 @@ router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
         } else {
-            console.log(result);
             res.json(
                 new ShortFileListResponse(
                     result

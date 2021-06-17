@@ -2,8 +2,7 @@ import { isLoggedIn } from '@shared/passport.utils';
 import checkDiskSpace from 'check-disk-space';
 import { Request, Response, Router } from 'express';
 
-import { ErrorResponse } from '../../../frontend/src/app/backend-datatypes/response.model';
-import { IgsResponse } from '../models/response.model';
+import { ErrorResponse, IgsResponse } from '../models/response.model';
 import { User } from '../models/user.model';
 
 

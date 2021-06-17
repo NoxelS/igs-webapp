@@ -1,1 +1,9 @@
-<p>servermanagement works!</p>
+<div>
+    <h1>Serverspeicher</h1>
+    <p>
+        Speicher: {{ diskSizeReadable }} Gb <br />
+        Genutzt: {{ usedSpaceReadable }} Gb ({{ usedPercent }}%)<br />
+        Frei: {{ freeSpaceReadable }} Gb ({{ freePercent }}%)
+    </p>
+    <mat-progress-bar mode="determinate" [value]="usedPercent" [color]="usedPercent > 90 ? 'warn' : 'primary'"></mat-progress-bar>
+</div>

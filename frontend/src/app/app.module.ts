@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
@@ -27,18 +28,23 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AboutComponent } from './base/about/about.component';
 import { FooterComponent } from './base/footer/footer.component';
 import { HeaderComponent } from './base/header/header.component';
 import { LoginComponent } from './base/header/login/login.component';
+import { ImpressumComponent } from './base/impressum/impressum.component';
+import { ArticleCreateComponent } from './items/articles/article-create/article-create.component';
 import { ArticleEditComponent } from './items/articles/article-edit/article-edit.component';
 import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 import { ArticlesListComponent } from './items/articles/articles-list/articles-list.component';
 import { FilesListComponent } from './items/files/files-list/files-list.component';
 import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
+import { UserSettingsComponent } from './misc/user-settings/user-settings.component';
 import { AuthenticationService } from './services/authentication.service';
 import { DialogService } from './services/dialog.service';
 import { ArticleService } from './services/items/article.service';
 import { FileService } from './services/items/file.service';
+import { SuperuserService } from './services/superuser.service';
 import { AddHeaderInterceptor } from './shared/header.interceptor';
 import { IsLoggedInDirective } from './shared/is-logged-in.directive';
 import { MatPaginatorIntlDE } from './shared/paginator-int';
@@ -48,10 +54,6 @@ import { AddNewFileComponent } from './template/add-new-file/add-new-file.compon
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { ImpressumComponent } from './base/impressum/impressum.component';
-import { AboutComponent } from './base/about/about.component';
-import { UserSettingsComponent } from './misc/user-settings/user-settings.component';
-import { ArticleCreateComponent } from './items/articles/article-create/article-create.component';
 
 
 @NgModule({
@@ -81,6 +83,7 @@ import { ArticleCreateComponent } from './items/articles/article-create/article-
         MatProgressSpinnerModule,
         BrowserModule,
         AppRoutingModule,
+        MatProgressBarModule,
         BrowserAnimationsModule,
         NoopAnimationsModule,
         MatFormFieldModule,
@@ -110,6 +113,7 @@ import { ArticleCreateComponent } from './items/articles/article-create/article-
     providers: [
         ArticleService,
         AuthenticationService,
+        SuperuserService,
         FileService,
         DialogService,
         { provide: MatPaginatorIntl, useClass: MatPaginatorIntlDE },

@@ -23,3 +23,7 @@ export const ApiEndpointAuth: { login; info; sendRecoveryEmail; recoverPassword 
     sendRecoveryEmail: environment.backendUrl + '/auth/recovery',
     recoverPassword: environment.backendUrl + '/auth/recover_password'
 };
+
+export const ApiEndpointSuperuser: { diskspace} = {
+    diskspace: environment.backendUrl + '/info/disk-space'
+};

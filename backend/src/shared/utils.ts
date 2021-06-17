@@ -11,6 +11,7 @@ import { User } from '../models/user.model';
 export function setLocals(req: Request, res: Response, next: NextFunction) {
     const PRIV_KEY = readFileSync(join(__dirname, '../keys/id_rsa_priv.pem'));
     const authHeader = req.headers['authorization'];
+    console.log("Set locals");
     if(authHeader) {
         const token = authHeader && (authHeader.split(' ')[1] as any);
         verify(token, PRIV_KEY, { algorithms: ['RS256'] }, (err, subPrperties) => {
@@ -20,6 +21,7 @@ export function setLocals(req: Request, res: Response, next: NextFunction) {
                 connection.query('SELECT username, email, isSuperUser FROM users WHERE (id = ?)', [(subPrperties as any).sub], (err, result) => {
                     if(!err && result.length === 1) {
                         res.locals.user = <User> new User(result[0].username, result[0].email, (subPrperties as any).sub, result[0].isSuperUser);
+                        console.log(res.locals.user);
                     }
                     next();
                 });

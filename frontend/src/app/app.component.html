@@ -1,6 +1,6 @@
 <div class="main-container" *ngIf="!isMobile;else noMobile">
     <igs-header></igs-header>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
 </div>
 <ng-template #noMobile>
     <div class="mobile">

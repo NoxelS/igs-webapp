@@ -24,7 +24,7 @@ router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
                                 <ShortFile>{
                                     name: dbEntry.name,
                                     id: dbEntry.id,
-                                    authorId: dbEntry.authorId,
+                                    authorId: dbEntry['author_id'],
                                     authorName: dbEntry['author_name'],
                                     mimetype: dbEntry.mimetype,
                                     creationDate: dbEntry.creationDate,
@@ -64,21 +64,26 @@ router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
 router.post('/remove', isLoggedIn(), async (req: Request, res: Response) => {
     const { id } = req.body;
     if (id) {
-        connection.query('SELECT path FROM files WHERE (id = ?);', [id], (err, result) => {
+        connection.query('SELECT path, author_id FROM files WHERE (id = ?);', [id], (err, result) => {
             if (err) {
                 res.json(new ErrorResponse(err.message));
             } else if (!result.length || !result[0].path) {
                 res.json(new ErrorResponse('No file found.'));
             } else {
-                unlink(result[0].path, err => {
-                    if (err) {
-                        res.json(new ErrorResponse(err.message));
-                    } else {
-                        connection.query('DELETE FROM `igs`.`files` WHERE (`id` = ?);', [id], err => {
-                            res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
-                        });
-                    }
-                });
+                /** Checks if the user is the author of the file or hast wildcard access */
+                if(Number(result[0]['author_id']) === Number(res.locals.user.id) || res.locals.user.isSuperuser) {
+                    unlink(result[0].path, err => {
+                        if (err) {
+                            res.json(new ErrorResponse(err.message));
+                        } else {
+                            connection.query('DELETE FROM `igs`.`files` WHERE (`id` = ?);', [id], err => {
+                                res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
+                            });
+                        }
+                    });
+                } else {
+                    res.json(new ErrorResponse('Youre not the author of this file.'));
+                }
             }
         });
     } else {

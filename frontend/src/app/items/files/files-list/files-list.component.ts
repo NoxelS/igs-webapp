@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Subject, Subscription } from 'rxjs';
+import { User } from 'src/app/backend-datatypes/user.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import { ShortFile } from '../../../../../../backend/src/models/short-file.model';
 import { DialogService } from '../../../services/dialog.service';
@@ -35,6 +37,8 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
     private subscriptions: Subscription[] = [];
     private searchTermChange = new Subject<string>();
 
+    private user: User;
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -57,12 +61,17 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataSource.sort = this.sort;
     }
 
-    constructor(private readonly fileService: FileService, private readonly dialogService: DialogService) {
+    constructor(private readonly fileService: FileService, private readonly dialogService: DialogService, private readonly authService: AuthenticationService) {
         // TODO: Better observables and better search engine
         this.subscriptions.push(
             fileService.files.subscribe(files => {
                 this.allFiles = files;
                 this.dataSource.data = files;
+            })
+        );
+        this.subscriptions.push(
+            this.authService.user.subscribe(user => {
+                this.user = user;
             })
         );
     }
@@ -107,12 +116,17 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
             });
     }
 
+    /** Return true if the user is the author of the refrenced file or is a superuser */
+    hasFileAccess(file: ShortFile): boolean {
+        return (this.user && file.authorId && file.authorId === Number(this.user.id)) || this.user && this.user.isSuperUser;
+    }
+
     getIconName(mimetype: string) {
         return getIconFromMimetype(mimetype);
     }
 
     openNewFileDialogue() {
-        this.dialogService.openDialog(AddNewFileComponent, {})
+        this.dialogService.openDialog(AddNewFileComponent, {});
     }
 
     ngOnInit() {

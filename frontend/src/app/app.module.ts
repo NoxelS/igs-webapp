@@ -52,6 +52,7 @@ import { ServermanagementComponent } from './superuser/servermanagement/serverma
 import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
 import { AddNewFileComponent } from './template/add-new-file/add-new-file.component';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
+import { EditTextComponent } from './template/edit-text/edit-text.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 
@@ -63,6 +64,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         LoginComponent,
         LoginTemplateComponent,
         ResetPasswordComponent,
+        EditTextComponent,
         IsLoggedInDirective,
         ArticlesListComponent,
         FilesListComponent,
@@ -123,7 +125,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
             multi: true
         }
     ],
-    entryComponents: [LoginTemplateComponent, ResetPasswordComponent, ConfirmTemplateComponent],
+    entryComponents: [LoginTemplateComponent, ResetPasswordComponent, ConfirmTemplateComponent, EditTextComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

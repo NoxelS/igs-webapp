@@ -76,4 +76,9 @@ export class ArticleService implements ItemService<Article> {
         );
         return successSubject.asObservable();
     }
+
+    /** Check if image is from pexels */
+    imageIsFromPexels(src: string): boolean {
+        return src.indexOf('images.pexels') !== -1;
+    }
 }

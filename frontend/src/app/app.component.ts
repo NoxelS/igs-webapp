@@ -18,8 +18,10 @@ export class AppComponent {
 
     /* Scrolls to top if route changes*/
     onActivate(event) {
-        window.scroll(0,0);
-        document.body.scrollTop = 0;
-        document.querySelector('body').scrollTo(0,0)
+        setTimeout(() => {
+            window.scroll(0,0);
+            document.body.scrollTop = 0;
+            document.querySelector('body').scrollTo(0,0)
+        }, 0)
     }
 }

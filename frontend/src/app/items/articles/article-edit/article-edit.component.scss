@@ -1,3 +1,5 @@
+@import '../../../../const.scss';
+
 .read-container {
     margin: auto;
     margin-top: 1rem;
@@ -16,20 +18,30 @@
             font-weight: bold;
             color: #333;
             margin: 0;
+            cursor: pointer;
         }
-        
+
         span {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-left: 1rem;
+
             mat-icon {
                 margin-right: 3px;
+            }
+
+            color: $gray;
+            cursor: pointer;
+
+            &.save {
+                mat-icon {
+                    color: $primary-blue;
+                }
             }
         }
     }
 
-    
     .image {
         width: 50px;
         height: auto;
@@ -50,5 +62,21 @@
         * {
             height: 100%;
         }
+    }
+}
+
+.bottom-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    * {
+        margin-right: 1rem;
+    }
+
+    button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
 }

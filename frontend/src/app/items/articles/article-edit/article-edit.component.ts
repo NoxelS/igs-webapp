@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
+import { routePaths } from 'src/app/shared/routes.const';
+import { EditTextComponent, EditTextInjectionData } from 'src/app/template/edit-text/edit-text.component';
 
 import { Article } from '../../../../../../backend/src/models/article.model';
 import { DialogService } from '../../../services/dialog.service';
@@ -14,9 +16,22 @@ import { ArticleService } from '../../../services/items/article.service';
     styleUrls: ['./article-edit.component.scss']
 })
 export class ArticleEditComponent implements OnInit, OnDestroy {
-    content = '';
+
+    private _content = '';
+
+    public get content() {
+        return this._content;
+    }
+
+    public set content(value) {
+        this.contentChanged = (!!this._content.length && this._content !== value && value !== this.article.content);
+        this._content = value;
+    }
+
     article: Article;
     articleID: string;
+    contentChanged: boolean;
+
     options = {
         showPreviewPanel: false, // Show preview panel, Default is true
         showBorder: false, // Show editor component's border. Default is true
@@ -41,6 +56,11 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
             this.route.paramMap.subscribe(paramMap => {
                 const uniqueTitle = paramMap.get('title');
                 this.articleID = uniqueTitle.split('_')[uniqueTitle.split('_').length - 1];
+                setTimeout(() => {
+                    window.scroll(0,0);
+                    document.body.scrollTop = 0;
+                    document.querySelector('body').scrollTo(0,0)
+                }, 0)
             })
         );
         this.subscriptions.push(
@@ -48,6 +68,13 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
                 this.article = articles.find(article => Number(article.id) === Number(this.articleID));
                 if (this.article) {
                     this.content = this.article.content;
+                    this.contentChanged = false;
+
+                    setTimeout(() => {
+                        window.scroll(0,0);
+                        document.body.scrollTop = 0;
+                        document.querySelector('body').scrollTo(0,0)
+                    }, 0)
                 }
             })
         );
@@ -62,11 +89,54 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
     }
 
     editTitle() {
-        // TODO: Open dialog to change title
+        this.dialogService.openDialog(EditTextComponent, <EditTextInjectionData>{text: this.article.title, title: 'Titel Bearbeiten'}).afterClosed().subscribe(result => {
+            if(result && result !== this.article.title) {
+                const editArticle = {...this.article};
+                editArticle.title = result;
+                this.articleService.edit(editArticle).subscribe(success => {
+                    if (success) {
+                        this.dialogService.flashSuccess('Der Titel wurde erfolgreich geändert');
+                    } else {
+                        this.dialogService.flashError('Leider konnte der Titel nicht geändert werden. Versuchen Sie es später noch einmal.');
+                    }
+                    this.articleService.get()
+                })
+            }
+        })
     }
 
     editImage() {
-        // TODO: Open dialog to change image
+        this.dialogService.openDialog(EditTextComponent, <EditTextInjectionData>{text: this.article.imageUrl, title: 'Bild Bearbeiten', image: true}).afterClosed().subscribe(result => {
+            if(result && result !== this.article.imageUrl) {
+                const editArticle = {...this.article};
+                editArticle.imageUrl = result;
+                this.articleService.edit(editArticle).subscribe(success => {
+                    if (success) {
+                        this.dialogService.flashSuccess('Das Bild wurde erfolgreich geändert');
+                    } else {
+                        this.dialogService.flashError('Leider konnte das Bild nicht geändert werden. Versuchen Sie es später noch einmal.');
+                    }
+                    this.articleService.get()
+                })
+            }
+        })
+    }
+
+    editDescription() {
+        this.dialogService.openDialog(EditTextComponent, <EditTextInjectionData>{text: this.article.description, title: 'Beschreibung Bearbeiten', multiline: true}).afterClosed().subscribe(result => {
+            if(result && result !== this.article.description) {
+                const editArticle = {...this.article};
+                editArticle.description = result;
+                this.articleService.edit(editArticle).subscribe(success => {
+                    if (success) {
+                        this.dialogService.flashSuccess('Die Beschreibung wurde erfolgreich geändert');
+                    } else {
+                        this.dialogService.flashError('Leider konnte die Beschreibung nicht geändert werden. Versuchen Sie es später noch einmal.');
+                    }
+                    this.articleService.get()
+                })
+            }
+        })
     }
 
     saveChanges() {
@@ -78,5 +148,9 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
                 this.dialogService.flashError('Leider konnte der Artikel nicht bearbeitet werden. Versuchen Sie es später erneut!');
             }
         });
+    }
+
+    getArticleLink(article: Article): string {
+        return `/${routePaths.ARTICLE_READ.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
     }
 }

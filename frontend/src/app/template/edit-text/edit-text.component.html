@@ -1,0 +1,37 @@
+<div>
+    <h2>{{ data.title }}</h2>
+    <hr />
+</div>
+
+<div class="max-width">
+    <div *ngIf="isImage" class="sixteen-nine-img">
+        <img [src]="text" alt="Das Bild wurde leider nicht gefunden." />
+    </div>
+</div>
+
+<form class="form">
+    <mat-form-field *ngIf="!isMultiLine" class="full-width">
+        <mat-label *ngIf="isImage">Pexels Url</mat-label>
+        <input name="text" matInput [(ngModel)]="text" />
+    </mat-form-field>
+    <textarea appearance="outline" name="text" class="full-width" *ngIf="isMultiLine" [(ngModel)]="text" matInput></textarea>
+</form>
+
+<div class="error" *ngIf="isImage">
+    <div>
+        <mat-icon>warning</mat-icon> 
+        <p>
+            Wir unterstützen aus datenschutztechnischen Gründen zuzeit nur Bilder, die von der Seite
+            <a target="_blank" href="https://www.pexels.com/de-de/"> Pexels </a> stammen.
+        </p>
+    </div>
+    <p>
+        Um ein Bild von Pexels zu nutzen, drücken Sie mit der rechten Maustaste "Grafikadresse kopieren" und fügen Sie den kopierten Link in das obige
+        Eingabefeld ein. Das Bild wird dann hier erscheinen.
+    </p>
+</div>
+
+<div mat-dialog-actions class="apart">
+    <button mat-flat-button color="primary" [disabled]="!canSave()" (click)="confirm(true)">Speichern</button>
+    <button mat-flat-button color="warn" (click)="confirm(false)">Abbrechen</button>
+</div>

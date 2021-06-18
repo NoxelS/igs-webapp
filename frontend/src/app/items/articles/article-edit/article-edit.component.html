@@ -1,13 +1,16 @@
 <div class="read-container" *ngIf="article">
     <div class="title">
-        <h1>{{ article.title }}</h1>
-        <span><mat-icon>mode</mat-icon>Titel Bearbeiten</span>
-        <span><mat-icon>satellite</mat-icon>Bild Bearbeiten</span>
+        <h1 [routerLink]="getArticleLink(article)">{{ article.title }}</h1>
+        <span (click)="editTitle()"><mat-icon>mode</mat-icon>Titel Bearbeiten</span>
+        <span (click)="editImage()"><mat-icon>satellite</mat-icon>Bild Bearbeiten</span>
+        <span (click)="editDescription()"><mat-icon>description</mat-icon>Beschreibung Bearbeiten</span>
     </div>
-
     <p class="content">
         <md-editor name="content" [height]="'70vh'" [(ngModel)]="content" [options]="options"> </md-editor>
     </p>
 
-    <button mat-flat-button color="primary" (click)="saveChanges()">Änderungen speichern</button>
+    <div class="bottom-row">
+        <button mat-flat-button color="primary" [disabled]="!contentChanged" (click)="saveChanges()">Änderungen speichern</button>
+        <button mat-flat-button [routerLink]="getArticleLink(article)" [color]="contentChanged ? 'warn' : 'primary'"><mat-icon>forward</mat-icon>Zurück zum Artikel</button>
+    </div>
 </div>

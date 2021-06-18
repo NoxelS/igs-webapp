@@ -48,9 +48,9 @@
                     <span *ngIf="loggedIn" class="remove admin" (click)="deleteArticle(article)"><mat-icon>do_disturb</mat-icon>Löschen</span>
                 </div>
 
-                <div class="description">
+                <p class="description">
                     {{ article.description }}
-                </div>
+                </p>
                 <a [routerLink]="getArticleLink(article)"><button mat-flat-button color="primary">Artikel lesen</button></a>
             </div>
         </div>

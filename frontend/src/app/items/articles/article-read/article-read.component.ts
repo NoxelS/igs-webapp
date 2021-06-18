@@ -46,9 +46,6 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.articleService.get();
-        if(this.top) {
-            this.top.scrollIntoView();
-        }
     }
 
     ngOnDestroy() {

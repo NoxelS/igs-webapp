@@ -112,12 +112,13 @@
                     line-height: 1.8em;
                     margin-bottom: 1.5rem;
                     text-align: justify;
-                }
 
-                // a {
-                //     color: $primary-blue;
-                //     font-size: 1.2em;
-                // }
+                    max-height: 30vh;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
             }
         }
     }
@@ -173,7 +174,6 @@
         color: red;
     }
 }
-
 
 .source {
     float: right;

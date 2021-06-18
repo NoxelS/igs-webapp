@@ -20,6 +20,10 @@
         </div>
     </div>
 
+    <div *ngIf="!!article.description" class="description">
+        {{ article.description }}
+    </div>
+    <hr *ngIf="!!article.description"/>
     <p class="content">
         <markdown [data]="article.content" class="content"></markdown>
     </p>

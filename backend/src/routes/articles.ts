@@ -39,8 +39,8 @@ router.post('/edit', isLoggedIn(), async (req: Request, res: Response) => {
             res.json(new ErrorResponse('The article was not found.'));
         } else {
             connection.query(
-                'UPDATE `igs`.`articles` SET `title` = ?, `views` = ?, `creationDate` = ?, `imageUrl` = ?, `content` = ?, `description` = ?, WHERE (`id` = ?);',
-                [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description, article.id],
+                'UPDATE articles SET title = ?, views = ?, creationDate = ?, imageUrl = ?, content = ?, description = ? WHERE (id = ?);',
+                [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description || '', article.id],
                 err => {
                     res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
                 }

@@ -70,3 +70,27 @@
         text-align: justify;
     }
 }
+
+.source {
+    float: right;
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+    margin-bottom: -40px;
+    z-index: 1000;
+    scale: 0.8;
+    opacity: 0.75;
+    cursor: pointer;
+
+    a {
+        color: #000;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

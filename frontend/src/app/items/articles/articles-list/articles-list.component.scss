@@ -16,6 +16,31 @@
             // grid-template-rows: 1fr;
             gap: 0 8vw;
 
+            .source {
+                float: left;
+                position: relative;
+                right: 0px;
+                bottom: 0px;
+                z-index: 1000;
+                margin-bottom: -40px;
+                color: #fff;
+                scale: 0.8;
+                opacity: 0.75;
+                cursor: pointer;
+
+                a {
+                    color: #fff;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 5px;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+
             img {
                 align-self: center;
                 justify-self: flex-end;
@@ -146,5 +171,30 @@
 
     .remove:hover {
         color: red;
+    }
+}
+
+
+.source {
+    float: right;
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    color: #fff;
+    scale: 0.8;
+    opacity: 0.75;
+    cursor: pointer;
+
+    a {
+        color: #fff;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+        &:hover {
+            text-decoration: none;
+        }
     }
 }

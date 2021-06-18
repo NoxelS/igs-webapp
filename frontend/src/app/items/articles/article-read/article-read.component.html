@@ -10,6 +10,12 @@
             <div><mat-icon>hourglass_top</mat-icon>{{ getReadTime(article.content) }} min</div>
         </div>
         <div class="image">
+            <div class="source" [matTooltip]="article.imageUrl">
+                <a target="_blank" href="https://www.pexels.com/de-de/ueber-uns/">
+                    <mat-icon>fingerprint</mat-icon>
+                    Bildquelle
+                </a>
+            </div>
             <img src="{{ article.imageUrl }}" alt="" />
         </div>
     </div>

@@ -1,7 +1,15 @@
 <div class="list">
     <div class="landing-wrapper">
         <div class="landing">
-            <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+            <div>
+                <div class="source" matTooltip="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                    <a target="_blank" href="https://www.pexels.com/de-de/ueber-uns/">
+                        <mat-icon>fingerprint</mat-icon>
+                        Bildquelle
+                    </a>
+                </div>
+                <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+            </div>
             <div class="description">
                 <div class="title">Direktorenvereinigung der Integrierten Gestamschulen in Rheinland-Pfalz</div>
                 <div class="description">
@@ -19,7 +27,14 @@
     </div>
     <div class="grid-list" #gridlist>
         <div *ngFor="let article of articles" class="grid-article-item">
+
             <div class="sixteen-nine-img">
+                <div class="source" [matTooltip]="article.imageUrl">
+                    <a target="_blank" href="https://www.pexels.com/de-de/ueber-uns/">
+                        <mat-icon>fingerprint</mat-icon>
+                        Bildquelle
+                    </a>
+                </div>
                 <img src="{{ article.imageUrl }}" />
             </div>
 

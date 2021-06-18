@@ -10,11 +10,12 @@ export const ApiEndpointArticle: { get; create; edit; remove } = {
     remove: environment.backendUrl + '/articles/remove'
 };
 
-export const ApiEndpointFile: { get; create; download: (id) => string; remove } = {
+export const ApiEndpointFile: { get; create; download: (id) => string; remove; satzung} = {
     get: environment.backendUrl + '/files/list',
     create: environment.backendUrl + '/files/create',
     remove: environment.backendUrl + '/files/remove',
-    download: id => environment.backendUrl + '/files/get/' + id
+    download: id => environment.backendUrl + '/files/get/' + id,
+    satzung: environment.backendUrl + '/files/satzung'
 };
 
 export const ApiEndpointAuth: { login; info; sendRecoveryEmail; recoverPassword } = {

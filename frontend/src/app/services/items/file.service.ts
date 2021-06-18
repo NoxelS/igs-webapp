@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { IgsResponse, SuccessResponse } from '../../backend-datatypes/response.model';
 import { ShortFile } from '../../backend-datatypes/short-file.model';
+import { DialogService } from '../dialog.service';
 import { ApiEndpointFile } from '../endpoints.const';
 
 
@@ -13,7 +14,7 @@ export class FileService {
     private fileList: ShortFile[] = [];
     private fileChange$: BehaviorSubject<ShortFile[]> = new BehaviorSubject([]);
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private dialogService: DialogService) {}
 
     get files(): Observable<ShortFile[]> {
         return this.fileChange$.asObservable();
@@ -88,5 +89,22 @@ export class FileService {
                 link.download = shortFile.name;
                 link.click();
             });
+    }
+
+    getSatzung() {
+        this.http
+        .get(ApiEndpointFile.satzung, {
+            responseType: 'blob' as 'json'
+        })
+        .subscribe((data: any) => {
+                const downloadURL = window.URL.createObjectURL(data);
+                const link = document.createElement('a');
+                link.href = downloadURL;
+                link.download = 'Satzung.pdf';
+                link.click();
+
+        }, () => {
+            this.dialogService.flashError('Leider gab es ein Problem beim Herunterladen der Satzung.')
+        });
     }
 }

@@ -110,4 +110,13 @@ router.get('/get/:id', isLoggedIn(), async (req: Request, res: Response) => {
     }
 });
 
+router.get('/satzung',async (req: Request, res: Response) => {
+    const path = './src/static/Satzung.pdf'
+    if(existsSync(path)) {
+        res.download(path)
+    } else {
+        res.status(404).send(new ErrorResponse('"Satzung" was not found.'))
+    }
+})
+
 export default router;

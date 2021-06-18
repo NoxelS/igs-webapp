@@ -5,17 +5,17 @@
     <div class="contact head">Über uns</div>
     <div class="artikel-list list">
         <div *ngFor="let article of articleList">
-            {{ article.title }}
+            <a [routerLink]="getArticleLink(article)">{{ article.title }}</a>
         </div>
     </div>
     <div class="rechtliches-list list">
         <div>Datenschutz</div>
-        <div>Impressum</div>
+        <div [routerLink]="routes.IMPRESSUM">Impressum</div>
     </div>
     <div class="sonstiges-list list">
-        <div>Über uns</div>
-        <div>Dateiablage</div>
-        <div>Satzung</div>
+        <div [routerLink]="routes.ABOUT">Über uns</div>
+        <div [routerLink]="routes.FILES">Dateiablage</div>
+        <div [routerLink]="routes.ABOUT">Satzung</div>
     </div>
     <div class="contact-content">
         Nachdem die Zahl der Integrierten Gesamtschulen in den neunziger Jahren des letzten Jahrhunderts stark zugenommen hat, bestand auch der Wunsch sich

@@ -27,6 +27,22 @@
         > * {
             margin-top: 0.5em;
         }
+
+        a {
+            color: $light-gray;
+            &:hover {
+                text-decoration: none;
+                color: $white;
+            }
+        }
+
+        div {
+            cursor: pointer;
+        }
+
+        div:hover {
+            color: $white;
+        }
     }
 
     .contact-content {

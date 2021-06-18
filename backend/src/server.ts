@@ -1,5 +1,5 @@
 import { connection } from '@configs/database';
-import logger from '@shared/logger';
+import logger, { logToConsole } from '@shared/logger';
 import { setLocals } from '@shared/utils';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -81,8 +81,7 @@ passport.use(
             if (err) {
                 done(err, false);
             } else {
-                logger.info('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
-                logger.info('Successful jwt login');
+                logToConsole('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
                 done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
             }
         });

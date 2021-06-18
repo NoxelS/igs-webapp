@@ -3,7 +3,7 @@ import { compare } from 'bcrypt';
 import passport from 'passport';
 
 import { User } from '../models/user.model';
-import logger from './logger';
+import logger, { logToConsole } from './logger';
 
 
 // Checkt if user is logged in
@@ -17,7 +17,6 @@ export function verifyUser(username: string, password: string, done: (err: strin
         if (error || results.length === 0) {
             done('Wrong username or password.');
         } else {
-            logger.info(JSON.stringify(results[0]));
             const hash = results[0].password.toString();
             compare(password, hash, (err, response) => {
                 if (response === true) {
@@ -35,7 +34,7 @@ export function jwtVerifyCallback(payload: any, done: any) {
         if (err) {
             done(err, false);
         } else {
-            logger.info('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
+            logToConsole('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
             done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
         }
     });

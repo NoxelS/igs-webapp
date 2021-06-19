@@ -1,0 +1,127 @@
+@import '../../../const.scss';
+
+.file-container {
+    width: 80vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .sidebar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            margin-right: 1rem;
+            cursor: pointer;
+
+            mat-icon {
+                margin-right: 5px;
+                color: $primary-blue;
+            }
+
+            .color-warn {
+                color: #f44336;
+            }
+        }
+    }
+}
+
+table {
+    width: 100%;
+}
+
+.loading {
+    width: 80vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions {
+    cursor: pointer;
+    pointer-events: none;
+    mat-icon:last-child {
+        margin-left: 1rem;
+    }
+}
+
+.row {
+    &:hover {
+        background-color: $primary-blue;
+    }
+}
+
+th.mat-sort-header-sorted {
+    color: $primary-blue;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+.selection {
+    min-width: 50px;
+}
+
+// .mat-column-name {
+//     flex: 0 0 70%;
+// }
+
+// .mat-column-creationDate {
+//     flex: 0 0 10%;
+// }
+
+// .mat-column-author {
+//     flex: 0 0 10%;
+// }
+
+.mat-column-action {
+    // flex: none;
+    // width: min-content;
+    pointer-events: none;
+    mat-icon {
+        pointer-events: all;
+    }
+}
+
+.mat-column-type {
+    flex: none;
+    width: min-content;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: rgba(34, 118, 245, 0.3);
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.example-element-description {
+    padding: 0 8px;
+    padding-left: 3rem;
+    padding-bottom: 8px;
+}
+
+.example-element-description-attribution {
+    opacity: 0.5;
+}

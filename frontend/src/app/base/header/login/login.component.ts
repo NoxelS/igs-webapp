@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from 'src/app/backend-datatypes/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
     readonly routes = routePaths;
 
-    constructor(private readonly authService: AuthenticationService, private readonly dialogService: DialogService) {}
+    constructor(private readonly authService: AuthenticationService, private readonly dialogService: DialogService, private readonly router: Router) {}
 
     ngOnInit(): void {
         this.authService.user.subscribe(user => (this.user = user));
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
                 if (confirmed) {
                     this.authService.logout();
                     this.dialogService.flashSuccess('Sie wurden erfolgreich ausgeloggt.');
+                    this.router.navigateByUrl('/');
                 }
             });
     }

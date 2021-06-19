@@ -10,7 +10,7 @@ export const ApiEndpointArticle: { get; create; edit; remove } = {
     remove: environment.backendUrl + '/articles/remove'
 };
 
-export const ApiEndpointFile: { get; create; download: (id) => string; remove; satzung} = {
+export const ApiEndpointFile: { get; create; download: (id) => string; remove; satzung } = {
     get: environment.backendUrl + '/files/list',
     create: environment.backendUrl + '/files/create',
     remove: environment.backendUrl + '/files/remove',
@@ -25,6 +25,9 @@ export const ApiEndpointAuth: { login; info; sendRecoveryEmail; recoverPassword 
     recoverPassword: environment.backendUrl + '/auth/recover_password'
 };
 
-export const ApiEndpointSuperuser: { diskspace} = {
-    diskspace: environment.backendUrl + '/info/disk-space'
+export const ApiEndpointSuperuser: { diskspace; getUsers; createUser; deleteUser } = {
+    diskspace: environment.backendUrl + '/info/disk-space',
+    getUsers: environment.backendUrl + '/auth/get_users',
+    createUser: environment.backendUrl + '/auth/create_user',
+    deleteUser: environment.backendUrl + '/auth/remove_user'
 };

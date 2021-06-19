@@ -1,0 +1,42 @@
+<div class="main">
+    <h2>Neuen Benutzer hinzufügen</h2>
+    <div mat-dialog-content class="column">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="name" matInput />
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input [(ngModel)]="email" matInput />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Benutzername</mat-label>
+            <input type="email" [(ngModel)]="username" matInput />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Passwort</mat-label>
+            <input [(ngModel)]="password" matInput>
+            <button mat-icon-button matSuffix >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Regionalgruppe</mat-label>
+            <mat-select [disabled]="isSuperUser" [(ngModel)]="regionalgroup">
+                <mat-option *ngFor="let reg of regionalgroupEntries" [value]="reg">{{reg}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox [(ngModel)]="isSuperUser" >Administrator</mat-checkbox>
+
+
+    </div>
+    <div mat-dialog-actions class="apart">
+        <button mat-flat-button color="primary" (click)="createUser()">Benutzer Erstellen</button>
+        <button mat-flat-button color="warn" (click)="confirm(false)">Abbrechen</button>
+    </div>
+</div>

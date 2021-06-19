@@ -10,7 +10,8 @@ import { sign } from 'jsonwebtoken';
 import passport from 'passport';
 import { join } from 'path';
 
-import { ErrorResponse, LoginResponse, SuccessResponse } from '../models/response.model';
+import { ErrorResponse, LoginResponse, SuccessResponse, UserListResponse } from '../models/response.model';
+import { User } from '../models/user.model';
 
 
 // Init shared
@@ -39,24 +40,68 @@ router.post('/login', async (req, res) => {
     });
 });
 
-router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
+/** Get list of all users (superuser access only) */
+router.get('/get_users', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
+    if (res.locals.user.isSuperUser) {
+        connection.query('SELECT * FROM users;', (err, result) => {
+            if (err) {
+                res.json(new ErrorResponse(err.message));
+            } else {
+                res.json(
+                    new UserListResponse(
+                        result.map((row: any) => {
+                            return new User(row.username, row.email, row.id, row.isSuperUser, row.name, row.regionalgruppe);
+                        })
+                    )
+                );
+            }
+        });
+    } else {
+        return new ErrorResponse('Unauthorized');
+    }
+});
 
-    // TODO: Missing fields
+router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username;
+    const name = req.body.name;
     const password = req.body.password;
     const email = req.body.email;
+    const isSuperUser = req.body.isSuperUser;
+    const regionalgruppe = req.body.regionalgruppe;
 
-    // TODO: Maybe only an admin should create new users or needs a token
+    if (res.locals.user.isSuperUser) {
+        hash(password, Number(process.env.AUTH_SALT_ROUNDS), (error, passwordHash) => {
+            if (error) {
+                res.json(new SuccessResponse());
+            } else {
+                connection.query(
+                    'INSERT INTO users (`username`, `password`, `email`, `name`, `isSuperUser`, `regionalgruppe`) VALUES (?, ?, ?,?,?,?)',
+                    [username, passwordHash, email, name, isSuperUser, regionalgruppe],
+                    err => {
+                        res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
+                    }
+                );
+            }
+        });
+    } else {
+        return new ErrorResponse('Unauthorized');
+    }
+});
 
-    hash(password, Number(process.env.AUTH_SALT_ROUNDS), (error, passwordHash) => {
-        if (error) {
-            res.json(new SuccessResponse());
-        } else {
-            connection.query('INSERT INTO users (`username`, `password`, `email`) VALUES (?, ?, ?)', [username, passwordHash, email], err => {
-                res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
-            });
-        }
-    });
+router.post('/remove_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.body.id;
+
+    if (res.locals.user.isSuperUser) {
+        connection.query('DELETE FROM users WHERE (`id` = ?)', [id], (err, result) => {
+            if (err) {
+                res.json(new ErrorResponse(err.message));
+            } else {
+                res.json(new SuccessResponse());
+            }
+        });
+    } else {
+        return new ErrorResponse('Unauthorized');
+    }
 });
 
 /**
@@ -65,7 +110,7 @@ router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, ne
  */
 router.post('/recovery', async (req: Request, res: Response) => {
     const email = req.body.email;
-    const recoveryKey = randomBytes(20).toString('hex').toUpperCase().slice(0,8);
+    const recoveryKey = randomBytes(20).toString('hex').toUpperCase().slice(0, 8);
 
     connection.query('SELECT id FROM users WHERE (email = ?);', [email], async (err, result) => {
         if (err) {
@@ -75,7 +120,7 @@ router.post('/recovery', async (req: Request, res: Response) => {
         } else {
             const userId = result[0].id;
 
-            connection.query('DELETE FROM `igs`.`recovery` WHERE (`user_id` = ?);', [userId], async (err) => {
+            connection.query('DELETE FROM `igs`.`recovery` WHERE (`user_id` = ?);', [userId], async err => {
                 if (err) {
                     res.json(new ErrorResponse(err.message));
                 } else {
@@ -87,12 +132,7 @@ router.post('/recovery', async (req: Request, res: Response) => {
                             if (err) {
                                 res.json(new ErrorResponse(err.message));
                             } else {
-                                await sendEmail(
-                                    'Recovery <test@noel-s.ch>',
-                                    email,
-                                    'Recovery!',
-                                    `<b>Recovery key = ${recoveryKey}</b>`
-                                );
+                                await sendEmail('Recovery <test@noel-s.ch>', email, 'Recovery!', `<b>Recovery key = ${recoveryKey}</b>`);
                                 res.json(new SuccessResponse());
                             }
                         }

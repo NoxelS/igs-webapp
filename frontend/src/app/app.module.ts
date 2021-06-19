@@ -56,6 +56,7 @@ import { MatPaginatorIntlDE } from './shared/paginator-int';
 import { ServermanagementComponent } from './superuser/servermanagement/servermanagement.component';
 import { UsermanagementComponent } from './superuser/usermanagement/usermanagement.component';
 import { AddNewFileComponent } from './template/add-new-file/add-new-file.component';
+import { AddNewUserComponent } from './template/add-new-user/add-new-user.component';
 import { ConfirmTemplateComponent } from './template/confirm-template/confirm-template.component';
 import { EditTextComponent } from './template/edit-text/edit-text.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
@@ -87,7 +88,8 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         ArticleCreateComponent,
         RegionalGroupComponent,
         LatestNewsComponent,
-        ArticleCardComponent
+        ArticleCardComponent,
+        AddNewUserComponent
     ],
     imports: [
         MatProgressSpinnerModule,
@@ -135,7 +137,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
             multi: true
         }
     ],
-    entryComponents: [LoginTemplateComponent, ResetPasswordComponent, ConfirmTemplateComponent, EditTextComponent],
+    entryComponents: [LoginTemplateComponent, ResetPasswordComponent, ConfirmTemplateComponent, EditTextComponent, AddNewUserComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

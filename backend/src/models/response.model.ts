@@ -33,6 +33,12 @@ export class ShortFileListResponse extends IgsResponse<ShortFile[]> {
     }
 }
 
+export class UserListResponse extends IgsResponse<User[]> {
+    constructor(users: User[]) {
+        super(users);
+    }
+}
+
 export class ArticleCreateResponse extends IgsResponse<string> {
     constructor(id: string) {
         super(id);

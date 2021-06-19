@@ -1,0 +1,64 @@
+.main {
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+
+
+    .add {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .selected {
+        display: flex;
+        flex-direction: column;
+
+    }
+    .scope {
+        display: flex;
+        flex-direction: column;
+        h4 {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-title-top {
+    font-size: 1.2em;
+}
+
+.form-title {
+    font-size: 1.2em;
+    margin-top: 1.5rem;
+}
+
+.form-title-ta {
+    font-size: 1.2em;
+    margin-top: 1.5rem;
+    margin-bottom: 0px;
+}
+
+
+.example-form {
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.apart {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    bottom: 0;
+    // justify-content: space-between;
+}

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Subject, Subscription } from 'rxjs';
+import { FileScope } from 'src/app/backend-datatypes/short-file.model';
 import { User } from 'src/app/backend-datatypes/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -30,7 +31,7 @@ import { AddNewFileComponent } from '../../../template/add-new-file/add-new-file
 export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
     allFiles: ShortFile[];
     expandedElement: ShortFile | null;
-    displayedColumns: string[] = ['type', 'name', 'creationDate', 'author', 'action'];
+    displayedColumns: string[] = ['type', 'name', 'creationDate', 'author', 'action', 'regionalgruppe'];
     dataSource: MatTableDataSource<ShortFile> = new MatTableDataSource([]);
 
     private _searchTerm = '';
@@ -66,7 +67,20 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.subscriptions.push(
             fileService.files.subscribe(files => {
                 this.allFiles = files;
-                this.dataSource.data = files;
+                
+                if (this.user && !this.user.isSuperUser) {
+                    console.log("Test");
+                    this.allFiles = files.filter(file => {
+                        if(file.scope == FileScope.general ) {
+                            return true
+                        } else {
+                            console.log(file.scope == (this.user.regionalgruppe as any));
+                            return file.scope == (this.user.regionalgruppe as any)
+                        }
+                    });
+                }
+
+                this.dataSource.data = this.allFiles;
             })
         );
         this.subscriptions.push(
@@ -118,7 +132,7 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     /** Return true if the user is the author of the refrenced file or is a superuser */
     hasFileAccess(file: ShortFile): boolean {
-        return (this.user && file.authorId && file.authorId === Number(this.user.id)) || this.user && this.user.isSuperUser;
+        return (this.user && file.authorId && file.authorId === Number(this.user.id)) || (this.user && this.user.isSuperUser);
     }
 
     getIconName(mimetype: string) {

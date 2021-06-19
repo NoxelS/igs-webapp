@@ -16,6 +16,13 @@
         flex-direction: column;
 
     }
+    .scope {
+        display: flex;
+        flex-direction: column;
+        h4 {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .form-title-top {

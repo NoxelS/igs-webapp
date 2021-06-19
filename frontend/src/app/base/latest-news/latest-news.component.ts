@@ -12,22 +12,25 @@ import { ArticleService } from 'src/app/services/items/article.service';
     styleUrls: ['./latest-news.component.scss']
 })
 export class LatestNewsComponent implements OnInit, OnDestroy {
-
-	articles: Article[];
+    articles: Article[];
 
     private subscriptions: Subscription[] = [];
 
     constructor(private articleService: ArticleService, private dialogService: DialogService) {
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
-                this.articles = articles.filter(article => article.scope === ArticleScope.latestNews)
+                this.articles = articles
+                    .filter(article => article.scope === ArticleScope.latestNews)
+                    .sort((a: any, b: any) => {
+                        const data1 = new Date(a.creationDate.split('.')[2], a.creationDate.split('.')[1] - 1, a.creationDate.split('.')[0]);
+                        const data2 = new Date(b.creationDate.split('.')[2], b.creationDate.split('.')[1] - 1, b.creationDate.split('.')[0]);
+                        return data2.getTime() - data1.getTime();
+                    });
             })
         );
     }
 
-    ngOnInit() {
-        
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe());

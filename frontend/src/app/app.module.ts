@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -33,6 +34,9 @@ import { FooterComponent } from './base/footer/footer.component';
 import { HeaderComponent } from './base/header/header.component';
 import { LoginComponent } from './base/header/login/login.component';
 import { ImpressumComponent } from './base/impressum/impressum.component';
+import { LatestNewsComponent } from './base/latest-news/latest-news.component';
+import { RegionalGroupComponent } from './base/regional-group/regional-group.component';
+import { ArticleCardComponent } from './items/articles/article-card/article-card.component';
 import { ArticleCreateComponent } from './items/articles/article-create/article-create.component';
 import { ArticleEditComponent } from './items/articles/article-edit/article-edit.component';
 import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
@@ -55,9 +59,6 @@ import { ConfirmTemplateComponent } from './template/confirm-template/confirm-te
 import { EditTextComponent } from './template/edit-text/edit-text.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { RegionalGroupComponent } from './base/regional-group/regional-group.component';
-import { LatestNewsComponent } from './base/latest-news/latest-news.component';
-import { ArticleCardComponent } from './items/articles/article-card/article-card.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { ArticleCardComponent } from './items/articles/article-card/article-card
         HttpClientModule,
         MatToolbarModule,
         MatTableModule,
+        MatSelectModule,
         MatIconModule,
         MatButtonModule,
         MatGridListModule,

@@ -10,18 +10,40 @@
 
         <div class="selected">
             <h4 class="form-title">Ausgewählt</h4>
-            <div class="name" *ngIf="!!currentFile" >
+            <div class="name" *ngIf="!!currentFile">
                 {{ currentFile.name }} <i> ({{ fileSize }} mb) </i>
             </div>
-            <i *ngIf="!currentFile" >
-                Es wurde keine Datei ausgewählt.
-            </i>
+            <i *ngIf="!currentFile"> Es wurde keine Datei ausgewählt. </i>
+        </div>
+        <div class="scope">
+            <h4 class="form-title">Sichtbar für</h4>
+            <mat-form-field>
+                <mat-select [(ngModel)]="fileScope">
+                    <ng-container *ngIf="user.isSuperUser">
+                        <ng-container *ngFor="let region of fileScopeRegions">
+                            <mat-option [value]="region" selected>{{ region }}</mat-option>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="!user.isSuperUser">
+                        <mat-option [value]="user.regionalgruppe" selected>{{ user.regionalgruppe }}</mat-option>
+                        <mat-option [value]="fileScopeEnum.general">{{ fileScopeEnum.general }}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
         </div>
 
         <h4 class="form-title-ta">Beschreibung</h4>
         <form class="example-form">
             <mat-form-field class="example-full-width" floatLabel="never">
-                <textarea matInput placeholder="Hier ist Platz für eine Beschreibung der Datei..." [(ngModel)]="description" name="description" rows="3" [(ngModel)]="description"></textarea>
+                <textarea
+                    matInput
+                    placeholder="Hier ist Platz für eine Beschreibung der Datei..."
+                    [(ngModel)]="description"
+                    name="description"
+                    rows="3"
+                    [(ngModel)]="description"
+                ></textarea>
             </mat-form-field>
         </form>
     </div>

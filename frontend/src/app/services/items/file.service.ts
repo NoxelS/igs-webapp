@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { IgsResponse, SuccessResponse } from '../../backend-datatypes/response.model';
-import { ShortFile } from '../../backend-datatypes/short-file.model';
+import { FileScope, ShortFile } from '../../backend-datatypes/short-file.model';
 import { DialogService } from '../dialog.service';
 import { ApiEndpointFile } from '../endpoints.const';
 
@@ -34,12 +34,14 @@ export class FileService {
     }
 
     /** Create a new file. */
-    create(file: File, description: string): Observable<boolean> {
+    create(file: File, description: string, scope: FileScope): Observable<boolean> {
         const successSubject = new Subject<boolean>();
         // The service builds form data to send a file and metadata concurrently.
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('description', description);
+        console.log(scope);
+        formData.append('scope', scope);
         this.http.post(ApiEndpointFile.create, formData).subscribe(
             (res: SuccessResponse) => {
                 successSubject.next(res.successful);

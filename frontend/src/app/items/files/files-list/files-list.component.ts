@@ -69,12 +69,10 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.allFiles = files;
                 
                 if (this.user && !this.user.isSuperUser) {
-                    console.log("Test");
                     this.allFiles = files.filter(file => {
                         if(file.scope == FileScope.general ) {
                             return true
                         } else {
-                            console.log(file.scope == (this.user.regionalgruppe as any));
                             return file.scope == (this.user.regionalgruppe as any)
                         }
                     });

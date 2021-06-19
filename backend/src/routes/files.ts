@@ -25,7 +25,6 @@ router.get('/list', isLoggedIn(), async (req: Request, res: Response) => {
 router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
     const file = req.files?.file;
     const { description, scope } = req.body;
-    console.log(scope);
     if (file) {
         connection.query(
             'INSERT INTO `igs`.`files` (`name`, `author_id`, `author_name`, `mimetype`, `creationDate`, `description`, `scope`) VALUES (?, ?, ?, ?, ?, ?, ?);',
@@ -57,7 +56,7 @@ router.post('/remove', isLoggedIn(), async (req: Request, res: Response) => {
                 res.json(new ErrorResponse('No file found.'));
             } else {
                 /** Checks if the user is the author of the file or hast wildcard access */
-                if (Number(result[0]['author_id']) === Number(res.locals.user.id) || res.locals.user.isSuperuser) {
+                if (Number(result[0]['author_id']) === Number(res.locals.user.id) || res.locals.user.isSuperUser) {
                     unlink(result[0].path, err => {
                         if (err) {
                             res.json(new ErrorResponse(err.message));

@@ -23,7 +23,7 @@
                 <mat-checkbox
                     (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [indeterminate]="selection.selected.length > 1 && !isAllSelected()"
                     [aria-label]="checkboxLabel()"
                     color="primary"
                 >

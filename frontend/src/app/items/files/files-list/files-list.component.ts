@@ -36,6 +36,7 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
     displayedColumns: string[] = ['select', 'type', 'name', 'creationDate', 'author', 'regionalgruppe', 'action'];
     dataSource: MatTableDataSource<ShortFile> = new MatTableDataSource([]);
     selection = new SelectionModel<ShortFile>(true, []);
+    isMasterToggleOn = false;
 
     private _searchTerm = '';
     private subscriptions: Subscription[] = [];
@@ -69,6 +70,10 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         // TODO: Better observables and better search engine
         this.subscriptions.push(
             fileService.files.subscribe(files => {
+
+                this.selection.clear();
+                this.isMasterToggleOn = false;
+
                 this.allFiles = files;
 
                 if (this.user && !this.user.isSuperUser) {
@@ -89,9 +94,6 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.user = user;
             })
         );
-        this.selection.changed.subscribe(selection => {
-            console.log(this.selection.selected);
-        });
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -103,12 +105,14 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
     masterToggle() {
-        if (this.isAllSelected()) {
+        if (this.isMasterToggleOn) {
             this.selection.clear();
+            this.isMasterToggleOn = false;
             return;
+        } else {
+            this.isMasterToggleOn = true;
+            this.selection.select(...this.dataSource.filteredData);
         }
-
-        this.selection.select(...this.dataSource.data);
     }
 
     /** The label for the checkbox on the passed row */
@@ -170,18 +174,20 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         const list = this.selection.selected;
 
         this.dialogService
-            .confirm(`Sind Sie sich sicher, die Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`, 'Dateien Löschen')
-            .afterClosed().subscribe(confirmation => {
+            .confirm(`Sind Sie sich sicher, die ${list.length} Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`, `${list.length} Dateien Löschen`)
+            .afterClosed()
+            .subscribe(confirmation => {
                 if (confirmation) {
-                    from(list).pipe(
-                        switchMap(file => this.fileService.remove(file))
-                    ).subscribe(success => {
-                        if (success) {
-                            this.dialogService.flashSuccess('Die Dateien wurde erfolgreich gelöscht.');
-                        } else {
-                            this.dialogService.flashError('Die Dateien konnte nicht gelöscht werden. Versuchen Sie es später noch einmal!');
-                        }
-                    });
+                    from(list)
+                        .pipe(switchMap(file => this.fileService.remove(file)))
+                        .subscribe(success => {
+                            if (success) {
+                                this.dialogService.flashSuccess('Die Dateien wurde erfolgreich gelöscht.');
+                                this.fileService.get();
+                            } else {
+                                this.dialogService.flashError('Die Dateien konnte nicht gelöscht werden. Versuchen Sie es später noch einmal!');
+                            }
+                        });
                 }
             });
     }

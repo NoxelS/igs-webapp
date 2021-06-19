@@ -1,4 +1,4 @@
-@import "../../../../const.scss";
+@import '../../../../const.scss';
 
 .read-container {
     margin: auto;
@@ -6,6 +6,10 @@
 
     background: #fff;
     width: 60%;
+
+    @media screen and (max-width: 1200px) {
+        width: 100%;
+    }
 
     .title {
         h1 {
@@ -23,7 +27,6 @@
                 }
             }
         }
-
 
         .icons {
             margin: 0.5rem 0;
@@ -68,6 +71,9 @@
         text-justify: newspaper;
         color: #333;
         text-align: justify;
+        @media screen and (max-width: 1200px) {
+            text-align: left;
+        }
     }
 
     .content {
@@ -76,6 +82,9 @@
         text-justify: newspaper;
         color: #333;
         text-align: justify;
+        @media screen and (max-width: 1200px) {
+            text-align: left;
+        }
     }
 }
 

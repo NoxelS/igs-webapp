@@ -5,6 +5,7 @@
     // background-color: #333;
     .landing-wrapper {
         height: calc(100vh - 100px);
+        // background-color: red;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -15,6 +16,11 @@
             grid-template-rows: 1fr;
             // grid-template-rows: 1fr;
             gap: 0 8vw;
+
+            @media screen and  (max-width: 1200px) {
+                display: flex;
+                width: 100%;
+            }
 
             .source {
                 float: left;
@@ -39,6 +45,10 @@
                         text-decoration: none;
                     }
                 }
+
+                @media screen and  (max-width: 1200px) {
+                    display: none;
+                }
             }
 
             img {
@@ -47,6 +57,10 @@
                 max-width: 50vw;
                 max-height: 60vh;
                 border-radius: 10px;
+
+                @media screen and  (max-width: 1200px) {
+                    display: none;
+                }
             }
 
             .description {
@@ -54,10 +68,18 @@
                 justify-self: flex-start;
                 max-width: 40vw;
 
+                @media screen and  (max-width: 1200px) {
+                    max-width: 100%;
+                }
+
                 .title {
-                    font-size: 2.5em;
+                    font-size: 2.3em;
                     margin-bottom: 1.3rem;
                     line-height: normal;
+
+                    @media screen and  (max-width: 768px) {
+                        font-size: 1.5em;
+                    }
                 }
 
                 .description {
@@ -66,6 +88,10 @@
                     font-size: 1.2em;
                     line-height: 1.8em;
                     margin-bottom: 1.5rem;
+
+                    @media screen and  (max-width: 768px) {
+                        font-size: 1em;
+                    }
                 }
 
                 .row > *{
@@ -82,5 +108,13 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 8vh 8vw;
+
+        @media screen and  (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+
+        @media screen and  (min-width: 4000px) {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
     }
 }

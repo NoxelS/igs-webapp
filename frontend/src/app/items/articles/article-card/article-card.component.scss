@@ -19,6 +19,10 @@
         margin-bottom: 1rem;
         margin-top: 1.5rem;
         line-height: normal;
+
+        @media screen and  (max-width: 1200px) {
+            font-size: 1.4em;
+        }
     }
 
     mat-chip-list {
@@ -40,6 +44,10 @@
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
+
+        @media screen and  (max-width: 1200px) {
+            font-size: 1em;
+        }
     }
 }
 .sixteen-nine-img {
@@ -80,6 +88,12 @@
 
         mat-icon {
             margin-right: 3px;
+        }
+
+        
+
+        @media screen and  (max-width: 1200px) {
+            font-size: 0.95em;
         }
     }
 

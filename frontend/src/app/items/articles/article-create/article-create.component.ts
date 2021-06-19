@@ -31,7 +31,7 @@ export class ArticleCreateComponent implements OnInit, OnDestroy {
     articleScopeEnum = ArticleScope;
 
     options = {
-        showPreviewPanel: false, // Show preview panel, Default is true
+        showPreviewPanel: true, // Show preview panel, Default is true
         showBorder: false, // Show editor component's border. Default is true
         hideIcons: ['Code'], // ['Bold', 'Italic', 'Heading', 'Refrence', 'Link', 'Image', 'Ul', 'Ol', 'Code', 'TogglePreview', 'FullScreen']. Default is empty
         // usingFontAwesome5?: boolean   // Using font awesome with version 5, Default is false

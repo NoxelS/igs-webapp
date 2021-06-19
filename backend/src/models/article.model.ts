@@ -10,23 +10,16 @@ export enum ArticleScope {
 }
 
 export class Article {
-    id: string;
-    title: string;
-    views: number;
-    creationDate: number;
-    imageUrl: string;
-    content: string;
-    description: string;
-    scope: ArticleScope;
-
-    constructor(title: string, views: number, creationDate: number, imageUrl: string, content: string,  description: string, id: string, scope: ArticleScope) {
-        this.title = title;
-        this.views = views;
-        this.creationDate = creationDate;
-        this.imageUrl = imageUrl;
-        this.content = content;
-        this.description = description;
-        this.id = id;
-        this.scope = scope;
-    }
+    constructor(
+        public title: string,
+        public views: number,
+        public creationDate: number,
+        public imageUrl: string,
+        public content: string,
+        public description: string,
+        public id: string,
+        public scope: ArticleScope,
+        public authorId: number,
+        public authorName: string
+    ) {}
 }

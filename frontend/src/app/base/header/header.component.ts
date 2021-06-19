@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/backend-datatypes/user.model';
+import { Regionalgruppe, User } from 'src/app/backend-datatypes/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { routePaths } from 'src/app/shared/routes.const';
 
 import { Article } from '../../../../../backend/src/models/article.model';
 import { ArticleService } from '../../services/items/article.service';
+import { RegionalGroupComponent } from '../regional-group/regional-group.component';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     subscription: Subscription[] = [];
     articlesArray: Article[] = [];
 
+    usersRegionalgroups: Regionalgruppe[];
+
     readonly routes = routePaths;
 
     constructor(private readonly authService: AuthenticationService, private readonly articleService: ArticleService) {
@@ -30,7 +33,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription.push(this.authService.user.subscribe(user => (this.user = user)));
+        this.subscription.push(
+            this.authService.user.subscribe(user => {
+                this.user = user;
+
+                if(user) {
+                    if (user.isSuperUser) {
+                        this.usersRegionalgroups = Object.entries(Regionalgruppe).map((keyValue, index) => keyValue[1]);
+                    } else {
+                        this.usersRegionalgroups = [user.regionalgruppe];
+                    }
+                }
+            })
+        );
         this.articleService.get();
     }
 
@@ -40,5 +55,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     getArticleLink(article: Article): string {
         return `/${routePaths.ARTICLE_READ.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
+    }
+
+    getLinkToRegionalGroup(region: Regionalgruppe): string {
+        return RegionalGroupComponent.generateRegionalgroupUrl(region);
     }
 }

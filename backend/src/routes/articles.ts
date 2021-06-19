@@ -14,7 +14,25 @@ router.get('/list', async (req: Request, res: Response) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
         } else {
-            res.json(new IgsResponse(results.map((row: any) => new Article(row.title, row.views, row.creationDate, row.imageUrl, row.content, row.description, row.id, row.scope))));
+            res.json(
+                new IgsResponse(
+                    results.map(
+                        (row: any) =>
+                            new Article(
+                                row.title,
+                                row.views,
+                                row.creationDate,
+                                row.imageUrl,
+                                row.content,
+                                row.description,
+                                row.id,
+                                row.scope,
+                                row.authorId,
+                                row.authorName
+                            )
+                    )
+                )
+            );
         }
     });
 });
@@ -22,7 +40,7 @@ router.get('/list', async (req: Request, res: Response) => {
 router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
     const article: Article = req.body as Article;
     connection.query(
-        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`, `scope`) VALUES (?,?,?,?,?,?,))',
+        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`, `scope`; `authorId`, `authorName`) VALUES (?,?,?,?,?,?,?,?)',
         [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description, article.scope],
         err => {
             res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
@@ -36,7 +54,7 @@ router.post('/edit', isLoggedIn(), async (req: Request, res: Response) => {
     connection.query('SELECT * FROM igs.articles WHERE (id = ?);', [article.id], (err, result) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
-        } else if(!result.length) {
+        } else if (!result.length) {
             res.json(new ErrorResponse('The article was not found.'));
         } else {
             connection.query(
@@ -55,7 +73,7 @@ router.post('/remove', isLoggedIn(), async (req: Request, res: Response) => {
     connection.query('SELECT * FROM igs.articles WHERE (id = ?);', [id], (err, result) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
-        } else if(!result.length) {
+        } else if (!result.length) {
             res.json(new ErrorResponse('The article was not found.'));
         } else {
             connection.query('DELETE FROM `igs`.`articles` WHERE (`id` = ?);', [id], err => {

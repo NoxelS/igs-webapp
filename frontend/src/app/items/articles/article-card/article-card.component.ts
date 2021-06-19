@@ -1,48 +1,61 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/backend-datatypes/user.model';
-import { RegionalGroupComponent } from 'src/app/base/regional-group/regional-group.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { DialogService } from 'src/app/services/dialog.service';
+import { ArticleService } from 'src/app/services/items/article.service';
 import { routePaths } from 'src/app/shared/routes.const';
 
-import { Article } from '../../../../../../backend/src/models/article.model';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { DialogService } from '../../../services/dialog.service';
-import { ArticleService } from '../../../services/items/article.service';
+import { Article, ArticleScope } from '../../../backend-datatypes/article.model';
 
 
 @Component({
-    selector: 'app-articles-list',
-    templateUrl: './articles-list.component.html',
-    styleUrls: ['./articles-list.component.scss']
+    selector: 'app-article-card',
+    templateUrl: './article-card.component.html',
+    styleUrls: ['./article-card.component.scss']
 })
-export class ArticlesListComponent implements OnInit, OnDestroy {
-    private MAX_DESCRIPTION_CHARLENGTH = 300;
+export class ArticleCardComponent implements OnInit, OnDestroy {
+    private _article: Article;
 
-    articles: Article[] = [];
-    loggedIn = false;
+    public get article(): Article {
+        return this._article;
+    }
+
+    @Input()
+    public set article(value: Article) {
+        if (value.scope != ArticleScope.latestNews && value.scope != ArticleScope.mainPage) {
+            this.regionalgroup = value.scope;
+        } else {
+            this.regionalgroup = null;
+        }
+        this._article = value;
+    }
+
     user: User;
+    loggedIn = false;
+    regionalgroup: ArticleScope;
+
+    canEditOrDeleteArticle() {
+        return (this.loggedIn && this.user && this.user.id == this.article.authorId) || (this.user && this.user.isSuperUser);
+    }
 
     private subscriptions: Subscription[] = [];
+
     constructor(private articleService: ArticleService, private authenticationService: AuthenticationService, private dialogService: DialogService) {
+        this.subscriptions.push(this.authenticationService.loggedIn.subscribe(loggedIn => (this.loggedIn = loggedIn)));
         this.subscriptions.push(
-            articleService.articles.subscribe(articles => {
-                this.articles = articles;
+            this.authenticationService.user.subscribe(user => {
+                this.user = user;
             })
         );
-
-        this.subscriptions.push(this.authenticationService.loggedIn.subscribe(loggedIn => (this.loggedIn = loggedIn)));
-        this.subscriptions.push(this.authenticationService.user.subscribe(user => (this.user = user)));
     }
 
-    ngOnInit() {
-        this.articleService.get();
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe);
     }
-
     getArticleLink(article: Article): string {
         return `/${routePaths.ARTICLE_READ.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
     }
@@ -66,13 +79,5 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
                     });
                 }
             });
-    }
-
-    scroll(el: HTMLElement) {
-        el.scrollIntoView();
-    }
-
-    goToRegionalgroup(): string {
-        return RegionalGroupComponent.generateRegionalgroupUrl(this.user.regionalgruppe);
     }
 }

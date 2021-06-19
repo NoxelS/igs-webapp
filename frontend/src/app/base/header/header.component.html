@@ -10,7 +10,11 @@
         <!-- Artikel -->
         <button mat-button [matMenuTriggerFor]="articles" [class.routerLinkActiveClass]="rlaArtikel1.isActive">Artikel</button>
         <mat-menu #articles="matMenu" yPosition="above">
-            <button mat-menu-item [routerLink]="routes.ARTICLES" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">Alle Artikel</button>
+            <button mat-menu-item [routerLink]="routes.ARTICLES" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">Startseite</button>
+            <hr />
+            <button mat-menu-item isLoggedIn [routerLink]="routes.LATEST_NEWS" routerLinkActive="routerLinkActiveClass" #rlaArtikel1="routerLinkActive">
+                Aktuelle Themen
+            </button>
             <button mat-menu-item [matMenuTriggerFor]="alle">Durchsuchen</button>
             <mat-menu #alle="matMenu" yPosition="below">
                 <button
@@ -23,6 +27,19 @@
                     {{ article.title }}
                 </button>
             </mat-menu>
+            <ng-container *ngIf="!!user">
+                <ng-container *ngFor="let regionalgruppe of usersRegionalgroups">
+                    <button
+                        mat-menu-item
+                        isLoggedIn
+                        [routerLink]="getLinkToRegionalGroup(regionalgruppe)"
+                    >
+                        {{ regionalgruppe }}
+                    </button>
+                </ng-container>
+            </ng-container>
+
+            <hr isLoggedIn />
             <button [routerLink]="routes.ARTICLE_CREATE" mat-menu-item isLoggedIn>Artikel erstellen</button>
         </mat-menu>
         <!-- Dateiablage -->

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/backend-datatypes/user.model';
 import { routePaths } from 'src/app/shared/routes.const';
 
 import { Article } from '../../../../../../backend/src/models/article.model';
@@ -24,6 +25,8 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
     article: Article;
     articleID: string;
     isLoggedIn: boolean;
+    user: User;
+    
     @ViewChild('top', {}) top: HTMLElement;
 
     private subscriptions: Subscription[] = [];
@@ -42,6 +45,7 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
             })
         );
         this.subscriptions.push(authService.loggedIn.subscribe(loggedIn => (this.isLoggedIn = loggedIn)));
+        this.subscriptions.push(this.authService.user.subscribe(user => (this.user = user)));
     }
 
     ngOnInit() {
@@ -59,4 +63,9 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
     getEditArticleLink(): string {
         return `/${routePaths.ARTICLE_EDIT.replace(':title', this.article.title.replace(/[\n\r\s]+/g, '_'))}_${this.article.id}`;
     }
+
+    canEditOrDeleteArticle() {
+        return (this.isLoggedIn && this.user && this.user.id == this.article.authorId) || (this.user && this.user.isSuperUser);
+    }
+
 }

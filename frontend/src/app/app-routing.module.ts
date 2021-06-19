@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './base/about/about.component';
 import { ImpressumComponent } from './base/impressum/impressum.component';
+import { LatestNewsComponent } from './base/latest-news/latest-news.component';
+import { RegionalGroupComponent } from './base/regional-group/regional-group.component';
 import { ArticleCreateComponent } from './items/articles/article-create/article-create.component';
 import { ArticleEditComponent } from './items/articles/article-edit/article-edit.component';
 import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
@@ -28,6 +30,8 @@ const routes: Routes = [
     { path: routePaths.SERVERMANAGEMENT, component: ServermanagementComponent },
     { path: routePaths.ABOUT, component: AboutComponent },
     { path: routePaths.IMPRESSUM, component: ImpressumComponent },
+    { path: routePaths.LATEST_NEWS, component: LatestNewsComponent },
+    { path: routePaths.REGIONAL_GROUP, component: RegionalGroupComponent },
 ];
 
 @NgModule({

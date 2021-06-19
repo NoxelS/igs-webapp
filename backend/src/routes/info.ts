@@ -14,7 +14,7 @@ router.get('/user', isLoggedIn(), async (req: Request, res: Response) => {
 });
 
 router.get('/userid', isLoggedIn(), async (req: Request, res: Response) => {
-    res.json(new IgsResponse<string>((res.locals.user as User).id));
+    res.json(new IgsResponse<number>((res.locals.user as User).id));
 });
 
 /** TODO: Make disk-space pretty */

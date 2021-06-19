@@ -1,0 +1,53 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs';
+import { Article } from 'src/app/backend-datatypes/article.model';
+import { Regionalgruppe } from 'src/app/backend-datatypes/user.model';
+import { DialogService } from 'src/app/services/dialog.service';
+import { ArticleService } from 'src/app/services/items/article.service';
+import { routePaths } from 'src/app/shared/routes.const';
+
+
+@Component({
+    selector: 'app-regional-group',
+    templateUrl: './regional-group.component.html',
+    styleUrls: ['./regional-group.component.scss']
+})
+export class RegionalGroupComponent implements OnInit, OnDestroy {
+
+    regionalgroup: Regionalgruppe;
+	articles: Article[];
+
+    private subscriptions: Subscription[] = [];
+
+	static buildRegionalgroupFromUrl(url: string): Regionalgruppe {
+		return url.replace(/\—/g, '/').replace(/\-/g, ' ') as Regionalgruppe;
+	}
+
+	static generateRegionalgroupUrl(regionalgroup: Regionalgruppe) {
+		return `/${routePaths.REGIONAL_GROUP.replace(':name', regionalgroup.replace(/\//g, '—').replace(/[\n\r\s]+/g, '-'))}`;
+	}
+
+    constructor(private route: ActivatedRoute, private articleService: ArticleService, private dialogService: DialogService) {
+        this.subscriptions.push(
+            this.route.paramMap.subscribe(paramMap => {
+                const uniqueTitle = paramMap.get('name');
+				this.regionalgroup = RegionalGroupComponent.buildRegionalgroupFromUrl(uniqueTitle);
+				this.articleService.get();
+            })
+        );
+        this.subscriptions.push(
+            articleService.articles.subscribe(articles => {
+                this.articles = articles.filter(article => (article.scope as any) === this.regionalgroup)
+            })
+        );
+    }
+    ngOnInit() {
+        
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
+    }
+}

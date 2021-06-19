@@ -10,5 +10,7 @@ export const routePaths = {
     IMPRESSUM: 'impressum',
     ABOUT: 'about',
     USERMANAGEMENT: 'usermanagement',
-    SERVERMANAGEMENT: 'servermanagement'
+    SERVERMANAGEMENT: 'servermanagement',
+    LATEST_NEWS: 'aktuelle-themen',
+    REGIONAL_GROUP: 'regionalgruppe/:name'
 };

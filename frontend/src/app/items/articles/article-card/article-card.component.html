@@ -1,0 +1,28 @@
+<div class="main">
+    <div class="sixteen-nine-img">
+        <div class="source" [matTooltip]="article.imageUrl">
+            <a target="_blank" href="https://www.pexels.com/de-de/ueber-uns/">
+                <mat-icon>fingerprint</mat-icon>
+                Bildquelle
+            </a>
+        </div>
+        <img src="{{ article.imageUrl }}" />
+    </div>
+
+    <div class="description">
+        <div class="title">{{ article.title }}</div>
+
+        <div class="chip-list">
+            <span><mat-icon>person</mat-icon>{{ article.authorName || 'Unbekannt' }}</span>
+            <span><mat-icon>schedule</mat-icon>{{ article.creationDate }}</span>
+            <span *ngIf="regionalgroup"><mat-icon>place</mat-icon>{{ regionalgroup }}</span>
+            <span *ngIf="canEditOrDeleteArticle()" class="edit admin" [routerLink]="getEditArticleLink(article)"><mat-icon>mode</mat-icon>Bearbeiten</span>
+            <span *ngIf="canEditOrDeleteArticle()" class="remove admin" (click)="deleteArticle(article)"><mat-icon>do_disturb</mat-icon>Löschen</span>
+        </div>
+
+        <p class="description">
+            {{ article.description }}
+        </p>
+        <a [routerLink]="getArticleLink(article)"><button mat-flat-button color="primary">Artikel lesen</button></a>
+    </div>
+</div>

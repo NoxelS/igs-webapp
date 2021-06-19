@@ -1,0 +1,10 @@
+<div class="list">
+    <div class="landing-wrapper">
+        <div class="title">{{regionalgroup}}</div>
+    </div>
+    <div class="grid-list" #gridlist>
+        <div *ngFor="let article of articles" class="grid-article-item">
+            <app-article-card [article]="article"></app-article-card>
+        </div>
+    </div>
+</div>

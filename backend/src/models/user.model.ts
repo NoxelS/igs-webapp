@@ -12,7 +12,7 @@ export class User {
     constructor(
         public username: string,
         public email: string,
-        public id: string,
+        public id: number,
         public isSuperUser: boolean,
         public name: string,
         public regionalgruppe: Regionalgruppe

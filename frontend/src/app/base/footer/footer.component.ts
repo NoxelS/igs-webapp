@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { routePaths } from 'src/app/shared/routes.const';
 
-import { Article } from '../../backend-datatypes/article.model';
+import { Article, ArticleScope } from '../../backend-datatypes/article.model';
 import { ArticleService } from '../../services/items/article.service';
 
 
@@ -23,7 +23,13 @@ export class FooterComponent implements OnInit {
     ngOnInit(): void {
         this.subscription.push(
             this.articleService.articles.subscribe(articles => {
-                this.articleList = articles;
+                this.articleList = articles
+                    .filter(article => article.scope == ArticleScope.mainPage)
+                    .sort((a: any, b: any) => {
+                        const data1 = new Date(a.creationDate.split('.')[2], a.creationDate.split('.')[1] - 1, a.creationDate.split('.')[0]);
+                        const data2 = new Date(b.creationDate.split('.')[2], b.creationDate.split('.')[1] - 1, b.creationDate.split('.')[0]);
+                        return data2.getTime() - data1.getTime();
+                    });
             })
         );
     }

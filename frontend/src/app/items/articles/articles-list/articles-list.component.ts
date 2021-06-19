@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
+import { ArticleScope } from 'src/app/backend-datatypes/article.model';
 import { User } from 'src/app/backend-datatypes/user.model';
 import { RegionalGroupComponent } from 'src/app/base/regional-group/regional-group.component';
 import { routePaths } from 'src/app/shared/routes.const';
@@ -27,7 +28,13 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
     constructor(private articleService: ArticleService, private authenticationService: AuthenticationService, private dialogService: DialogService) {
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
-                this.articles = articles;
+                this.articles = articles
+                    .filter(article => article.scope == ArticleScope.mainPage)
+                    .sort((a: any, b: any) => {
+                        const data1 = new Date(a.creationDate.split('.')[2], a.creationDate.split('.')[1] - 1, a.creationDate.split('.')[0]);
+                        const data2 = new Date(b.creationDate.split('.')[2], b.creationDate.split('.')[1] - 1, b.creationDate.split('.')[0]);
+                        return data2.getTime() - data1.getTime();
+                    });
             })
         );
 

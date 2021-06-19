@@ -15,7 +15,7 @@
         <div class="chip-list">
             <span><mat-icon>person</mat-icon>{{ article.authorName || 'Unbekannt' }}</span>
             <span><mat-icon>schedule</mat-icon>{{ article.creationDate }}</span>
-            <span *ngIf="regionalgroup"><mat-icon>place</mat-icon>{{ regionalgroup }}</span>
+            <!-- <span *ngIf="regionalgroup"><mat-icon>place</mat-icon>{{ regionalgroup }}</span> -->
             <span *ngIf="canEditOrDeleteArticle()" class="edit admin" [routerLink]="getEditArticleLink(article)"><mat-icon>mode</mat-icon>Bearbeiten</span>
             <span *ngIf="canEditOrDeleteArticle()" class="remove admin" (click)="deleteArticle(article)"><mat-icon>do_disturb</mat-icon>Löschen</span>
         </div>

@@ -1,1 +1,59 @@
-<p>article-create works!</p>
+<div class="container" *ngIf="!!user">
+    <h1>Artikel Erstellen</h1>
+
+    <div class="row">
+        <div>
+            <h3>Titel</h3>
+            <div>
+                <mat-form-field floatLabel="never" class="full-width">
+                    <input placeholder="Artikel Titel..." name="text" matInput [(ngModel)]="articleTitle" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <h3>Posten in</h3>
+            <div>
+                <mat-form-field floatLabel="never">
+                    <mat-select floatLabel="never" [(ngModel)]="articleScope">
+                        <ng-container *ngIf="user.isSuperUser">
+                            <ng-container *ngFor="let region of articleScopeRegions">
+                                <mat-option [value]="region" selected>{{ region }}</mat-option>
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="!user.isSuperUser">
+                            <mat-option [value]="user.regionalgruppe" selected>{{ user.regionalgruppe }}</mat-option>
+                            <mat-option [value]="articleScopeEnum.latestNews" selected>{{ articleScopeEnum.latestNews}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <h3>Bild</h3>
+            <div class="image-button">
+                <button mat-flat-button color="primary" (click)="selectImage()">Bild {{ !!articleImage ? 'Ändern' : 'Auswählen' }}</button>
+            </div>
+        </div>
+    </div>
+    <h3>Beschreibung:</h3>
+    <div>
+        <textarea placeholder="Eine Beschreibung zum Artikel..." appearance="outline" name="text" class="full-width" [(ngModel)]="articleDescription" matInput></textarea>
+    </div>
+
+    <h3>Inhalt:</h3>
+    <div class="content">
+        <md-editor name="content" [height]="'70vh'" [(ngModel)]="articleContent"> </md-editor>
+    </div>
+
+    <div class="errors">
+        <mat-error *ngIf="!articleTitle">Bitte geben Sie einen gültigen Titel an!</mat-error>
+        <mat-error *ngIf="!articleContent">Bitte geben Sie einen gültigen Inhalt an!</mat-error>
+        <mat-error *ngIf="!articleScope">Bitte geben Sie einen gültigen Bereich zum Speichern des Artikels an!</mat-error>
+        <mat-error *ngIf="!articleImage">Wenn Sie kein Bild auswählen, wird ein Platzhalterbild für Sie ausgewählt!</mat-error>
+    </div>
+
+    <div class="row">
+        <button [disabled]="!canCreate()" mat-flat-button color="primary" (click)="createArticle()">Artikel Erstellen</button>
+    </div>
+</div>

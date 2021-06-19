@@ -6,7 +6,8 @@
     align-items: flex-start;
     justify-content: flex-start;
     background: #fff;
-    width: 100%;
+
+    // width: 100%;
 }
 
 .description {
@@ -41,7 +42,6 @@
         overflow: hidden;
     }
 }
-
 .sixteen-nine-img {
     width: 100%;
     overflow: hidden;
@@ -65,6 +65,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    line-height: 30px;
 
     span {
         width: min-content;

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Article } from '../../backend-datatypes/article.model';
 import { IgsResponse, SuccessResponse } from '../../backend-datatypes/response.model';
@@ -34,19 +35,18 @@ export class ArticleService implements ItemService<Article> {
     }
 
     /** Create a new article. */
-    create(article: Article) {
-        this.http.post(ApiEndpointArticle.create, article).subscribe(
-            (res: SuccessResponse) => {
+    create(article: Article): Observable<SuccessResponse> {
+        return this.http.post(ApiEndpointArticle.create, article).pipe(
+            tap((res: SuccessResponse) => {
                 if (res.successful) {
                     this.get();
                 }
-            },
-            _ => _
+            })
         );
     }
 
     /** Edit an existing article. */
-    edit(article: Article): Observable<boolean>  {
+    edit(article: Article): Observable<boolean> {
         const successSubject = new Subject<boolean>();
         this.http.post(ApiEndpointArticle.edit, article).subscribe(
             (res: SuccessResponse) => {

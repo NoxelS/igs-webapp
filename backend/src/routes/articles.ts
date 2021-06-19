@@ -3,7 +3,7 @@ import { isLoggedIn } from '@shared/passport.utils';
 import { Request, Response, Router } from 'express';
 
 import { Article } from '../models/article.model';
-import { ErrorResponse, IgsResponse, SuccessResponse } from '../models/response.model';
+import { ArticleCreateResponse, ErrorResponse, IgsResponse, SuccessResponse } from '../models/response.model';
 
 
 // Init shared
@@ -40,10 +40,20 @@ router.get('/list', async (req: Request, res: Response) => {
 router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
     const article: Article = req.body as Article;
     connection.query(
-        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`, `scope`; `authorId`, `authorName`) VALUES (?,?,?,?,?,?,?,?)',
-        [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description, article.scope],
-        err => {
-            res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
+        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`, `scope`, `authorId`, `authorName`) VALUES (?,?,?,?,?,?,?,?,?)',
+        [
+            article.title,
+            article.views,
+            article.creationDate,
+            article.imageUrl,
+            article.content,
+            article.description,
+            article.scope,
+            res.locals.user.id,
+            res.locals.user.name
+        ],
+        (err, result) => {
+            res.json(err ? new ErrorResponse(err.message) : new ArticleCreateResponse(result.insertId));
         }
     );
 });

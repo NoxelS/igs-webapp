@@ -15,37 +15,40 @@ import { routePaths } from 'src/app/shared/routes.const';
     styleUrls: ['./regional-group.component.scss']
 })
 export class RegionalGroupComponent implements OnInit, OnDestroy {
-
     regionalgroup: Regionalgruppe;
-	articles: Article[];
+    articles: Article[];
 
     private subscriptions: Subscription[] = [];
 
-	static buildRegionalgroupFromUrl(url: string): Regionalgruppe {
-		return url.replace(/\—/g, '/').replace(/\-/g, ' ') as Regionalgruppe;
-	}
+    static buildRegionalgroupFromUrl(url: string): Regionalgruppe {
+        return url.replace(/\—/g, '/').replace(/\-/g, ' ') as Regionalgruppe;
+    }
 
-	static generateRegionalgroupUrl(regionalgroup: Regionalgruppe) {
-		return `/${routePaths.REGIONAL_GROUP.replace(':name', regionalgroup.replace(/\//g, '—').replace(/[\n\r\s]+/g, '-'))}`;
-	}
+    static generateRegionalgroupUrl(regionalgroup: Regionalgruppe) {
+        return `/${routePaths.REGIONAL_GROUP.replace(':name', regionalgroup.replace(/\//g, '—').replace(/[\n\r\s]+/g, '-'))}`;
+    }
 
     constructor(private route: ActivatedRoute, private articleService: ArticleService, private dialogService: DialogService) {
         this.subscriptions.push(
             this.route.paramMap.subscribe(paramMap => {
                 const uniqueTitle = paramMap.get('name');
-				this.regionalgroup = RegionalGroupComponent.buildRegionalgroupFromUrl(uniqueTitle);
-				this.articleService.get();
+                this.regionalgroup = RegionalGroupComponent.buildRegionalgroupFromUrl(uniqueTitle);
+                this.articleService.get();
             })
         );
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
-                this.articles = articles.filter(article => (article.scope as any) === this.regionalgroup)
+                this.articles = articles
+                    .filter(article => (article.scope as any) === this.regionalgroup)
+                    .sort((a: any, b: any) => {
+                        const data1 = new Date(a.creationDate.split('.')[2], a.creationDate.split('.')[1] - 1, a.creationDate.split('.')[0]);
+                        const data2 = new Date(b.creationDate.split('.')[2], b.creationDate.split('.')[1] - 1, b.creationDate.split('.')[0]);
+                        return data2.getTime() - data1.getTime();
+                    });
             })
         );
     }
-    ngOnInit() {
-        
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe());

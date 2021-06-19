@@ -40,6 +40,8 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/create_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
+
+    // TODO: Missing fields
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;

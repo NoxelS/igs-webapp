@@ -20,7 +20,7 @@ export function verifyUser(username: string, password: string, done: (err: strin
             const hash = results[0].password.toString();
             compare(password, hash, (err, response) => {
                 if (response === true) {
-                    return done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
+                    return done(null, User.fromDbEntry(results[0]));
                 } else {
                     return done(null, false);
                 }
@@ -35,7 +35,7 @@ export function jwtVerifyCallback(payload: any, done: any) {
             done(err, false);
         } else {
             logToConsole('Successful jwt login ' + results[0].isSuperUser + " " + results[0].email);
-            done(null, new User(results[0].username, results[0].email, results[0].id, !!results[0].isSuperUser));
+            done(null, User.fromDbEntry(results[0]));
         }
     });
 }

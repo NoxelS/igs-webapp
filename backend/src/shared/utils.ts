@@ -17,9 +17,10 @@ export function setLocals(req: Request, res: Response, next: NextFunction) {
             if(err) {
                 next();
             } else {
-                connection.query('SELECT username, email, isSuperUser FROM users WHERE (id = ?)', [(subPrperties as any).sub], (err, result) => {
+                connection.query('SELECT * FROM users WHERE (id = ?)', [(subPrperties as any).sub], (err, result) => {
                     if(!err && result.length === 1) {
-                        res.locals.user = <User> new User(result[0].username, result[0].email, (subPrperties as any).sub, result[0].isSuperUser);
+                        res.locals.user = User.fromDbEntry(result[0]);
+                        res.locals.user.sub = (subPrperties as any).sub;
                     }
                     next();
                 });

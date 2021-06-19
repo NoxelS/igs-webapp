@@ -14,7 +14,7 @@ router.get('/list', async (req: Request, res: Response) => {
         if (err) {
             res.json(new ErrorResponse(err.message));
         } else {
-            res.json(new IgsResponse(results.map((row: any) => new Article(row.title, row.views, row.creationDate, row.imageUrl, row.content, row.description, row.id))));
+            res.json(new IgsResponse(results.map((row: any) => new Article(row.title, row.views, row.creationDate, row.imageUrl, row.content, row.description, row.id, row.scope))));
         }
     });
 });
@@ -22,8 +22,8 @@ router.get('/list', async (req: Request, res: Response) => {
 router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
     const article: Article = req.body as Article;
     connection.query(
-        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`) VALUES (?,?,?,?,?,?)',
-        [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description],
+        'INSERT INTO `igs`.`articles` (`title`, `views`, `creationDate`, `imageUrl`, `content`, `description`, `scope`) VALUES (?,?,?,?,?,?,))',
+        [article.title, article.views, article.creationDate, article.imageUrl, article.content, article.description, article.scope],
         err => {
             res.json(err ? new ErrorResponse(err.message) : new SuccessResponse());
         }
@@ -31,6 +31,7 @@ router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
 });
 
 router.post('/edit', isLoggedIn(), async (req: Request, res: Response) => {
+    /** Notice that the scope of File can not be changed */
     const article: Article = req.body as Article;
     connection.query('SELECT * FROM igs.articles WHERE (id = ?);', [article.id], (err, result) => {
         if (err) {

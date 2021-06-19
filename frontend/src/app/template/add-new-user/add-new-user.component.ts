@@ -36,7 +36,7 @@ export class AddNewUserComponent implements OnInit {
     ngOnInit(): void {}
 
     createUser() {
-        const newUser = new User(this.username, this.email, null, this.isSuperUser, this.name, this.regionalgroup);
+        const newUser = new User(this.username, this.email, null, this.isSuperUser, this.name, this.isSuperUser ? null : this.regionalgroup);
         this.superuserService.createUser({...newUser, password: this.password}).subscribe(res => {
             if (res.successful) {
                 this.dialogService.flashSuccess('Der Benutzer wurde erfolgreich erstellt');

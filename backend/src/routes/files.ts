@@ -43,7 +43,7 @@ router.post('/create', isLoggedIn(), async (req: Request, res: Response) => {
     if (file) {
         connection.query(
             'INSERT INTO `igs`.`files` (`name`, `author_id`, `author_name`, `mimetype`, `creationDate`, `description`) VALUES (?, ?, ?, ?, ?, ?);',
-            [file.name, res.locals.user.id, res.locals.user.username, file.mimetype, new Date().getTime(), description],
+            [file.name, res.locals.user.id, res.locals.user.name, file.mimetype, new Date().getTime(), description],
             (err, result) => {
                 if (err) {
                     res.json(new ErrorResponse(err.message));

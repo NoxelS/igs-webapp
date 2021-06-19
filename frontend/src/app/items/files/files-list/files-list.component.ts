@@ -1,10 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { Subject, Subscription } from 'rxjs';
+import { from, Subject, Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { FileScope } from 'src/app/backend-datatypes/short-file.model';
 import { User } from 'src/app/backend-datatypes/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -31,8 +33,9 @@ import { AddNewFileComponent } from '../../../template/add-new-file/add-new-file
 export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
     allFiles: ShortFile[];
     expandedElement: ShortFile | null;
-    displayedColumns: string[] = ['type', 'name', 'creationDate', 'author', 'action', 'regionalgruppe'];
+    displayedColumns: string[] = ['select', 'type', 'name', 'creationDate', 'author', 'regionalgruppe', 'action'];
     dataSource: MatTableDataSource<ShortFile> = new MatTableDataSource([]);
+    selection = new SelectionModel<ShortFile>(true, []);
 
     private _searchTerm = '';
     private subscriptions: Subscription[] = [];
@@ -67,13 +70,13 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.subscriptions.push(
             fileService.files.subscribe(files => {
                 this.allFiles = files;
-                
+
                 if (this.user && !this.user.isSuperUser) {
                     this.allFiles = files.filter(file => {
-                        if(file.scope == FileScope.general ) {
-                            return true
+                        if (file.scope == FileScope.general) {
+                            return true;
                         } else {
-                            return file.scope == (this.user.regionalgruppe as any)
+                            return file.scope == (this.user.regionalgruppe as any);
                         }
                     });
                 }
@@ -86,12 +89,47 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.user = user;
             })
         );
+        this.selection.changed.subscribe(selection => {
+            console.log(this.selection.selected);
+        });
+    }
+
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+        if (this.isAllSelected()) {
+            this.selection.clear();
+            return;
+        }
+
+        this.selection.select(...this.dataSource.data);
+    }
+
+    /** The label for the checkbox on the passed row */
+    checkboxLabel(row?: ShortFile): string {
+        if (!row) {
+            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        }
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
     }
 
     downloadFile(refrence: ShortFile) {
         if (refrence) {
             this.fileService.download(refrence);
         }
+    }
+
+    downloadList() {
+        const list = this.selection.selected;
+        from(list)
+            .pipe(tap(file => this.fileService.download(file)))
+            .subscribe();
     }
 
     getDate(date: number) {
@@ -122,6 +160,26 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
                             this.dialogService.flashSuccess('Die Datei wurde erfolgreich gelöscht.');
                         } else {
                             this.dialogService.flashError('Die Datei konnte nicht gelöscht werden. Versuchen Sie es später noch einmal!');
+                        }
+                    });
+                }
+            });
+    }
+
+    deleteList() {
+        const list = this.selection.selected;
+
+        this.dialogService
+            .confirm(`Sind Sie sich sicher, die Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`, 'Dateien Löschen')
+            .afterClosed().subscribe(confirmation => {
+                if (confirmation) {
+                    from(list).pipe(
+                        switchMap(file => this.fileService.remove(file))
+                    ).subscribe(success => {
+                        if (success) {
+                            this.dialogService.flashSuccess('Die Dateien wurde erfolgreich gelöscht.');
+                        } else {
+                            this.dialogService.flashError('Die Dateien konnte nicht gelöscht werden. Versuchen Sie es später noch einmal!');
                         }
                     });
                 }

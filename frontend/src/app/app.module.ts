@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -96,6 +97,7 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         BrowserAnimationsModule,
         NoopAnimationsModule,
         MatFormFieldModule,
+        MatCheckboxModule,
         MatInputModule,
         MatAutocompleteModule,
         MatMenuModule,

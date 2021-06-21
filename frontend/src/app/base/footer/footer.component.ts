@@ -20,6 +20,8 @@ export class FooterComponent implements OnInit {
 
     constructor(private readonly articleService: ArticleService) {}
 
+    year = new Date().getFullYear();
+
     ngOnInit(): void {
         this.subscription.push(
             this.articleService.articles.subscribe(articles => {

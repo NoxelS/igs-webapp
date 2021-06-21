@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { Article, ArticleScope } from 'src/app/backend-datatypes/article.model';
-import { FileScope } from 'src/app/backend-datatypes/short-file.model';
 import { User } from 'src/app/backend-datatypes/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -59,7 +58,7 @@ export class ArticleCreateComponent implements OnInit, OnDestroy {
                     this.user = user;
                     this.articleScope = user.regionalgruppe as any;
                     if (user.isSuperUser) {
-                        this.articleScope = FileScope.general;
+                        this.articleScope = ArticleScope.latestNews;
                     }
                 }
             })

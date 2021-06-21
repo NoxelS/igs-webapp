@@ -3,7 +3,7 @@
 # Version 1.4.1
 
 <IfModule mod_rewrite.c>
-	Options Indexes FollowSymLinks
+	# Options Indexes FollowSymLinks
 
 	RewriteEngine On
 
@@ -13,12 +13,15 @@
   	 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
 	# --
 
- 	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -s [OR]
-	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f [OR]
-	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+ 	# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -s [OR]
+	# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f [OR]
+	# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 
-	RewriteRule ^.*$ - [NC,L]
-	RewriteRule ^(.*) index.html [NC,L]
+	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+	RewriteRule ^ index.html [END]
+
+	# RewriteRule ^.*$ - [NC,L]
+	# RewriteRule ^(.*) index.html [NC,L]
 </IfModule>
 
 #------------ BROWSER CACHING (optional)

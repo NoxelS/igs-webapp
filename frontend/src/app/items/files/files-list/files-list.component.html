@@ -9,7 +9,7 @@
         ></span>
         <span (click)="openNewFileDialogue()"><mat-icon>upload_file</mat-icon><span>Neue Datei hinzufügen</span></span>
         <span *ngIf="selection.selected.length > 0" (click)="downloadList()"><mat-icon>file_download</mat-icon><span>Alles Herunterladen</span></span>
-        <span *ngIf="selection.selected.length > 0" (click)="deleteList()"
+        <span *ngIf="deleteListLengthFiltered() > 0" (click)="deleteList()"
             ><mat-icon class="color-warn" color="warn">delete</mat-icon><span>Alles Löschen</span></span
         >
     </div>

@@ -155,7 +155,7 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     share(file: ShortFile) {
         ShareButtonComponent.shareFile(file);
-        this.dialogService.flashSuccess('Der Link wurde in die Zwischenablage kopiert.')
+        this.dialogService.flashSuccess('Der Link wurde in die Zwischenablage kopiert.');
     }
 
     removeFile(refrence: ShortFile) {
@@ -175,29 +175,45 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
             });
     }
 
-    deleteList() {
-        const list = this.selection.selected;
+    /** Returns the number of deletable files from the selection */
+    deleteListLengthFiltered(): number {
+        let list = this.selection.selected;
 
-        this.dialogService
-            .confirm(
-                `Sind Sie sich sicher, die ${list.length} Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`,
-                `${list.length} Dateien Löschen`
-            )
-            .afterClosed()
-            .subscribe(confirmation => {
-                if (confirmation) {
-                    from(list)
-                        .pipe(switchMap(file => this.fileService.remove(file)))
-                        .subscribe(success => {
-                            if (success) {
-                                this.dialogService.flashSuccess('Die Dateien wurde erfolgreich gelöscht.');
-                                this.fileService.get();
-                            } else {
-                                this.dialogService.flashError('Die Dateien konnte nicht gelöscht werden. Versuchen Sie es später noch einmal!');
-                            }
-                        });
-                }
-            });
+        if(this.user && !this.user.isSuperUser && list.length) {
+            list = list.filter(file => file ? file.authorId == this.user.id : false);
+        }
+        return list.length;
+    }
+
+    deleteList() {
+        let list = this.selection.selected;
+
+        if (!this.user.isSuperUser) {
+            list = list.filter(file => file.authorId == this.user.id);
+        }
+
+        if (list.length) {
+            this.dialogService
+                .confirm(
+                    `Sind Sie sich sicher, die ${list.length} Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`,
+                    `${list.length} Dateien Löschen`
+                )
+                .afterClosed()
+                .subscribe(confirmation => {
+                    if (confirmation) {
+                        from(list)
+                            .pipe(switchMap(file => this.fileService.remove(file)))
+                            .subscribe(success => {
+                                if (success) {
+                                    this.dialogService.flashSuccess('Die Dateien wurde erfolgreich gelöscht.');
+                                    this.fileService.get();
+                                } else {
+                                    this.dialogService.flashError('Die Dateien konnten nicht gelöscht werden. Versuchen Sie es später noch einmal!');
+                                }
+                            });
+                    }
+                });
+        }
     }
 
     /** Return true if the user is the author of the refrenced file or is a superuser */

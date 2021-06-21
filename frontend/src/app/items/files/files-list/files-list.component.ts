@@ -9,6 +9,7 @@ import { from, Subject, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { FileScope } from 'src/app/backend-datatypes/short-file.model';
 import { User } from 'src/app/backend-datatypes/user.model';
+import { ShareButtonComponent } from 'src/app/misc/share-button/share-button.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import { ShortFile } from '../../../../../../backend/src/models/short-file.model';
@@ -70,7 +71,6 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         // TODO: Better observables and better search engine
         this.subscriptions.push(
             fileService.files.subscribe(files => {
-
                 this.selection.clear();
                 this.isMasterToggleOn = false;
 
@@ -153,6 +153,11 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         return fileName.split('.')[0];
     }
 
+    share(file: ShortFile) {
+        ShareButtonComponent.shareFile(file);
+        this.dialogService.flashSuccess('Der Link wurde in die Zwischenablage kopiert.')
+    }
+
     removeFile(refrence: ShortFile) {
         this.dialogService
             .confirm(`Sind Sie sich sicher, die Datei "${refrence.name}" zu löschen?`, 'Datei Löschen')
@@ -174,7 +179,10 @@ export class FilesListComponent implements OnInit, OnDestroy, AfterViewInit {
         const list = this.selection.selected;
 
         this.dialogService
-            .confirm(`Sind Sie sich sicher, die ${list.length} Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`, `${list.length} Dateien Löschen`)
+            .confirm(
+                `Sind Sie sich sicher, die ${list.length} Dateien "${list.map(file => file.name).join(', ')}" zu löschen?`,
+                `${list.length} Dateien Löschen`
+            )
             .afterClosed()
             .subscribe(confirmation => {
                 if (confirmation) {

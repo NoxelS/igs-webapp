@@ -49,11 +49,17 @@ table {
 }
 
 .actions {
+    height: 48px;
     cursor: pointer;
     pointer-events: none;
-    mat-icon:last-child {
-        margin-left: 1rem;
-    }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    // mat-icon:last-child {
+    //     margin-left: 1rem;
+    // }
 }
 
 .row {

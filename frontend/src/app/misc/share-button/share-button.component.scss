@@ -1,0 +1,11 @@
+@import '../../../const.scss';
+
+mat-icon {
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    align-items: center;
+    justify-content: center;
+    color: $primary-blue;
+    cursor: pointer;
+}

@@ -62,6 +62,7 @@ import { EditTextComponent } from './template/edit-text/edit-text.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
+import { ShareButtonComponent } from './misc/share-button/share-button.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
         LatestNewsComponent,
         ArticleCardComponent,
         AddNewUserComponent,
-        QuicklinkComponent
+        QuicklinkComponent,
+        ShareButtonComponent
     ],
     imports: [
         MatProgressSpinnerModule,

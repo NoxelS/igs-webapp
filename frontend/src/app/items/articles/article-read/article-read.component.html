@@ -1,7 +1,7 @@
 <div #top></div>
 <div class="read-container" *ngIf="article">
     <div class="title">
-        <h1>{{ article.title }} <span *ngIf="canEditOrDeleteArticle()" [routerLink]="getEditArticleLink()">Bearbeiten</span></h1>
+        <h1><div>{{ article.title }}</div> <share-button [refrence]="article"></share-button> <span *ngIf="canEditOrDeleteArticle()" [routerLink]="getEditArticleLink()">Bearbeiten</span></h1>
         <div class="icons">
             <div><mat-icon>timelapse</mat-icon>{{ article.creationDate }}</div>
             <div>•</div>

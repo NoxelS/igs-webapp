@@ -20,7 +20,7 @@ export class LoginTemplateComponent {
     ) {}
 
     usernameFormControl = new FormControl('', [Validators.required]);
-    passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    passwordFormControl = new FormControl('', [Validators.required]);
     loginFormGroup = new FormGroup({
         username: this.usernameFormControl,
         password: this.passwordFormControl

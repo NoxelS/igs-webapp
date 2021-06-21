@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DialogService } from 'src/app/services/dialog.service';
+import { LoginTemplateComponent } from 'src/app/template/login/login-template.component';
 
 
 @Component({
@@ -14,8 +15,8 @@ import { DialogService } from 'src/app/services/dialog.service';
 export class RecoverPasswordComponent {
     constructor(private readonly authService: AuthenticationService, private readonly router: Router, private readonly dialogService: DialogService) {}
 
-    recoveryKeyFormControl = new FormControl('', [Validators.required, Validators.minLength(20)]);
-    passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    recoveryKeyFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+    passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
     error: string;
     hide = true;
@@ -31,6 +32,7 @@ export class RecoverPasswordComponent {
             if (result.successful) {
                 this.router.navigate(['']);
                 this.dialogService.flashSuccess('Passwort wurde erfolgreich geändert!');
+                this.dialogService.openDialog(LoginTemplateComponent);
             } else {
                 this.error = result.errorMessage;
             }

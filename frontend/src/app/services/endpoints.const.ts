@@ -18,11 +18,13 @@ export const ApiEndpointFile: { get; create; download: (id) => string; remove; s
     satzung: environment.backendUrl + '/files/satzung'
 };
 
-export const ApiEndpointAuth: { login; info; sendRecoveryEmail; recoverPassword } = {
+export const ApiEndpointAuth: { login; info; sendRecoveryEmail; recoverPassword; edit_password; edit_user } = {
     login: environment.backendUrl + '/auth/login',
     info: environment.backendUrl + '/info/user',
     sendRecoveryEmail: environment.backendUrl + '/auth/recovery',
-    recoverPassword: environment.backendUrl + '/auth/recover_password'
+    recoverPassword: environment.backendUrl + '/auth/recover_password',
+    edit_password: environment.backendUrl + '/auth/edit_password',
+    edit_user: environment.backendUrl + '/auth/edit_user'
 };
 
 export const ApiEndpointSuperuser: { diskspace; getUsers; createUser; deleteUser } = {

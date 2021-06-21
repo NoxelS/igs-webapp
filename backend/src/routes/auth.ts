@@ -104,6 +104,55 @@ router.post('/remove_user', isLoggedIn(), async (req: Request, res: Response, ne
     }
 });
 
+/** Edit a existing user. Only superusers can edit other users */
+router.post('/edit_user', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
+    const user: User = req.body.user;
+
+    if (user.id == res.locals.user.id || res.locals.user.isSuperUser) {
+        connection.query(
+            `UPDATE users SET username = ?, email = ?, name = ? WHERE (id = ?);`,
+            [user.username, user.email, user.name, user.id],
+            (err, result) => {
+                if (err) {
+                    res.json(new ErrorResponse(err.message));
+                } else {
+                    res.json(new SuccessResponse());
+                }
+            }
+        );
+    } else {
+        return new ErrorResponse('Unauthorized');
+    }
+});
+
+/** Edit the password of a existing user. Only superusers can edit other users */
+router.post('/edit_password', isLoggedIn(), async (req: Request, res: Response, next: NextFunction) => {
+    const user: User = req.body.user;
+    const password: string = req.body.password;
+
+    if (user.id == res.locals.user.id || res.locals.user.isSuperUser) {
+        hash(password, Number(process.env.AUTH_SALT_ROUNDS), (error, passwordHash) => {
+            if (error) {
+                res.json(new SuccessResponse());
+            } else {
+                connection.query(
+                    `UPDATE users SET password = ? WHERE (id = ?);`,
+                    [passwordHash, user.id],
+                    (err, result) => {
+                        if (err) {
+                            res.json(new ErrorResponse(err.message));
+                        } else {
+                            res.json(new SuccessResponse());
+                        }
+                    }
+                );
+            }
+        });
+    } else {
+        return new ErrorResponse('Unauthorized');
+    }
+});
+
 /**
  * Sends an email wit ha recovery key to the person who lost their password.
  * The recovery key expires in one day and can only be used once.

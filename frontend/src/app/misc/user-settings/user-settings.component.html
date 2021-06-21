@@ -1,1 +1,35 @@
-<p>user-settings works!</p>
+<div mat-dialog-content class="column">
+    <h1>Einstellungen</h1>
+    <h2>Benutzer Ändern</h2>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="name" matInput />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input [(ngModel)]="email" matInput />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Benutzername</mat-label>
+        <input type="email" [(ngModel)]="username" matInput />
+    </mat-form-field>
+
+    <mat-form-field *ngIf="regionalgruppe">
+        <mat-label>Regionalgruppe</mat-label>
+        <input disabled [value]="regionalgruppe" matInput />
+    </mat-form-field>
+    <button color="primary" mat-flat-button (click)="changeUser()">Profil Bearbeiten</button>
+    
+    <h2 class="password">Passwort Ändern</h2>
+
+    <mat-form-field>
+        <mat-label>Nues Passwort eingeben</mat-label>
+        <input [(ngModel)]="password" matInput [type]="hide ? 'password' : 'text'" />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+    </mat-form-field>
+    <button color="primary" mat-flat-button (click)="changePassword()">Passwort Ändern</button>
+</div>

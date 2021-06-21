@@ -94,4 +94,14 @@ export class AuthenticationService {
     resetPassword(recoveryKey: string, password: string): Observable<SuccessResponse> {
         return this.http.post(ApiEndpointAuth.recoverPassword, { recoveryKey, password }) as Observable<SuccessResponse>;
     }
+
+    /** Change password of a user. Only superusers can change the passwords of other users. */
+    changePassword(user: User, password): Observable<SuccessResponse> {
+        return this.http.post(ApiEndpointAuth.edit_password, { user, password }) as Observable<SuccessResponse>;
+    }
+
+    /** Change a user. Only name, username and email can be changed */
+    changeUser(user: User): Observable<SuccessResponse> {
+        return this.http.post(ApiEndpointAuth.edit_user, { user }) as Observable<SuccessResponse>;
+    }
 }

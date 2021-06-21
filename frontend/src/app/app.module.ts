@@ -61,6 +61,7 @@ import { ConfirmTemplateComponent } from './template/confirm-template/confirm-te
 import { EditTextComponent } from './template/edit-text/edit-text.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
+import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { ResetPasswordComponent } from './template/reset-password/reset-password
         RegionalGroupComponent,
         LatestNewsComponent,
         ArticleCardComponent,
-        AddNewUserComponent
+        AddNewUserComponent,
+        QuicklinkComponent
     ],
     imports: [
         MatProgressSpinnerModule,

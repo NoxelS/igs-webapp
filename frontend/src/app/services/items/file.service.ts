@@ -86,7 +86,6 @@ export class FileService {
             .subscribe((data: any) => {
                 // const blob = new Blob([data], { type: shortFile.mimetype });
                 const downloadURL = window.URL.createObjectURL(data);
-                console.log(downloadURL);
                 const link = document.createElement('a');
                 link.href = downloadURL;
                 link.download = shortFile.name;

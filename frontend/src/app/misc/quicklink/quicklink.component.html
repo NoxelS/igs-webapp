@@ -1,0 +1,6 @@
+<div class="main">
+    <h1>Weiterleitung...</h1>
+    <h3 *ngIf="isFile && file">Der Download der Datei <b>{{file.name}}</b> sollte jetzt starten...</h3>
+    <h3 *ngIf="isArticle && article">Sie werden zum Artikel <b>{{article.title}}</b> weitergeleiten...</h3>
+    <h4>Sollte nichts passier, klicken Sie <a (click)="tryAgain()">hier</a>.</h4>
+</div>

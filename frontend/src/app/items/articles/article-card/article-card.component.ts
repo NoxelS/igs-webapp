@@ -56,9 +56,13 @@ export class ArticleCardComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe);
     }
-    getArticleLink(article: Article): string {
+
+    static getArticleLink(article: Article): string {
         return `/${routePaths.ARTICLE_READ.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;
     }
+
+    /** Needed for angular to refrence static functions */
+    _getArticleLink = ArticleCardComponent.getArticleLink
 
     getEditArticleLink(article: Article): string {
         return `/${routePaths.ARTICLE_EDIT.replace(':title', article.title.replace(/[\n\r\s]+/g, '_'))}_${article.id}`;

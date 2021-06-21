@@ -12,5 +12,6 @@ export const routePaths = {
     USERMANAGEMENT: 'usermanagement',
     SERVERMANAGEMENT: 'servermanagement',
     LATEST_NEWS: 'aktuelle-themen',
-    REGIONAL_GROUP: 'regionalgruppe/:name'
+    REGIONAL_GROUP: 'regionalgruppe/:name',
+    QUICKLINK: 'q/:query'
 };

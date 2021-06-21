@@ -48,10 +48,10 @@ export class UserSettingsComponent implements OnInit {
                         .subscribe(res => {
                             if (res.successful) {
                                 this.dialogService.flashSuccess('Der Benutzer wurde erfolgreich verändert.');
-                                this.authService.updateUserInformation();
                             } else {
                                 this.dialogService.flashError('Leider konnte der Benutzer nicht verändert werden.');
                             }
+                            this.authService.updateUserInformation();
                         });
                 }
             });

@@ -63,6 +63,7 @@ import { LoginTemplateComponent } from './template/login/login-template.componen
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
 import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
 import { ShareButtonComponent } from './misc/share-button/share-button.component';
+import { ErrorPageComponent } from './misc/error-page/error-page.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { ShareButtonComponent } from './misc/share-button/share-button.component
         ArticleCardComponent,
         AddNewUserComponent,
         QuicklinkComponent,
-        ShareButtonComponent
+        ShareButtonComponent,
+        ErrorPageComponent
     ],
     imports: [
         MatProgressSpinnerModule,

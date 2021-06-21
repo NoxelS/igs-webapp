@@ -10,6 +10,7 @@ import { ArticleEditComponent } from './items/articles/article-edit/article-edit
 import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 import { ArticlesListComponent } from './items/articles/articles-list/articles-list.component';
 import { FilesListComponent } from './items/files/files-list/files-list.component';
+import { ErrorPageComponent } from './misc/error-page/error-page.component';
 import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
 import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
 import { UserSettingsComponent } from './misc/user-settings/user-settings.component';
@@ -33,7 +34,9 @@ const routes: Routes = [
     { path: routePaths.IMPRESSUM, component: ImpressumComponent },
     { path: routePaths.LATEST_NEWS, component: LatestNewsComponent },
     { path: routePaths.REGIONAL_GROUP, component: RegionalGroupComponent },
-    { path: routePaths.QUICKLINK, component: QuicklinkComponent }
+    { path: routePaths.QUICKLINK, component: QuicklinkComponent },
+    {path: routePaths.ERROR, component: ErrorPageComponent},
+    {path: '**', redirectTo: routePaths.ERROR}
 ];
 
 @NgModule({

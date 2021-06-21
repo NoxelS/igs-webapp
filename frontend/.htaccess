@@ -3,9 +3,18 @@
 # Version 1.4.1
 
 <IfModule mod_rewrite.c>
+RewriteEngine On
+# If an existing asset or directory is requested go to it as it is
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+# If the requested resource doesn't exist, use index.html
+RewriteRule ^ /index.html
+
 	# Options Indexes FollowSymLinks
 
-	RewriteEngine On
+	#RewriteEngine On
 
  	# -- REDIRECTION to https (optional):
 	# If you need this, uncomment the next two commands
@@ -17,8 +26,8 @@
 	# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f [OR]
 	# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 
-	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
-	RewriteRule ^ index.html [END]
+	#RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+	#RewriteRule ^ index.html [END]
 
 	# RewriteRule ^.*$ - [NC,L]
 	# RewriteRule ^(.*) index.html [NC,L]

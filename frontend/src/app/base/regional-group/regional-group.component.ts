@@ -38,10 +38,8 @@ export class RegionalGroupComponent implements OnInit, OnDestroy {
         );
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
-                console.log('articles:');
                 this.articles = articles
                     .map(article => { 
-                        console.log(`Checking aritcle scope ${article.scope} to equal ${this.regionalgroup}`);
                         return article;})
                     .filter(article => (article.scope as any) === this.regionalgroup)
                     .sort((a: any, b: any) => {
@@ -49,9 +47,6 @@ export class RegionalGroupComponent implements OnInit, OnDestroy {
                         const data2 = new Date(b.creationDate.split('.')[2], b.creationDate.split('.')[1] - 1, b.creationDate.split('.')[0]);
                         return data2.getTime() - data1.getTime();
                     });
-                console.log(articles.length);
-                console.log(this.articles.length);
-                console.log(this.articles);
             })
         );
     }

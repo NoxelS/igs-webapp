@@ -3,6 +3,8 @@
 # Version 1.4.1
 
 <IfModule mod_rewrite.c>
+	Options Indexes FollowSymLinks
+
 	RewriteEngine On
 
  	# -- REDIRECTION to https (optional):
@@ -12,7 +14,7 @@
 	# --
 
  	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -s [OR]
-	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f [OR]
 	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 
 	RewriteRule ^.*$ - [NC,L]

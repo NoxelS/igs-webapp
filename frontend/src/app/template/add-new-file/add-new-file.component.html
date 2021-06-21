@@ -14,6 +14,7 @@
                 {{ currentFile.name }} <i> ({{ fileSize }} mb) </i>
             </div>
             <i *ngIf="!currentFile"> Es wurde keine Datei ausgewählt. </i>
+            <i style="color: red" *ngIf="fileSize > 25"> Die maximale Größe einer Datei ist 25 mb! </i>
         </div>
         <div class="scope">
             <h4 class="form-title">Sichtbar für</h4>
@@ -48,7 +49,7 @@
         </form>
     </div>
     <div mat-dialog-actions class="apart">
-        <button mat-flat-button color="primary" [disabled]="!currentFile" (click)="uploadFile()">Hochladen</button>
+        <button mat-flat-button color="primary" [disabled]="!currentFile || fileSize > 25" (click)="uploadFile()">Hochladen</button>
         <button mat-flat-button color="warn" (click)="confirm(false)">Abbrechen</button>
     </div>
 </div>

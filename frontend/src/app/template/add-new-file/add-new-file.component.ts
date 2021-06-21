@@ -76,7 +76,7 @@ export class AddNewFileComponent implements OnInit {
         });
     }
 
-    get fileSize(): string {
-        return this.currentFile ? (Math.round((100 * this.currentFile.size) / 1000000) / 100).toString() : '0';
+    get fileSize(): number {
+        return this.currentFile ? (Math.round((100 * this.currentFile.size) / 1000000) / 100) : 0;
     }
 }

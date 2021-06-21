@@ -14,7 +14,7 @@
     </div>
     <div class="sonstiges-list list">
         <div [routerLink]="routes.ABOUT">Über uns</div>
-        <div [routerLink]="routes.FILES">Dateiablage</div>
+        <div isLoggedIn [routerLink]="routes.FILES">Dateiablage</div>
         <div [routerLink]="routes.ABOUT">Satzung</div>
     </div>
     <div class="contact-content">

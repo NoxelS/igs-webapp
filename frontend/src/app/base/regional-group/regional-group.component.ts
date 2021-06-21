@@ -21,11 +21,11 @@ export class RegionalGroupComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     static buildRegionalgroupFromUrl(url: string): Regionalgruppe {
-        return url.replace(/\—/g, '/').replace(/\-/g, ' ') as Regionalgruppe;
+        return url.replace(/\-/g, '/').replace(/\_/g, ' ') as Regionalgruppe;
     }
 
     static generateRegionalgroupUrl(regionalgroup: Regionalgruppe) {
-        return `/${routePaths.REGIONAL_GROUP.replace(':name', regionalgroup.replace(/\//g, '—').replace(/[\n\r\s]+/g, '-'))}`;
+        return `/${routePaths.REGIONAL_GROUP.replace(':name', regionalgroup.replace(/\//g, '-').replace(/[\n\r\s]+/g, '_'))}`;
     }
 
     constructor(private route: ActivatedRoute, private articleService: ArticleService, private dialogService: DialogService) {
@@ -38,13 +38,20 @@ export class RegionalGroupComponent implements OnInit, OnDestroy {
         );
         this.subscriptions.push(
             articleService.articles.subscribe(articles => {
+                console.log('articles:');
                 this.articles = articles
+                    .map(article => { 
+                        console.log(`Checking aritcle scope ${article.scope} to equal ${this.regionalgroup}`);
+                        return article;})
                     .filter(article => (article.scope as any) === this.regionalgroup)
                     .sort((a: any, b: any) => {
                         const data1 = new Date(a.creationDate.split('.')[2], a.creationDate.split('.')[1] - 1, a.creationDate.split('.')[0]);
                         const data2 = new Date(b.creationDate.split('.')[2], b.creationDate.split('.')[1] - 1, b.creationDate.split('.')[0]);
                         return data2.getTime() - data1.getTime();
                     });
+                console.log(articles.length);
+                console.log(this.articles.length);
+                console.log(this.articles);
             })
         );
     }

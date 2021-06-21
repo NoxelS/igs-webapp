@@ -8,6 +8,8 @@
             <div><mat-icon>person</mat-icon>{{ article.authorName || 'Unbekannt' }}</div>
             <div>•</div>
             <div><mat-icon>hourglass_top</mat-icon>{{ getReadTime(article.content) }} min</div>
+            <div *ngIf="scopeIsSpecial()">•</div>
+            <div *ngIf="scopeIsSpecial()"><mat-icon>place</mat-icon>{{ article.scope }}</div>
         </div>
         <div class="image">
             <div class="source" [matTooltip]="article.imageUrl">

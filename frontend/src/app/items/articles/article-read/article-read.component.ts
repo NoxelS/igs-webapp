@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/backend-datatypes/user.model';
+import { Regionalgruppe, User } from 'src/app/backend-datatypes/user.model';
 import { routePaths } from 'src/app/shared/routes.const';
 
 import { Article } from '../../../../../../backend/src/models/article.model';
@@ -56,6 +56,10 @@ export class ArticleReadComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach(s => s.unsubscribe());
     }
 
+    /** Will return true if the scope of an article is a regionalgroup */
+    scopeIsSpecial() {
+        return Object.values(Regionalgruppe).includes(this.article.scope as any)
+    }
     getReadTime(text: string): number {
         return Math.round(text.split(/[\n\r\s]+/g).length / 120) + 1;
     }

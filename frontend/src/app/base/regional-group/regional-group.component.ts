@@ -50,6 +50,7 @@ export class RegionalGroupComponent implements OnInit, OnDestroy {
             })
         );
     }
+
     ngOnInit() {}
 
     ngOnDestroy() {

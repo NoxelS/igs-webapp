@@ -25,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MarkdownModule } from 'ngx-markdown';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 
@@ -43,7 +44,10 @@ import { ArticleEditComponent } from './items/articles/article-edit/article-edit
 import { ArticleReadComponent } from './items/articles/article-read/article-read.component';
 import { ArticlesListComponent } from './items/articles/articles-list/articles-list.component';
 import { FilesListComponent } from './items/files/files-list/files-list.component';
+import { ErrorPageComponent } from './misc/error-page/error-page.component';
+import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
 import { RecoverPasswordComponent } from './misc/recover-password/recover-password.component';
+import { ShareButtonComponent } from './misc/share-button/share-button.component';
 import { UserSettingsComponent } from './misc/user-settings/user-settings.component';
 import { AuthenticationService } from './services/authentication.service';
 import { DialogService } from './services/dialog.service';
@@ -61,9 +65,6 @@ import { ConfirmTemplateComponent } from './template/confirm-template/confirm-te
 import { EditTextComponent } from './template/edit-text/edit-text.component';
 import { LoginTemplateComponent } from './template/login/login-template.component';
 import { ResetPasswordComponent } from './template/reset-password/reset-password.component';
-import { QuicklinkComponent } from './misc/quicklink/quicklink.component';
-import { ShareButtonComponent } from './misc/share-button/share-button.component';
-import { ErrorPageComponent } from './misc/error-page/error-page.component';
 
 
 @NgModule({
@@ -128,7 +129,8 @@ import { ErrorPageComponent } from './misc/error-page/error-page.component';
         FormsModule,
         MarkdownModule.forRoot(),
         MarkdownModule.forRoot({ loader: HttpClient }),
-        LMarkdownEditorModule
+        LMarkdownEditorModule,
+        AngularEditorModule 
     ],
     providers: [
         ArticleService,

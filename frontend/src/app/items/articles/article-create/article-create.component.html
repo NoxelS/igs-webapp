@@ -33,9 +33,11 @@
         </mat-form-field>
     </div>
 
-    <div class="content">
+    <!-- <div class="content">
         <md-editor name="content" [height]="'70vh'" [(ngModel)]="articleContent"> </md-editor>
-    </div>
+    </div> -->
+
+    <angular-editor [placeholder]="'Inhalt des Artikels...'" [config]="editorConfig" [(ngModel)]="articleContent"></angular-editor>
 
     <div class="errors">
         <mat-error *ngIf="!articleTitle">Bitte geben Sie einen gültigen Titel an!</mat-error>

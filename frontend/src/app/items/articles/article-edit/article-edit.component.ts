@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Subscription } from 'rxjs';
 import { routePaths } from 'src/app/shared/routes.const';
 import { EditTextComponent, EditTextInjectionData } from 'src/app/template/edit-text/edit-text.component';
@@ -47,6 +48,65 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
         //   code?: Function      // Code Render
         //   listitem?: Function  // Listitem Render
         // }
+    };
+
+    editorConfig: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: 'auto',
+        minHeight: '200px',
+        maxHeight: 'auto',
+        width: 'auto',
+        minWidth: '0',
+        translate: 'yes',
+        enableToolbar: true,
+        showToolbar: true,
+        placeholder: 'Enter text here...',
+        defaultParagraphSeparator: '',
+        defaultFontName: 'Merriweather Sans',
+        outline: true,
+        defaultFontSize: '',
+        fonts: [
+            { class: 'Merriweather Sans', name: 'Merriweather Sans' },
+            { class: 'times-new-roman', name: 'Times New Roman' },
+            { class: 'calibri', name: 'Calibri' },
+            { class: 'arial', name: 'Arial' }
+        ],
+        customClasses: [
+            {
+                name: 'quote',
+                class: 'quote'
+            },
+            {
+                name: 'redText',
+                class: 'redText'
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1'
+            }
+        ],
+        sanitize: true,
+        toolbarPosition: 'top',
+        toolbarHiddenButtons: [
+            [
+                'subscript',
+                'superscript',
+                'fontName'
+            ],
+            [
+                'fontSize',
+                'textColor',
+                'backgroundColor',
+                'customClasses',
+                'unlink',
+                'insertImage',
+                'insertVideo',
+                'removeFormat',
+                'toggleEditorMode'
+            ]
+        ]
     };
 
     private subscriptions: Subscription[] = [];

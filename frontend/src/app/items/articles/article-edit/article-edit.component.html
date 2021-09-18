@@ -6,7 +6,8 @@
         <span (click)="editDescription()"><mat-icon>description</mat-icon>Beschreibung Bearbeiten</span>
     </div>
     <p class="content">
-        <md-editor name="content" [height]="'70vh'" [(ngModel)]="content" [options]="options"> </md-editor>
+        <!-- <md-editor name="content" [height]="'70vh'" [(ngModel)]="content" [options]="options"> </md-editor> -->
+        <angular-editor [placeholder]="'Inhalt des Artikels...'" [config]="editorConfig" [(ngModel)]="content"></angular-editor>
     </p>
 
     <div class="bottom-row">

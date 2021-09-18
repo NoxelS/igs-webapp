@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Subscription } from 'rxjs';
 import { Article, ArticleScope } from 'src/app/backend-datatypes/article.model';
 import { User } from 'src/app/backend-datatypes/user.model';
@@ -44,6 +45,65 @@ export class ArticleCreateComponent implements OnInit, OnDestroy {
         //   code?: Function      // Code Render
         //   listitem?: Function  // Listitem Render
         // }
+    };
+
+    editorConfig: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: 'auto',
+        minHeight: '200px',
+        maxHeight: 'auto',
+        width: 'auto',
+        minWidth: '0',
+        translate: 'yes',
+        enableToolbar: true,
+        showToolbar: true,
+        placeholder: 'Enter text here...',
+        defaultParagraphSeparator: '',
+        defaultFontName: 'Merriweather Sans',
+        outline: true,
+        defaultFontSize: '',
+        fonts: [
+            { class: 'Merriweather Sans', name: 'Merriweather Sans' },
+            { class: 'times-new-roman', name: 'Times New Roman' },
+            { class: 'calibri', name: 'Calibri' },
+            { class: 'arial', name: 'Arial' }
+        ],
+        customClasses: [
+            {
+                name: 'quote',
+                class: 'quote'
+            },
+            {
+                name: 'redText',
+                class: 'redText'
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1'
+            }
+        ],
+        sanitize: true,
+        toolbarPosition: 'top',
+        toolbarHiddenButtons: [
+            [
+                'subscript',
+                'superscript',
+                'fontName'
+            ],
+            [
+                'fontSize',
+                'textColor',
+                'backgroundColor',
+                'customClasses',
+                'unlink',
+                'insertImage',
+                'insertVideo',
+                'removeFormat',
+                'toggleEditorMode'
+            ]
+        ]
     };
 
     constructor(
@@ -92,7 +152,7 @@ export class ArticleCreateComponent implements OnInit, OnDestroy {
         if (this.canCreate) {
             const date = `${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()}` as any;
 
-           const defaultImage ="https://images.pexels.com/photos/6985045/pexels-photo-6985045.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+            const defaultImage = 'https://images.pexels.com/photos/6985045/pexels-photo-6985045.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
 
             const newArticle = new Article(
                 this.articleTitle,
@@ -110,7 +170,7 @@ export class ArticleCreateComponent implements OnInit, OnDestroy {
                 if (res.successful) {
                     this.dialogService.flashSuccess('Der Artikel wurde erfolgreich erstellt');
                     const urlToNewArticle = `/${routePaths.ARTICLE_READ.replace(':title', newArticle.title.replace(/[\n\r\s]+/g, '_'))}_${res.data}`;
-                    this.route.navigateByUrl(urlToNewArticle)
+                    this.route.navigateByUrl(urlToNewArticle);
                 } else {
                     this.dialogService.flashError('Leider konnte der Artikel nicht erstellt werden: ' + res.errorMessage);
                 }
